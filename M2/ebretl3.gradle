@@ -1,10 +1,14 @@
 defaultTasks 'jar'
 
 apply plugin: 'java'
+apply plugin: 'application'
 
 dependencies {
     compile files('lib/resources.jar')
 }
+
+//main class name for application plugin
+mainClassName = 'edu.gatech.oad.antlab.pkg1.AntLabMain'
 
 jar {
     manifest {
