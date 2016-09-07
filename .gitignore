@@ -4,11 +4,17 @@
 .idea/*
 *.iml
 
+# files made during compilation
+M2/build/*
+
+# gradle temporary files
+M2/.gradle/*
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
 
