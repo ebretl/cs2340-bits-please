@@ -49,13 +49,4 @@ public class Person2 {
 	public String toString(String input) {
 	  return name + calc(input);
 	}
-    /**
-     * Test the functionality of this class
-     * in a static method.
-     */
-    public static void main(String[] args) {
-        Person2 frances = new Person2("Frances Tsenn");
-        System.out.println(frances.toString("123456789"));
-        System.out.println(frances.toString("aBcD1234"));
-    }
 }
