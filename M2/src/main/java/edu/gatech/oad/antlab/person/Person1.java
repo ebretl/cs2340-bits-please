@@ -50,23 +50,7 @@ public class Person1 {
      *         object
      */
     public String toString(String input) {
-      return name + " " + calc(input);
-    }
-
-    /**
-     * Test the functionality of this class 
-     * in a static method. Should print:
-     * Evan Bretl a
-     * Evan Bretl ab
-     * Evan Bretl cab
-     * Evan Bretl cdefg123ab
-     */
-    public static void main(String[] args) {
-        Person1 evan = new Person1("Evan Bretl");
-        System.out.println(evan.toString("a"));
-        System.out.println(evan.toString("ab"));
-        System.out.println(evan.toString("abc"));
-        System.out.println(evan.toString("abcdefg123"));
+      return name + calc(input);
     }
 
 }
