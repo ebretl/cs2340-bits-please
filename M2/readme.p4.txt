@@ -1,1 +1,1 @@
-Evan Kaplan ekaplan6@gatech.edu
+Hey! My name is Evan Kaplan and my email is ekaplan6@gatech.edu.
