@@ -32,7 +32,7 @@ public class Person5 {
 	private String calc(String input) {
 	  String ret = "";
 	  ret = ret + input.substring(2);
-	  ret = ret + input.substring(input.length - 2);
+	  ret = ret + input.substring(input.length() - 2);
 	  return ret;
 	}
 	
