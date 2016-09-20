@@ -1,1 +1,0 @@
-Hello! This is my text file. My name is Frances Tsenn, and my email is ftsenn3@gatech.edu. Bye :)
