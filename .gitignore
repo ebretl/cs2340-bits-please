@@ -2,7 +2,6 @@
 
 # intellij idea files
 .idea/*
-*.iml
 
 # files made during compilation
 out/*
