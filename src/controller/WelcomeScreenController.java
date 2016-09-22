@@ -1,11 +1,9 @@
 package controller;
 
+import fxapp.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
@@ -13,19 +11,27 @@ import java.io.IOException;
 
 public class WelcomeScreenController {
 
+    private Main mainApplication;
+
     @FXML
     private Button loginButton;
 
     @FXML
     private Button registerButton;
 
+    public void setMainApp(Main mainApplication) {
+        this.mainApplication = mainApplication;
+    }
+
     @FXML
     public void loginButtonAction (ActionEvent event) throws IOException {
-        Parent loginScreen_parent = FXMLLoader.load(getClass().getResource("../view/LoginScreen.fxml"));
-        Scene loginScreen_scene = new Scene(loginScreen_parent);
         Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        app_stage.setScene(loginScreen_scene);
-        app_stage.show();
+        try {
+            mainApplication.showLoginScreen(app_stage);
+        } catch(Exception e) {
+            //todo better logging
+            System.err.println(e.getMessage());
+        }
     }
 
 
