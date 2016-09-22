@@ -36,7 +36,7 @@
             <Font name="Heiti TC Medium" size="50.0" />
          </font>
       </Text>
-      <Button fx:id="loginButton" layoutX="177.0" layoutY="305.0" mnemonicParsing="false" text="  Log In  " textAlignment="CENTER">
+      <Button fx:id="loginButton" layoutX="177.0" layoutY="305.0" mnemonicParsing="false" onAction="#loginButtonAction" text="  Log In  " textAlignment="CENTER">
          <font>
             <Font name="Heiti SC Light" size="18.0" />
          </font>
