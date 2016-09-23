@@ -20,8 +20,17 @@ public class User {
         if(this == other) return true;
         if(null == other) return false;
         if(!(other instanceof User)) return false;
-        return this.username.equals(((User) other).username)
-            && this.password.equals(((User) other).password);
+        return this.username.equals(((User) other).username);
+    }
+
+    public int hashCode() {
+        int hash = username.hashCode();
+        hash = hash * 31 + password.hashCode();
+        return hash;
+    }
+    
+    protected String getUsername() {
+        return username;
     }
 
 }

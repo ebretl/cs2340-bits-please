@@ -44,4 +44,11 @@ public class LoginScreenController {
         }
     }
 
+    void repeatUserAlert() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Invalid Username");
+        alert.setContentText("That username is already in use");
+        alert.showAndWait();
+    }
+
 }

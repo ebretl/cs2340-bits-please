@@ -2,27 +2,28 @@ package model;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class UserNetwork {
 
-    private List<User> users;
+    private HashSet<User> users;
 
     public UserNetwork() {
-        //todo implement hashCode() for Users to allow HashSet here
-        users = new ArrayList<>();
+        users = new HashSet();
 
         //add default user. Cause, ya know, security
-        addUser(new User("user", "pass"));
+        User def = new User("user", "pass");
+        addUser(def);
     }
 
     public void addUser(User user) {
-        //todo make sure user does not exist already
-        users.add(user);
+        if(!(this.containsUser(user))) {
+            users.add(user);
+        } //todo make this throw an alert if it is a repeat username
     }
 
     public boolean containsUser(User user) {
         return users.contains(user);
     }
-
 }
