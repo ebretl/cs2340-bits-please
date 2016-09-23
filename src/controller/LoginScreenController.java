@@ -30,16 +30,11 @@ public class LoginScreenController {
     }
 
     @FXML
-    void authenticateLogin(ActionEvent e) {
+    void authenticateLogin(ActionEvent event) throws Exception {
         User userAttempt = new User(usernameField.getText(), passwordField.getText());
         if(mainApplication.attemptUserLogin(userAttempt)) {
-            //todo enter into application
-            //instead of displaying this stupid alert thing
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Success!");
-            alert.setContentText("You are now logged in.");
-            alert.showAndWait();
+            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            mainApplication.showTemporaryAppScreen(window);
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Authenticating");
