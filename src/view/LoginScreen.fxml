@@ -18,16 +18,16 @@
             <Font name="Heiti SC Light" size="18.0" />
          </font>
       </TextField>
-      <Button fx:id="loginButton" layoutX="262.0" layoutY="289.0" mnemonicParsing="false" onAction="#authenticateLogin" text="Log In">
-         <font>
-            <Font name="Heiti SC Medium" size="18.0" />
-         </font>
-      </Button>
       <PasswordField fx:id="passwordField" layoutX="185.0" layoutY="236.0" promptText="Password">
          <font>
             <Font name="Heiti SC Light" size="18.0" />
          </font>
       </PasswordField>
+      <Button fx:id="loginButton" layoutX="262.0" layoutY="289.0" mnemonicParsing="false" onAction="#authenticateLogin" text="Log In">
+         <font>
+            <Font name="Heiti SC Medium" size="18.0" />
+         </font>
+      </Button>
       <ImageView fitHeight="121.0" fitWidth="169.0" layoutX="216.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../logo.png" />
