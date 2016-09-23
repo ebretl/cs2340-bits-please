@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeScreenController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeScreenController">
    <children>
       <Rectangle fill="#3a3e40" height="400.0" stroke="#c0ebff" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <ImageView fitHeight="201.0" fitWidth="357.0" layoutX="27.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
@@ -16,12 +16,12 @@
             <Image url="@../logo.png" />
          </image>
       </ImageView>
-      <Text fill="#fffdfd" layoutX="13.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="information about clean water at your fingertips" textAlignment="CENTER">
+      <Text fill="#fffdfd" layoutX="13.0" layoutY="261.0" nodeOrientation="RIGHT_TO_LEFT" strokeType="OUTSIDE" strokeWidth="0.0" text="information about clean water at your fingertips">
          <font>
             <Font name="SignPainter-HouseScript" size="27.0" />
          </font>
       </Text>
-      <Text fill="#fffdfd" layoutX="334.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clean">
+      <Text fill="#fffdfd" layoutX="335.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clean">
          <font>
             <Font name="Heiti TC Medium" size="50.0" />
          </font>

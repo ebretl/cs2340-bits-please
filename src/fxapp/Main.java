@@ -2,6 +2,7 @@ package fxapp;
 
 
 import controller.LoginScreenController;
+import controller.TemporaryAppScreenController;
 import controller.WelcomeScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +29,7 @@ public class Main extends Application {
         return userNetwork.containsUser(user);
     }
 
-    public void showWelcomeScreen(Stage window) throws Exception {
+    public void showWelcomeScreen(Stage app_stage) throws Exception {
         FXMLLoader welcomeLoader = new FXMLLoader(getClass().getResource("../view/WelcomeScreen.fxml"));
         Parent root = welcomeLoader.load();
 
@@ -36,8 +37,8 @@ public class Main extends Application {
         controller.setMainApp(this);
 
         Scene scene =  new Scene(root);
-        window.setScene(scene);
-        window.show();
+        app_stage.setScene(scene);
+        app_stage.show();
     }
 
     public void showLoginScreen(Stage app_stage) throws Exception {
@@ -49,6 +50,18 @@ public class Main extends Application {
 
         Scene loginScreen_scene = new Scene(loginScreen_parent);
         app_stage.setScene(loginScreen_scene);
+        app_stage.show();
+    }
+
+    public void showTemporaryAppScreen(Stage app_stage) throws Exception {
+        FXMLLoader appLoader = new FXMLLoader(getClass().getResource("../view/TemporaryApplicationScreen.fxml"));
+        Parent appScreen_parent = appLoader.load();
+
+        TemporaryAppScreenController controller = appLoader.getController();
+        controller.setMainApp(this);
+
+        Scene appScreen_scene = new Scene(appScreen_parent);
+        app_stage.setScene(appScreen_scene);
         app_stage.show();
     }
 
