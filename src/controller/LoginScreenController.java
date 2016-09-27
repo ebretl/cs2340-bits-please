@@ -1,65 +1,128 @@
 package controller;
 
-import fxapp.Main;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import model.User;
+        import fxapp.MainFXApplication;
+        import javafx.fxml.FXML;
+        import javafx.scene.control.*;
+        import javafx.scene.control.Alert;
+        import javafx.scene.control.ComboBox;
+        import javafx.scene.control.TextField;
+        import javafx.stage.Stage;
+        import model.User;
 
-import java.io.IOException;
-
+        import java.sql.*;
+/**
+ * Created by Abhay Dalmia on 9/22/2016.
+ */
 public class LoginScreenController {
-
-    private Main mainApplication;
-
-    @FXML
-    private Button loginButton;
+    private MainFXApplication mainFXApplication;
 
     @FXML
     private TextField usernameField;
 
     @FXML
-    private TextField passwordField;
+    private PasswordField passwordField;
 
-    public void setMainApp(Main mainApplication) {
-        this.mainApplication = mainApplication;
+    private User currentUser;
+    public void setMainApp(MainFXApplication main, User currentUser) {
+        mainFXApplication = main;
+        this.currentUser = currentUser;
     }
 
     @FXML
-    void authenticateLogin(ActionEvent event) throws Exception {
-        User userAttempt = new User(usernameField.getText(), passwordField.getText());
-        if(mainApplication.attemptUserLogin(userAttempt)) {
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            mainApplication.showTemporaryAppScreen(window);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Authenticating");
-            alert.setContentText("Username and/or password is incorrect.");
-            alert.showAndWait();
+    private void backPressed() {
+        mainFXApplication.showWelcomeScreen();
+    }
+
+    @FXML
+    private void loginPressed() {
+
+        Connection conn = null;
+        Statement stmt = null;
+        try{
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            String sql = "SELECT username, password, fullname, ban, attempt, type, emailaddress, homeaddress, company, jobtitle, department FROM USER WHERE username = '" + usernameField.getText() + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            if (!rs.next()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainFXApplication.getStage());
+                alert.setTitle("Invalid Fields");
+                alert.setHeaderText("Please correct invalid fields");
+                alert.setContentText("Incorrect username!");
+                alert.showAndWait();
+            } else {
+                if (checkUserCredentials(rs)) {
+                    currentUser.set_username(rs.getString("username"));
+                    currentUser.set_fullname(rs.getString("fullname"));
+                    currentUser.set_ban(rs.getInt("ban"));
+                    currentUser.set_type(rs.getString("type"));
+                    currentUser.set_emailaddress(rs.getString("emailaddress"));
+                    currentUser.set_homeaddress(rs.getString("homeaddress"));
+                    currentUser.set_company(rs.getString("company"));
+                    currentUser.set_jobtitle(rs.getString("jobtitle"));
+                    currentUser.set_department(rs.getString("department"));
+                    mainFXApplication.showMainApplicationScreen();
+                }
+            }
+        } catch(SQLException se){
+            mainFXApplication.showDatabaseError();
+            se.printStackTrace();
+        } catch(Exception e){
+            mainFXApplication.showDatabaseError();
+            e.printStackTrace();
+        } finally {
+            try{
+                if(stmt!=null)
+                    stmt.close();
+            } catch(SQLException se2) {
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            } catch(SQLException se){
+            }
         }
+
     }
 
-    //will be in registration screen
-    void repeatUserAlert() {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Invalid Username");
-        alert.setContentText("That username is already in use.");
-        alert.showAndWait();
-    }
-
-    @FXML
-    void cancelButtonAction(ActionEvent event) throws IOException {
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    private boolean checkUserCredentials(ResultSet rs) {
         try {
-            mainApplication.showWelcomeScreen(window);
-        } catch(Exception e) {
-            //todo better logging
-            System.err.println(e.getMessage());
-        }
-    }
+            if (rs.getInt("attempt") > 2) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.initOwner(mainFXApplication.getStage());
+                alert.setTitle("Account Locked!");
+                alert.setHeaderText("You have more than 3 incorrect logins!");
+                alert.setContentText("Incorrect password!");
+                alert.showAndWait();
+                return false;
+            } else {
+                if ((rs.getString("password").equals(passwordField.getText()))) {
+                    return true;
+                } else {
+                    int newAttempt = rs.getInt("attempt") + 1;
+                    Connection conn = null;
+                    Statement stmt = null;
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                    stmt = conn.createStatement();
+                    String sql = "UPDATE USER SET attempt = '" + newAttempt + "' WHERE username = '" + usernameField.getText() + "'";
+                    stmt.executeUpdate(sql);
 
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainFXApplication.getStage());
+                    alert.setTitle("Invalid Fields");
+                    alert.setHeaderText("Please correct invalid fields");
+                    alert.setContentText("Incorrect password!");
+                    alert.showAndWait();
+                    return false;
+
+
+                }
+            }
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
 }

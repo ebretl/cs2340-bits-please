@@ -1,43 +1,28 @@
 package controller;
 
-import fxapp.Main;
-import javafx.event.ActionEvent;
+import fxapp.MainFXApplication;
+
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
-import java.io.IOException;
-
+/**
+ * Created by Abhay Dalmia on 9/22/2016.
+ */
 public class WelcomeScreenController {
 
-    private Main mainApplication;
+    private MainFXApplication mainFXApplication;
 
-    @FXML
-    private Button loginButton;
-
-    @FXML
-    private Button registerButton;
-
-    public void setMainApp(Main mainApplication) {
-        this.mainApplication = mainApplication;
+    public void setMainApp(MainFXApplication main) {
+        mainFXApplication = main;
     }
 
     @FXML
-    public void loginButtonAction (ActionEvent event) throws IOException {
-        Stage app_stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        try {
-            mainApplication.showLoginScreen(app_stage);
-        } catch(Exception e) {
-            //todo better logging
-            System.err.println(e.getMessage());
-        }
+    private void loginButtonPressed() {
+        mainFXApplication.showLoginScreen();
     }
-
-
 
     @FXML
-    public void registerButton (ActionEvent event) {
-
+    private void registerButtonPressed() {
+        mainFXApplication.showRegistrationScreen();
     }
+
 }
