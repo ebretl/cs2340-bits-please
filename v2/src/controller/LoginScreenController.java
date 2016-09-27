@@ -10,9 +10,7 @@ package controller;
         import model.User;
 
         import java.sql.*;
-/**
- * Created by Abhay Dalmia on 9/22/2016.
- */
+
 public class LoginScreenController {
     private MainFXApplication mainFXApplication;
 

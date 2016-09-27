@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import model.UserType;
+import model.UserTypeEnum;
 
 import java.sql.*;
 
@@ -32,13 +32,13 @@ public class RegistrationScreenController {
     private TextField passwordField;
 
     @FXML
-    private ComboBox<UserType> usertypeField;
+    private ComboBox<UserTypeEnum> usertypeField;
 
     @FXML
     private void initialize() {
         usertypeField.getItems().clear();
-        usertypeField.setItems((ObservableList<UserType>) FXCollections.observableArrayList(UserType.values()));
-        usertypeField.setValue(FXCollections.observableArrayList(UserType.values()).get(0));
+        usertypeField.setItems((ObservableList<UserTypeEnum>) FXCollections.observableArrayList(UserTypeEnum.values()));
+        usertypeField.setValue(FXCollections.observableArrayList(UserTypeEnum.values()).get(0));
     }
 
     @FXML
@@ -73,9 +73,9 @@ public class RegistrationScreenController {
                 alert.showAndWait();
             } else {
                 stmt = conn.createStatement();
-                UserType usertype = (UserType) usertypeField.getSelectionModel().getSelectedItem();
-                System.out.println(usertype.getDatabaseRepresentation());
-                sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, `attempt`, `type`) VALUES ('" + usernameField.getText() + "', '" + passwordField.getText() + "', '" + fullnameField.getText() + "', '0', '0', '" + usertype.getDatabaseRepresentation() +"')";
+                UserTypeEnum usertype = (UserTypeEnum) usertypeField.getSelectionModel().getSelectedItem();
+                System.out.println(usertype.toString());
+                sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, `attempt`, `type`) VALUES ('" + usernameField.getText() + "', '" + passwordField.getText() + "', '" + fullnameField.getText() + "', '0', '0', '" + usertype.toString() +"')";
                 stmt.executeUpdate(sql);
                 mainFXApplication.showWelcomeScreen();
             }

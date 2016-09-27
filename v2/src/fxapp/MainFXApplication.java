@@ -4,6 +4,7 @@ package fxapp;
 import controller.*;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -12,22 +13,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.WaterReport;
 import model.User;
 
 import java.io.IOException;
+import java.util.Observable;
 import java.util.logging.Level;
 
 
-/**
- * Created by Abhay Dalmia on 9/22/2016.
- */
+
 public class MainFXApplication extends Application{
 
 
     private Stage mainScreen;
     private Pane rootLayout;
     private User currentUser = new User();
-
     @Override
     public void start(Stage primaryStage) {
         mainScreen = primaryStage;
@@ -138,6 +138,25 @@ public class MainFXApplication extends Application{
 
     }
 
+    public void showSubmitQualityReportScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/SubmitQualityReportScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            SubmitQualityReportScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("Submit Quality Report!");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
     public void showEditUserProfileScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -167,6 +186,46 @@ public class MainFXApplication extends Application{
 
             Scene scene = new Scene(MainAppPane);
             mainScreen.setTitle("View Water Reports");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IllegalArgumentException A) {
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showViewQualityReportScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/ViewQualityReportScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            ViewQualityReportScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("View Quality Reports");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IllegalArgumentException A) {
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showViewMapScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/ViewMapScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            ViewMapScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("View Map");
             mainScreen.setScene(scene);
             mainScreen.show();
         } catch (IllegalArgumentException A) {

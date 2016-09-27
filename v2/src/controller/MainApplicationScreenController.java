@@ -4,15 +4,14 @@ import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import model.User;
+import model.UserTypeEnum;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-/**
- * Created by Abhay Dalmia on 9/24/2016.
- */
+
 public class MainApplicationScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -58,5 +57,38 @@ public class MainApplicationScreenController {
     @FXML
     private void viewWaterReportPressed() {
         mainFXApplication.showViewWaterReportScreen();
+    }
+
+    @FXML
+    private void viewMapPressed() {
+        mainFXApplication.showViewMapScreen();
+    }
+
+    @FXML
+    private void submitQualityReportPressed() {
+        if (currentUser.get_type().equals(UserTypeEnum.WORKER.toString()) ||currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
+            mainFXApplication.showSubmitQualityReportScreen();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainFXApplication.getStage());
+            alert.setTitle("Error!");
+            alert.setHeaderText("Only Managers and Wokers can submit a Quality Report!");
+            alert.setContentText("Kindly talk to an administrator if you think this has been done in error!");
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void viewQualityReportPressed() {
+        if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
+            mainFXApplication.showViewQualityReportScreen();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainFXApplication.getStage());
+            alert.setTitle("Error!");
+            alert.setHeaderText("Only Managers can view Quality Reports!");
+            alert.setContentText("Kindly talk to an administrator if you think this has been done in error!");
+            alert.showAndWait();
+        }
     }
 }

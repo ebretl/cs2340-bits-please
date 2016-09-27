@@ -7,7 +7,7 @@ import javafx.beans.property.StringProperty;
 /**
  * Created by Abhay Dalmia on 9/26/2016.
  */
-public class Report {
+public class WaterReport {
     private SimpleIntegerProperty _reportnumber = new SimpleIntegerProperty();
     private StringProperty _date = new SimpleStringProperty();
     private StringProperty _time = new SimpleStringProperty();
@@ -72,7 +72,7 @@ public class Report {
         this._watercondition.set(_watercondition);
     }
 
-    public Report(int reportnumber, String date, String time, String name, String location, String watertype, String waterconditon) {
+    public WaterReport(int reportnumber, String date, String time, String name, String location, String watertype, String waterconditon) {
         _reportnumber.set(reportnumber);
         _date.set(date);
         _time.set(time);

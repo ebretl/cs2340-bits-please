@@ -6,11 +6,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
-import javafx.scene.text.Text;
 import model.User;
-import model.UserType;
-import model.WaterCondition;
-import model.WaterType;
+import model.WaterConditionEnum;
+import model.WaterTypeEnum;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,9 +16,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 
-/**
- * Created by Abhay Dalmia on 9/26/2016.
- */
+
 public class SubmitWaterReportScreenController {
     private MainFXApplication mainFXApplication;
 
@@ -50,12 +46,12 @@ public class SubmitWaterReportScreenController {
     @FXML
     private void initialize() {
         waterConditionField.getItems().clear();
-        waterConditionField.setItems((ObservableList<WaterCondition>) FXCollections.observableArrayList(WaterCondition.values()));
-        waterConditionField.setValue(FXCollections.observableArrayList(WaterCondition.values()).get(0));
+        waterConditionField.setItems((ObservableList<WaterConditionEnum>) FXCollections.observableArrayList(WaterConditionEnum.values()));
+        waterConditionField.setValue(FXCollections.observableArrayList(WaterConditionEnum.values()).get(0));
 
         waterTypeField.getItems().clear();
-        waterTypeField.setItems((ObservableList<WaterType>) FXCollections.observableArrayList(WaterType.values()));
-        waterTypeField.setValue(FXCollections.observableArrayList(WaterType.values()).get(0));
+        waterTypeField.setItems((ObservableList<WaterTypeEnum>) FXCollections.observableArrayList(WaterTypeEnum.values()));
+        waterTypeField.setValue(FXCollections.observableArrayList(WaterTypeEnum.values()).get(0));
     }
 
     @FXML
