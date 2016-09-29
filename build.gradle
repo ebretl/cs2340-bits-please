@@ -10,6 +10,6 @@ dependencies {
 jar {
 	manifest {
 		attributes('Main-Class': mainClassName,
-			'Class-Path': '../../src/')
+				   'Class-Path': '../../lib/')
 	}
 }
