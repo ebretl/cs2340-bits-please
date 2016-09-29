@@ -1,0 +1,15 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'fxapp.MainFXApplication'
+
+dependencies {
+	compile files('src/mysql-connector-java-5.1.18-bin.jar')
+}
+
+jar {
+	manifest {
+		attributes('Main-Class': mainClassName,
+			'Class-Path': '../../src/')
+	}
+}

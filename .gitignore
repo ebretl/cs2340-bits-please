@@ -3,8 +3,12 @@
 # intellij idea files
 .idea/*
 
+# gradle internal files
+.gradle/*
+
 # files made during compilation
 out/*
+build/*
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
