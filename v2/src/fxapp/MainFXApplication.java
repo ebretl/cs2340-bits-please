@@ -235,6 +235,26 @@ public class MainFXApplication extends Application{
         }
     }
 
+    public void showGraphParameterScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/GraphParameterScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            GraphParameterScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("Graph Parameters");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IllegalArgumentException A) {
+
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args) {
         launch(args);
     }

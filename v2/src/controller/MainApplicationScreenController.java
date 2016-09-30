@@ -91,4 +91,20 @@ public class MainApplicationScreenController {
             alert.showAndWait();
         }
     }
+
+
+    @FXML
+    private void historicalGraphPressed() {
+        if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
+            mainFXApplication.showGraphParameterScreen();
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainFXApplication.getStage());
+            alert.setTitle("Error!");
+            alert.setHeaderText("Only Managers can view Historical Graphs!");
+            alert.setContentText("Kindly talk to an administrator if you think this has been done in error!");
+            alert.showAndWait();
+        }
+
+    }
 }
