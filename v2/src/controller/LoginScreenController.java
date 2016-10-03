@@ -8,6 +8,7 @@ package controller;
         import javafx.scene.control.TextField;
         import javafx.stage.Stage;
         import model.User;
+        import model.UserTypeEnum;
 
         import java.sql.*;
 
@@ -60,7 +61,12 @@ public class LoginScreenController {
                     currentUser.set_company(rs.getString("company"));
                     currentUser.set_jobtitle(rs.getString("jobtitle"));
                     currentUser.set_department(rs.getString("department"));
-                    mainFXApplication.showMainApplicationScreen();
+                    if (currentUser.get_type().equals(UserTypeEnum.ADMIN.toString())) {
+                        mainFXApplication.showADMINMainApplicationScreen();
+                    } else {
+                        mainFXApplication.showMainApplicationScreen();
+                    }
+
                 }
             }
         } catch(SQLException se){
@@ -86,7 +92,7 @@ public class LoginScreenController {
 
     private boolean checkUserCredentials(ResultSet rs) {
         try {
-            if (rs.getInt("attempt") > 2) {
+            if (rs.getInt("attempt") > 2 && !currentUser.get_type().equals(UserTypeEnum.ADMIN.toString())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainFXApplication.getStage());
                 alert.setTitle("Account Locked!");
@@ -96,6 +102,13 @@ public class LoginScreenController {
                 return false;
             } else {
                 if ((rs.getString("password").equals(passwordField.getText()))) {
+                    Connection conn = null;
+                    Statement stmt = null;
+                    Class.forName("com.mysql.jdbc.Driver");
+                    conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                    stmt = conn.createStatement();
+                    String sql = "UPDATE USER SET attempt = '0' WHERE username = '" + usernameField.getText() + "'";
+                    stmt.executeUpdate(sql);
                     return true;
                 } else {
                     int newAttempt = rs.getInt("attempt") + 1;

@@ -69,9 +69,6 @@ public class GraphParameterScreenController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < yval.length; i++) {
-            System.out.println(yval[i]);
-        }
     }
 
     private void initalizeComboBox() {

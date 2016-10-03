@@ -255,6 +255,26 @@ public class MainFXApplication extends Application{
         }
     }
 
+    public void showADMINMainApplicationScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/ADMINMainApplicationScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            ADMINMainApplicationScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("MainApp - ADMIN");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+
     public static void main(String[] args) {
         launch(args);
     }
