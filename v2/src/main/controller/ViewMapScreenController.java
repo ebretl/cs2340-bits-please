@@ -21,9 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-/**
- * Created by Abhay Dalmia on 9/26/2016.
- */
+
 public class ViewMapScreenController implements Initializable, MapComponentInitializedListener {
 
     private MainFXApplication mainFXApplication;
@@ -65,7 +63,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
     @Override
     public void mapInitialized() {
-        System.out.println("Hi");
+        List<WaterReport> allReports = getAllReports();
         LatLong joeSmithLocation = new LatLong(47.6197, -122.3231);
         LatLong joshAndersonLocation = new LatLong(47.6297, -122.3431);
         LatLong bobUnderwoodLocation = new LatLong(47.6397, -122.3031);
@@ -124,7 +122,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
         InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
         fredWilkeInfoWindow.open(map, fredWilkieMarker);
     }
-    
+
 
 
     private List<WaterReport> getAllReports() {
@@ -134,7 +132,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT reportnumber, name, date, time, location, watertype, watercondition FROM WATERREPORT";
+            String sql = "SELECT reportnumber, name, date, time, location, watertype, watercondition FROM WATERREPORT ORDER BY date, time";
             ResultSet rs = stmt.executeQuery(sql);
             List<WaterReport> reportList = new ArrayList<>();
             while (rs.next()) {

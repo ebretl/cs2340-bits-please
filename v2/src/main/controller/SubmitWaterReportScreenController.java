@@ -1,5 +1,6 @@
 package main.controller;
 
+import javafx.scene.control.Alert;
 import main.fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -63,28 +64,34 @@ public class SubmitWaterReportScreenController {
     private void submitPressed() {
         int reportNumber;
         if (locationField == null || locationField.getText() == null || locationField.getText().trim().isEmpty()) {
-
-        }
-        Connection conn = null;
-        Statement stmt = null;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-            stmt = conn.createStatement();
-            String sql = "SELECT MAX(reportnumber) AS MAX FROM WATERREPORT";
-            ResultSet rs = stmt.executeQuery(sql);
-            if (rs.next()) {
-                reportNumber = rs.getInt("MAX") + 1;
-            } else {
-                reportNumber = 1;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainFXApplication.getStage());
+            alert.setTitle("Error!");
+            alert.setHeaderText("You left some fields blank!");
+            alert.setContentText("You have to provide a location!");
+            alert.showAndWait();
+        } else {
+            Connection conn = null;
+            Statement stmt = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                stmt = conn.createStatement();
+                String sql = "SELECT MAX(reportnumber) AS MAX FROM WATERREPORT";
+                ResultSet rs = stmt.executeQuery(sql);
+                if (rs.next()) {
+                    reportNumber = rs.getInt("MAX") + 1;
+                } else {
+                    reportNumber = 1;
+                }
+                String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
+                String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
+                sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText() + "', '" + waterTypeField.getSelectionModel().getSelectedItem() + "', '" + waterConditionField.getSelectionModel().getSelectedItem() + "')";
+                stmt.executeUpdate(sql);
+                mainFXApplication.showMainApplicationScreen();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-            sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText() + "', '" + waterTypeField.getSelectionModel().getSelectedItem() + "', '" + waterConditionField.getSelectionModel().getSelectedItem() + "')";
-            stmt.executeUpdate(sql);
-            mainFXApplication.showMainApplicationScreen();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 }

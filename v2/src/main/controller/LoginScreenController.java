@@ -1,14 +1,14 @@
 package main.controller;
 
-        import main.fxapp.MainFXApplication;
-        import javafx.fxml.FXML;
-        import javafx.scene.control.*;
-        import javafx.scene.control.Alert;
-        import javafx.scene.control.TextField;
-        import main.model.User;
-        import main.model.UserTypeEnum;
+import main.fxapp.MainFXApplication;
+import javafx.fxml.FXML;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import main.model.User;
+import main.model.UserTypeEnum;
 
-        import java.sql.*;
+import java.sql.*;
 
 public class LoginScreenController {
     private MainFXApplication mainFXApplication;

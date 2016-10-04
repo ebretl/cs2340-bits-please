@@ -4,9 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Created by Abhay Dalmia on 9/24/2016.
- */
+
 public class User {
     private StringProperty _username = new SimpleStringProperty();
     private StringProperty _fullname = new SimpleStringProperty();

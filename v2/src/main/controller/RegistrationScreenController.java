@@ -11,9 +11,7 @@ import main.model.UserTypeEnum;
 
 import java.sql.*;
 
-/**
- * Created by Abhay Dalmia on 9/24/2016.
- */
+
 public class RegistrationScreenController {
 
     private MainFXApplication mainFXApplication;

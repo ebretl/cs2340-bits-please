@@ -4,9 +4,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/**
- * Created by Abhay Dalmia on 9/26/2016.
- */
+
 public class WaterReport {
     private SimpleIntegerProperty _reportnumber = new SimpleIntegerProperty();
     private StringProperty _date = new SimpleStringProperty();

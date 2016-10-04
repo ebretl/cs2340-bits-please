@@ -15,9 +15,9 @@
           <TableColumn fx:id="reportnumber" editable="false" prefWidth="80.0" text="Rep.No." />
           <TableColumn fx:id="date1" editable="false" prefWidth="100.0" text="Date" />
           <TableColumn fx:id="time1" editable="false" prefWidth="100.0" text="Time" />
-          <TableColumn fx:id="location1" editable="false" prefWidth="210.0" text="Location" />
-          <TableColumn fx:id="watertype" editable="false" prefWidth="120.0" text="Water Type" />
-          <TableColumn fx:id="watercondition" editable="false" prefWidth="140.0" text="Water Cond." />
+          <TableColumn fx:id="location1" editable="false" prefWidth="280.0" text="Location" />
+          <TableColumn fx:id="watertype" editable="false" prefWidth="100.0" text="Water Type" />
+          <TableColumn fx:id="watercondition" editable="false" prefWidth="100.0" text="Water Cond." />
         </columns>
       </TableView>
    </children>

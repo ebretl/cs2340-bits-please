@@ -11,9 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-/**
- * Created by Abhay Dalmia on 9/25/2016.
- */
+
 public class UserProfileScreenController {
 
     @FXML

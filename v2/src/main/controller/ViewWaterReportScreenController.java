@@ -14,9 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Abhay Dalmia on 9/26/2016.
- */
+
 public class ViewWaterReportScreenController {
     private MainFXApplication mainFXApplication;
 

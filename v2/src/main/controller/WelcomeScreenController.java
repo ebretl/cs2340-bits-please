@@ -4,9 +4,7 @@ import main.fxapp.MainFXApplication;
 
 import javafx.fxml.FXML;
 
-/**
- * Created by Abhay Dalmia on 9/22/2016.
- */
+
 public class WelcomeScreenController {
 
     private MainFXApplication mainFXApplication;
