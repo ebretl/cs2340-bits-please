@@ -39,7 +39,7 @@ public class LoginScreenController {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT username, password, fullname, ban, attempt, type, emailaddress, homeaddress, company, jobtitle, department FROM USER WHERE username = '" + usernameField.getText() + "'";
+            String sql = "SELECT username, password, fullname, ban, attempt, type, emailaddress, homeaddress, company, jobtitle, department FROM USER WHERE username = '" + usernameField.getText().trim() + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (!rs.next()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);

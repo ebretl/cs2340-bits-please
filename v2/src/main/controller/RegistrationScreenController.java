@@ -52,7 +52,7 @@ public class RegistrationScreenController {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT username FROM USER WHERE username = '" + usernameField.getText() + "'";
+            String sql = "SELECT username FROM USER WHERE username = '" + usernameField.getText().trim() + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (rs.next()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -73,7 +73,7 @@ public class RegistrationScreenController {
                 stmt = conn.createStatement();
                 UserTypeEnum usertype = (UserTypeEnum) usertypeField.getSelectionModel().getSelectedItem();
                 System.out.println(usertype.toString());
-                sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, `attempt`, `type`) VALUES ('" + usernameField.getText() + "', '" + passwordField.getText() + "', '" + fullnameField.getText() + "', '0', '0', '" + usertype.toString() +"')";
+                sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, `attempt`, `type`) VALUES ('" + usernameField.getText().trim() + "', '" + passwordField.getText() + "', '" + fullnameField.getText().trim() + "', '0', '0', '" + usertype.toString() +"')";
                 stmt.executeUpdate(sql);
                 mainFXApplication.showWelcomeScreen();
             }

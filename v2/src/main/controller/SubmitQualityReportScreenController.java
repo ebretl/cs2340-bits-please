@@ -88,7 +88,7 @@ public class SubmitQualityReportScreenController {
                 }
                 String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
                 String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-                sql = "INSERT INTO `QUALITYREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `overallcondition`, `virusPPM`, `contaminantPPM`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText() + "', '" + overallConditionField.getSelectionModel().getSelectedItem() + "', '" + virusPPM.getText() + "', '" + contaminantPPM.getText() + "')";
+                sql = "INSERT INTO `QUALITYREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `overallcondition`, `virusPPM`, `contaminantPPM`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText().trim() + "', '" + overallConditionField.getSelectionModel().getSelectedItem() + "', '" + virusPPM.getText() + "', '" + contaminantPPM.getText() + "')";
                 System.out.println(sql);
                 stmt.executeUpdate(sql);
                 mainFXApplication.showMainApplicationScreen();

@@ -86,7 +86,7 @@ public class SubmitWaterReportScreenController {
                 }
                 String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
                 String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-                sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText() + "', '" + waterTypeField.getSelectionModel().getSelectedItem() + "', '" + waterConditionField.getSelectionModel().getSelectedItem() + "')";
+                sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText().trim() + "', '" + waterTypeField.getSelectionModel().getSelectedItem() + "', '" + waterConditionField.getSelectionModel().getSelectedItem() + "')";
                 stmt.executeUpdate(sql);
                 mainFXApplication.showMainApplicationScreen();
             } catch (Exception e) {

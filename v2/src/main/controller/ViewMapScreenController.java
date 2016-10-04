@@ -1,5 +1,6 @@
 package main.controller;
 
+import javafx.util.Pair;
 import main.java.com.lynden.gmapsfx.GoogleMapView;
 import main.java.com.lynden.gmapsfx.MapComponentInitializedListener;
 
@@ -9,6 +10,9 @@ import main.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
+import main.java.com.lynden.gmapsfx.service.geocoding.GeocoderRequest;
+import main.java.com.lynden.gmapsfx.service.geocoding.GeocodingService;
+import main.java.com.lynden.gmapsfx.service.geocoding.GeocodingServiceCallback;
 import main.model.WaterReport;
 import main.model.User;
 
@@ -17,9 +21,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 
 public class ViewMapScreenController implements Initializable, MapComponentInitializedListener {
@@ -36,6 +38,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
     private GoogleMap map;
 
+    private HashMap<String, Pair<String, String>> uniqueLocationTable;
     /*
     @FXML
     private GoogleMapView mapView;
@@ -52,6 +55,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
         this.currentUser = currentUser;
+        uniqueLocationTable = new HashMap<>();
 
     }
 
@@ -63,18 +67,27 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
     @Override
     public void mapInitialized() {
+
         List<WaterReport> allReports = getAllReports();
-        LatLong joeSmithLocation = new LatLong(47.6197, -122.3231);
-        LatLong joshAndersonLocation = new LatLong(47.6297, -122.3431);
-        LatLong bobUnderwoodLocation = new LatLong(47.6397, -122.3031);
-        LatLong tomChoiceLocation = new LatLong(47.6497, -122.3325);
-        LatLong fredWilkieLocation = new LatLong(47.6597, -122.3357);
+        String[] uniqueLocations = uniqueLocationTable.keySet().toArray(new String[0]);
+        for (int i = 0; i < uniqueLocations.length; i++) {
+            System.out.println(uniqueLocations[i]);
+            Pair<String, String> current = uniqueLocationTable.get(uniqueLocations[i]);
+            System.out.println(current.getKey().toString());
+            System.out.println(current.getValue().toString());
+        }
+        //GeocodingService getLatLongObject = new GeocodingService();
+        //getLatLongObject.geocode("930 Spring St NW, Atlanta, GA 30309");
+
+
+        LatLong myLocation = new LatLong(33.7800640,-84.3893630);
+
 
 
         //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(47.6097, -122.3331))
+        mapOptions.center(myLocation)
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .overviewMapControl(false)
                 .panControl(false)
@@ -88,31 +101,10 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
         //Add markers to the map
         MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(joeSmithLocation);
+        markerOptions1.position(myLocation);
+        Marker myLocationMarker = new Marker(markerOptions1);
 
-        MarkerOptions markerOptions2 = new MarkerOptions();
-        markerOptions2.position(joshAndersonLocation);
-
-        MarkerOptions markerOptions3 = new MarkerOptions();
-        markerOptions3.position(bobUnderwoodLocation);
-
-        MarkerOptions markerOptions4 = new MarkerOptions();
-        markerOptions4.position(tomChoiceLocation);
-
-        MarkerOptions markerOptions5 = new MarkerOptions();
-        markerOptions5.position(fredWilkieLocation);
-
-        Marker joeSmithMarker = new Marker(markerOptions1);
-        Marker joshAndersonMarker = new Marker(markerOptions2);
-        Marker bobUnderwoodMarker = new Marker(markerOptions3);
-        Marker tomChoiceMarker= new Marker(markerOptions4);
-        Marker fredWilkieMarker = new Marker(markerOptions5);
-
-        map.addMarker( joeSmithMarker );
-        map.addMarker( joshAndersonMarker );
-        map.addMarker( bobUnderwoodMarker );
-        map.addMarker( tomChoiceMarker );
-        map.addMarker( fredWilkieMarker );
+        map.addMarker(myLocationMarker);
 
         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
         infoWindowOptions.content("<h2>Fred Wilkie</h2>"
@@ -120,7 +112,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
                 + "ETA: 45 minutes" );
 
         InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
-        fredWilkeInfoWindow.open(map, fredWilkieMarker);
+        fredWilkeInfoWindow.open(map, myLocationMarker);
     }
 
 
@@ -132,10 +124,13 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT reportnumber, name, date, time, location, watertype, watercondition FROM WATERREPORT ORDER BY date, time";
+            String sql = "SELECT reportnumber, name, date, time, location, watertype, watercondition FROM WATERREPORT ORDER BY date DESC, time DESC";
             ResultSet rs = stmt.executeQuery(sql);
             List<WaterReport> reportList = new ArrayList<>();
             while (rs.next()) {
+                if (!uniqueLocationTable.containsKey(rs.getString("location"))) {
+                    uniqueLocationTable.put(rs.getString("location"), new Pair<String, String>(rs.getString("watertype"), rs.getString("watercondition")));
+                }
                 WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
                 reportList.add(temp);
             }
