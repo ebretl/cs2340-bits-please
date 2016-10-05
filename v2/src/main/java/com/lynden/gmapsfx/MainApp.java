@@ -280,7 +280,7 @@ public class MainApp extends Application implements MapComponentInitializedListe
         Circle c = new Circle(cOpts);
         map.addMapShape(c);
         map.addUIEventHandler(c, UIEventType.click, (JSObject obj) -> {
-            c.setEditable(!c.getEditable());
+             c.setEditable(!c.getEditable());
         });
 
         LatLongBounds llb = new LatLongBounds(new LatLong(47.533893, -122.89856), new LatLong(47.580694, -122.80312));

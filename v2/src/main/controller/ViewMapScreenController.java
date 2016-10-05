@@ -1,5 +1,6 @@
 package main.controller;
 
+import javafx.scene.control.Alert;
 import javafx.util.Pair;
 import main.java.com.lynden.gmapsfx.GoogleMapView;
 import main.java.com.lynden.gmapsfx.MapComponentInitializedListener;
@@ -10,9 +11,7 @@ import main.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-import main.java.com.lynden.gmapsfx.service.geocoding.GeocoderRequest;
-import main.java.com.lynden.gmapsfx.service.geocoding.GeocodingService;
-import main.java.com.lynden.gmapsfx.service.geocoding.GeocodingServiceCallback;
+import main.java.com.lynden.gmapsfx.service.geocoding.*;
 import main.model.WaterReport;
 import main.model.User;
 
@@ -39,6 +38,8 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     private GoogleMap map;
 
     private HashMap<String, Pair<String, String>> uniqueLocationTable;
+
+    private GeocodingService geocodingService;
     /*
     @FXML
     private GoogleMapView mapView;
@@ -57,38 +58,28 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
         this.currentUser = currentUser;
         uniqueLocationTable = new HashMap<>();
 
+        mapView.addMapInializedListener(this);
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        mapView.addMapInializedListener(this);
+
+
     }
 
 
     @Override
     public void mapInitialized() {
-
-        List<WaterReport> allReports = getAllReports();
-        String[] uniqueLocations = uniqueLocationTable.keySet().toArray(new String[0]);
-        for (int i = 0; i < uniqueLocations.length; i++) {
-            System.out.println(uniqueLocations[i]);
-            Pair<String, String> current = uniqueLocationTable.get(uniqueLocations[i]);
-            System.out.println(current.getKey().toString());
-            System.out.println(current.getValue().toString());
-        }
-        //GeocodingService getLatLongObject = new GeocodingService();
-        //getLatLongObject.geocode("930 Spring St NW, Atlanta, GA 30309");
+        geocodingService = new GeocodingService();
+        markerInitialize();
 
 
-        LatLong myLocation = new LatLong(33.7800640,-84.3893630);
-
-
-
-        //Set the initial properties of the map.
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(myLocation)
+        mapOptions.center(new LatLong(33.780064,-84.389363))
                 .mapType(MapTypeIdEnum.ROADMAP)
+                .mapMarker(true)
                 .overviewMapControl(false)
                 .panControl(false)
                 .rotateControl(false)
@@ -99,24 +90,61 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
         map = mapView.createMap(mapOptions);
 
-        //Add markers to the map
-        MarkerOptions markerOptions1 = new MarkerOptions();
-        markerOptions1.position(myLocation);
-        Marker myLocationMarker = new Marker(markerOptions1);
 
-        map.addMarker(myLocationMarker);
-
-        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        /*InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
         infoWindowOptions.content("<h2>Fred Wilkie</h2>"
                 + "Current Location: Safeway<br>"
                 + "ETA: 45 minutes" );
 
         InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
-        fredWilkeInfoWindow.open(map, myLocationMarker);
+        fredWilkeInfoWindow.open(map, myLocationMarker);*/
     }
 
+    private void markerInitialize() {
+        List<WaterReport> allReports = getAllReports();
+        String[] uniqueLocations = uniqueLocationTable.keySet().toArray(new String[0]);
+        for (int i = 0; i < uniqueLocations.length; i++) {
+            String currentAddress = uniqueLocations[i].replace("\n",",");
+            String address = uniqueLocations[i];
+            geocodingService.geocode(currentAddress, (GeocodingResult[] results, GeocoderStatus status) -> {
+                LatLong latLong = null;
+
+                if( status == GeocoderStatus.ZERO_RESULTS) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "No matching address found");
+                    alert.show();
+                    return;
+                } else if( results.length > 1 ) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Multiple results found, showing the first one.");
+                    alert.show();
+                    latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
+                } else {
+                    latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
+                }
+                Pair<String, String> current = uniqueLocationTable.get(address);
+                createMarker(latLong, "Water Type: " + current.getKey().toString() + "<br>" + "Water Condition: " + current.getValue().toString());
+
+            });
 
 
+
+
+            //System.out.println(uniqueLocations[i]);
+            //
+        }
+    }
+    private void createMarker(LatLong latLong, String content) {
+        MarkerOptions markerOptions1 = new MarkerOptions();
+        markerOptions1.position(latLong);
+        markerOptions1.visible(true);
+        Marker myLocationMarker = new Marker(markerOptions1);
+        map.addMarker(myLocationMarker);
+
+        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+        infoWindowOptions.content(content);
+
+        InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
+        fredWilkeInfoWindow.open(map, myLocationMarker);
+    }
     private List<WaterReport> getAllReports() {
         Connection conn = null;
         Statement stmt = null;
