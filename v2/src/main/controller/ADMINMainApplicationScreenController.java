@@ -37,25 +37,26 @@ public class ADMINMainApplicationScreenController {
 
     @FXML
     private void banPressed() {
+        mainFXApplication.showBanUserScreen();
     }
 
     @FXML
     private void unbanPressed() {
-
+        mainFXApplication.showUnbanUserScreen();
     }
 
     @FXML
     private void blockPressed() {
-
+        mainFXApplication.showBlockUserScreen();
     }
 
     @FXML
     private void unblockPressed() {
-
+        mainFXApplication.showUnblockUserScreen();
     }
 
     @FXML
     private void deleteAccountPressed() {
-
+        mainFXApplication.showDeleteAccountScreen();
     }
 }

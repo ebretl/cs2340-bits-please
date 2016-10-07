@@ -90,12 +90,12 @@ public class LoginScreenController {
 
     private boolean checkUserCredentials(ResultSet rs) {
         try {
-            if (rs.getInt("attempt") > 2 && !currentUser.get_type().equals(UserTypeEnum.ADMIN.toString())) {
+            if (rs.getInt("attempt") > 2 && !rs.getString("type").equals(UserTypeEnum.ADMIN.toString())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainFXApplication.getStage());
                 alert.setTitle("Account Locked!");
-                alert.setHeaderText("You have more than 3 incorrect logins!");
-                alert.setContentText("Incorrect password!");
+                alert.setHeaderText("You have more than 3 incorrect logins OR your account was locked by an admin!");
+                alert.setContentText("Contact an Admin to resolve!");
                 alert.showAndWait();
                 return false;
             } else {
@@ -130,6 +130,7 @@ public class LoginScreenController {
                 }
             }
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
 

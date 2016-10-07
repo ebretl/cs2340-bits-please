@@ -16,7 +16,11 @@ public class User {
     private StringProperty _jobtitle = new SimpleStringProperty();
     private StringProperty _department = new SimpleStringProperty();
 
-    public void User(String username, String fullname, int ban, String type, String emailaddress, String homeaddress, String company, String jobtitle, String department) {
+    public User() {
+
+    }
+
+    public User(String username, String fullname, int ban, String type, String emailaddress, String homeaddress, String company, String jobtitle, String department) {
         _username.set(username);
         _fullname.set(fullname);
         _ban.set(ban);

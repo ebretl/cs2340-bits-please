@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import main.model.User;
 
 import java.io.IOException;
+import java.util.IllegalFormatCodePointException;
 
 
 public class MainFXApplication extends Application{
@@ -263,6 +264,111 @@ public class MainFXApplication extends Application{
             mainScreen.show();
         } catch (IOException e){
             e.printStackTrace();
+        }
+
+    }
+
+    public void showBlockUserScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/BlockUserScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            BlockUserScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("Block User - ADMIN");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (IllegalArgumentException A) {
+
+        }
+
+    }
+
+    public void showUnblockUserScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/UnblockUserScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            UnblockUserScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("Unblock User - ADMIN");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (IllegalArgumentException A) {
+
+        }
+
+    }
+
+    public void showBanUserScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/BanUserScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            BanUserScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("Ban User - ADMIN");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (IllegalArgumentException A) {
+
+        }
+
+    }
+
+    public void showUnbanUserScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/UnbanUserScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            UnbanUserScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("Unban User - ADMIN");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (IllegalArgumentException A) {
+
+        }
+
+    }
+
+    public void showDeleteAccountScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/DeleteAccountScreen.fxml"));
+            Pane MainAppPane = loader.load();
+
+            DeleteAccountScreenController controller = loader.getController();
+            controller.setMainApp(this, currentUser);
+
+            Scene scene = new Scene(MainAppPane);
+            mainScreen.setTitle("DELETE ACCOUNT - ADMIN");
+            mainScreen.setScene(scene);
+            mainScreen.show();
+        } catch (IOException e){
+            e.printStackTrace();
+        } catch (IllegalArgumentException A) {
+
         }
 
     }

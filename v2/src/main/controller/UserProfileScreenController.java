@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import main.model.User;
+import main.model.UserTypeEnum;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -62,7 +63,11 @@ public class UserProfileScreenController {
 
     @FXML
     private void backPressed() {
-        mainFXApplication.showMainApplicationScreen();
+        if (currentUser.get_type().equals(UserTypeEnum.ADMIN.toString())) {
+            mainFXApplication.showADMINMainApplicationScreen();
+        } else {
+            mainFXApplication.showMainApplicationScreen();
+        }
     }
 
     @FXML
