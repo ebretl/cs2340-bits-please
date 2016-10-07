@@ -135,7 +135,6 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     }
 
     private void createMarker(List<LatLong> coordinateList, String[] uniqueLocations) {
-        System.out.println("The size: " + coordinateList.size());
         for (int i = 0; i < coordinateList.size(); i++) {
             LatLong latLong = coordinateList.get(i);
             if (latLong != null) {
