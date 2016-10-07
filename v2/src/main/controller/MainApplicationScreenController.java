@@ -81,7 +81,7 @@ public class MainApplicationScreenController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
-            alert.setHeaderText("Only Managers can main.view Quality Reports!");
+            alert.setHeaderText("Only Managers can view Quality Reports!");
             alert.setContentText("Kindly talk to an administrator if you think this has been done in error!");
             alert.showAndWait();
         }
@@ -96,7 +96,7 @@ public class MainApplicationScreenController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
-            alert.setHeaderText("Only Managers can main.view Historical Graphs!");
+            alert.setHeaderText("Only Managers can view Historical Graphs!");
             alert.setContentText("Kindly talk to an administrator if you think this has been done in error!");
             alert.showAndWait();
         }

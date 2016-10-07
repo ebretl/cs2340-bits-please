@@ -6,6 +6,7 @@ import main.java.com.lynden.gmapsfx.GoogleMapView;
 import main.java.com.lynden.gmapsfx.MapComponentInitializedListener;
 
 
+import main.java.com.lynden.gmapsfx.javascript.event.UIEventType;
 import main.java.com.lynden.gmapsfx.javascript.object.*;
 import main.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
@@ -14,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import main.java.com.lynden.gmapsfx.service.geocoding.*;
 import main.model.WaterReport;
 import main.model.User;
+import netscape.javascript.JSObject;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -103,16 +105,17 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     private void markerInitialize() {
         List<WaterReport> allReports = getAllReports();
         String[] uniqueLocations = uniqueLocationTable.keySet().toArray(new String[0]);
+        List<LatLong> coordinateList = new ArrayList<>();
+
         for (int i = 0; i < uniqueLocations.length; i++) {
             String currentAddress = uniqueLocations[i].replace("\n",",");
-            String address = uniqueLocations[i];
+
             geocodingService.geocode(currentAddress, (GeocodingResult[] results, GeocoderStatus status) -> {
                 LatLong latLong = null;
-
                 if( status == GeocoderStatus.ZERO_RESULTS) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "No matching address found");
                     alert.show();
-                    return;
+                    latLong = null;
                 } else if( results.length > 1 ) {
                     Alert alert = new Alert(Alert.AlertType.WARNING, "Multiple results found, showing the first one.");
                     alert.show();
@@ -120,18 +123,30 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
                 } else {
                     latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
                 }
-                Pair<String, String> current = uniqueLocationTable.get(address);
-                createMarker(latLong, "Water Type: " + current.getKey().toString() + "<br>" + "Water Condition: " + current.getValue().toString());
 
+                coordinateList.add(latLong);
+                createMarker(coordinateList, uniqueLocations);
             });
 
+        }
 
 
 
-            //System.out.println(uniqueLocations[i]);
-            //
+    }
+
+    private void createMarker(List<LatLong> coordinateList, String[] uniqueLocations) {
+        System.out.println("The size: " + coordinateList.size());
+        for (int i = 0; i < coordinateList.size(); i++) {
+            LatLong latLong = coordinateList.get(i);
+            if (latLong != null) {
+                String address = uniqueLocations[i];
+                Pair<String, String> current = uniqueLocationTable.get(address);
+                createMarker(latLong, "Water Type: " + current.getKey().toString() + "<br>" + "Water Condition: " + current.getValue().toString());
+            }
         }
     }
+
+
     private void createMarker(LatLong latLong, String content) {
         MarkerOptions markerOptions1 = new MarkerOptions();
         markerOptions1.position(latLong);
@@ -139,11 +154,14 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
         Marker myLocationMarker = new Marker(markerOptions1);
         map.addMarker(myLocationMarker);
 
-        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-        infoWindowOptions.content(content);
+        map.addUIEventHandler(myLocationMarker, UIEventType.click, (JSObject obj) -> {
+            InfoWindow information = new InfoWindow();
+            information.setContent(content);
+            information.open(map, myLocationMarker);
+        });
 
-        InfoWindow fredWilkeInfoWindow = new InfoWindow(infoWindowOptions);
-        fredWilkeInfoWindow.open(map, myLocationMarker);
+
+
     }
     private List<WaterReport> getAllReports() {
         Connection conn = null;
@@ -156,8 +174,8 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
             ResultSet rs = stmt.executeQuery(sql);
             List<WaterReport> reportList = new ArrayList<>();
             while (rs.next()) {
-                if (!uniqueLocationTable.containsKey(rs.getString("location"))) {
-                    uniqueLocationTable.put(rs.getString("location"), new Pair<String, String>(rs.getString("watertype"), rs.getString("watercondition")));
+                if (!uniqueLocationTable.containsKey(rs.getString("location").replace("\n",","))) {
+                    uniqueLocationTable.put(rs.getString("location").replace("\n",","), new Pair<String, String>(rs.getString("watertype"), rs.getString("watercondition")));
                 }
                 WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
                 reportList.add(temp);
