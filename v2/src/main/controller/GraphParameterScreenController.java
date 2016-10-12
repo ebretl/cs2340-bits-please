@@ -46,7 +46,7 @@ public class GraphParameterScreenController {
         Connection conn = null;
         Statement stmt = null;
         int[] xval = {1,2,3,4,5,6,7,8,9,10,11,12};
-        int [] yval = new int[12];
+        Integer [] yval = new Integer[12];
         int yearSelected = yearField.getSelectionModel().getSelectedItem();
         String locationSelected = locationField.getSelectionModel().getSelectedItem();
         try {
@@ -145,7 +145,7 @@ public class GraphParameterScreenController {
         return null;
     }
 
-    private void plotGraph(int[] xval, int[] yval) {
+    private void plotGraph(int[] xval, Integer[] yval) {
         Stage graphStage = new Stage();
         graphStage.setTitle("Historical Graph View!");
 
@@ -159,7 +159,9 @@ public class GraphParameterScreenController {
         lineChart.setTitle(virusField.getSelectionModel().getSelectedItem() + " PPM for " + locationField.getSelectionModel().getSelectedItem() + " for " + yearField.getSelectionModel().getSelectedItem());
         lineChart.setLegendVisible(false);
         for (int i = 0; i < xval.length; i++) {
-            series.getData().add(new XYChart.Data(xval[i], yval[i]));
+            if (yval[i] != null) {
+                series.getData().add(new XYChart.Data(xval[i], yval[i]));
+            }
         }
 
         Scene scene  = new Scene(lineChart,800,600);

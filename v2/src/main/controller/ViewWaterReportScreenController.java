@@ -1,9 +1,12 @@
 package main.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import main.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import main.model.UserTypeEnum;
 import main.model.WaterReport;
 import main.model.User;
 
@@ -41,6 +44,7 @@ public class ViewWaterReportScreenController {
     @FXML
     TableColumn<WaterReport, String> watercondition;
 
+    private ObservableList<WaterReport> mainList;
     /**
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
@@ -54,15 +58,15 @@ public class ViewWaterReportScreenController {
 
     @FXML
     private void initializeTable() {
-        List<WaterReport> mainList = getAllReports();
+        mainList = getAllReports();
         if (mainList == null || mainList.size() == 0) {
+            mainFXApplication.showMainApplicationScreen();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
             alert.setHeaderText("There are no reports in database to show!");
             alert.setContentText("Add a report first!");
             alert.showAndWait();
-            throw new IllegalArgumentException();
         } else {
             reportnumber.setCellValueFactory(new PropertyValueFactory<WaterReport, Integer>("_reportnumber"));
             date1.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_date"));
@@ -70,7 +74,7 @@ public class ViewWaterReportScreenController {
             location1.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_location"));
             watertype.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_watertype"));
             watercondition.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_watercondition"));
-            mainTable.getItems().setAll(mainList);
+            mainTable.setItems(mainList);
         }
     }
 
@@ -79,7 +83,38 @@ public class ViewWaterReportScreenController {
         mainFXApplication.showMainApplicationScreen();
     }
 
-    private List<WaterReport> getAllReports() {
+    @FXML
+    private void deletePressed() {
+        if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
+            ObservableList<WaterReport> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
+            Connection conn = null;
+            Statement stmt = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                stmt = conn.createStatement();
+                for (int i = 0; i < selectedDelete.size(); i++) {
+                    WaterReport current = selectedDelete.get(i);
+                    String sql = "DELETE FROM WATERREPORT WHERE reportnumber = '" + current.get_reportnumber() +"';";
+                    stmt.executeUpdate(sql);
+                    mainList.remove(current);
+                }
+            } catch (Exception e) {
+
+            }
+
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainFXApplication.getStage());
+            alert.setTitle("Error!");
+            alert.setHeaderText("Only managers can delete reports!!");
+            alert.setContentText("Talk to a system admin if you think this is in error!");
+            alert.showAndWait();
+        }
+    }
+
+    private ObservableList<WaterReport> getAllReports() {
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -93,7 +128,7 @@ public class ViewWaterReportScreenController {
                 WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
                 reportList.add(temp);
             }
-            return reportList;
+            return FXCollections.observableList(reportList);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

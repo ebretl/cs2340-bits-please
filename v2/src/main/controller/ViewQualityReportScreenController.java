@@ -1,5 +1,7 @@
 package main.controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import main.fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -8,6 +10,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import main.model.QualityReport;
 import main.model.User;
+import main.model.UserTypeEnum;
+import main.model.WaterReport;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -46,6 +50,7 @@ public class ViewQualityReportScreenController {
     @FXML
     TableColumn<QualityReport, Integer> contaminantPPM;
 
+    private ObservableList<QualityReport> mainList;
     /**
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
@@ -59,7 +64,7 @@ public class ViewQualityReportScreenController {
 
     @FXML
     private void initializeTable() {
-        List<QualityReport> mainList = getAllReports();
+        mainList = getAllReports();
         if (mainList == null || mainList.size() == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
@@ -77,7 +82,7 @@ public class ViewQualityReportScreenController {
             virusPPM.setCellValueFactory(new PropertyValueFactory<QualityReport, Integer>("_virusPPM"));
             contaminantPPM.setCellValueFactory(new PropertyValueFactory<QualityReport, Integer>("_contaminantPPM"));
 
-            mainTable.getItems().setAll(mainList);
+            mainTable.setItems(mainList);
         }
     }
 
@@ -86,7 +91,47 @@ public class ViewQualityReportScreenController {
         mainFXApplication.showMainApplicationScreen();
     }
 
-    private List<QualityReport> getAllReports() {
+    @FXML
+    private void deletePressed() {
+        if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
+            ObservableList<QualityReport> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
+            Connection conn = null;
+            Statement stmt = null;
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                stmt = conn.createStatement();
+                for (int i = 0; i < selectedDelete.size(); i++) {
+                    QualityReport current = selectedDelete.get(i);
+                    String sql = "DELETE FROM QUALITYREPORT WHERE reportnumber = '" + current.get_reportnumber() +"';";
+                    stmt.executeUpdate(sql);
+                    mainList.remove(current);
+                }
+                if (mainList.size() == 0) {
+                    mainFXApplication.showMainApplicationScreen();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.initOwner(mainFXApplication.getStage());
+                    alert.setTitle("All Reports Deleted!");
+                    alert.setHeaderText("There are no reports in database to show!");
+                    alert.setContentText("You'll be redirected to the Main Application Screen.");
+                    alert.showAndWait();
+                }
+            } catch (Exception e) {
+
+            }
+
+
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(mainFXApplication.getStage());
+            alert.setTitle("Error!");
+            alert.setHeaderText("Only managers can delete reports!!");
+            alert.setContentText("Talk to a system admin if you think this is in error!");
+            alert.showAndWait();
+        }
+    }
+
+    private ObservableList<QualityReport> getAllReports() {
         Connection conn = null;
         Statement stmt = null;
         try {
@@ -100,7 +145,7 @@ public class ViewQualityReportScreenController {
                 QualityReport temp = new QualityReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("overallcondition"), rs.getInt("virusPPM"), rs.getInt("contaminantPPM"));
                 reportList.add(temp);
             }
-            return reportList;
+            return FXCollections.observableList(reportList);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
