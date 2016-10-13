@@ -3,8 +3,19 @@ apply plugin: 'application'
 
 mainClassName = 'fxapp.MainFXApplication'
 
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src']
+		}
+		resources {
+			srcDirs = ['src/resources', 'src/view']
+		}
+	}
+}
+
 dependencies {
-	compile files('src/mysql-connector-java-5.1.18-bin.jar')
+	compile files('lib/mysql-connector-java-5.1.18-bin.jar')
 }
 
 jar {
