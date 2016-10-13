@@ -18,6 +18,9 @@
         <processorPath useClasspath="true" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cs2340-bits-please_main" target="1.8" />
+      <module name="cs2340-bits-please_test" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
-

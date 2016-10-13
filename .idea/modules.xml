@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/cs2340-bits-please.iml" filepath="$PROJECT_DIR$/cs2340-bits-please.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cs2340-bits-please.iml" filepath="$PROJECT_DIR$/.idea/modules/cs2340-bits-please.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cs2340-bits-please_main.iml" filepath="$PROJECT_DIR$/.idea/modules/cs2340-bits-please_main.iml" group="cs2340-bits-please" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cs2340-bits-please_test.iml" filepath="$PROJECT_DIR$/.idea/modules/cs2340-bits-please_test.iml" group="cs2340-bits-please" />
     </modules>
   </component>
 </project>

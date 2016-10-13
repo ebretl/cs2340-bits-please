@@ -8,9 +8,11 @@ sourceSets {
 		java {
 			srcDirs = ['src']
 		}
-		resources {
-			srcDirs = ['src/resources', 'src/view']
-		}
+        resources {
+            srcDirs = ['src/resources']
+        }
+        output.classesDir = 'build/main'
+        output.resourcesDir = 'build/main'
 	}
 }
 

@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import model.User;
 
 import java.io.IOException;
-import java.util.IllegalFormatCodePointException;
 
 
 public class MainFXApplication extends Application{
