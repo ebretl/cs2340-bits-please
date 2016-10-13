@@ -1,7 +1,7 @@
 *.class
 
-# intellij idea files
-.idea/*
+# intellij idea workspace file
+.idea/workspace.xml
 
 # gradle internal files
 .gradle/*
