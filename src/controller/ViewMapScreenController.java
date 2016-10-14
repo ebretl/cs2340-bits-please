@@ -2,17 +2,17 @@ package controller;
 
 import javafx.scene.control.Alert;
 import javafx.util.Pair;
-import gmapsfx.GoogleMapView;
-import gmapsfx.MapComponentInitializedListener;
+import com.lynden.gmapsfx.GoogleMapView;
+import com.lynden.gmapsfx.MapComponentInitializedListener;
 
 
-import gmapsfx.javascript.event.UIEventType;
-import gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.javascript.event.UIEventType;
+import com.lynden.gmapsfx.javascript.object.*;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
-import gmapsfx.service.geocoding.*;
+import com.lynden.gmapsfx.service.geocoding.*;
 import model.WaterReport;
 import model.User;
 import netscape.javascript.JSObject;
