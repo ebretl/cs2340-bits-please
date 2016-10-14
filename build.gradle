@@ -19,6 +19,12 @@ dependencies {
 jar {
 	manifest {
 		attributes('Main-Class': mainClassName,
-				   'Class-Path': '../../lib/')
+				   'Class-Path': 'mysql-connector-java-5.1.18-bin.jar')
 	}
 }
+
+task copyResources(dependsOn: jar, type: Copy) {
+    into "build/libs"
+    from configurations.runtime
+}
+
