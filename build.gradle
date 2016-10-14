@@ -5,12 +5,8 @@ mainClassName = 'fxapp.MainFXApplication'
 
 sourceSets {
 	main {
-		java {
-			srcDirs = ['src']
-		}
-        resources {
-            srcDirs = ['src/resources']
-        }
+		java.srcDirs = ['src']
+        resources.srcDirs = ['src/resources', 'src/view']
         output.classesDir = 'build/main'
         output.resourcesDir = 'build/main'
 	}

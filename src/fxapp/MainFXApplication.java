@@ -31,13 +31,20 @@ public class MainFXApplication extends Application{
         return mainScreen;
     }
 
+    private FXMLLoader getLoader(String path) {
+            java.net.URL location = this.getClass().getClassLoader().getResource(path);
+            if(location != null) {
+                return new FXMLLoader(location);
+            } else {
+                System.err.println("Error: location for "+path+" is null");
+                return null;
+            }
+    }
+
     public void showWelcomeScreen() {
         try {
             // Load root layout from fxml file.
-            java.net.URL location = MainFXApplication.class.getResource("../view/WelcomeScreen.fxml");
-            System.out.println(location);
-            System.out.println(MainFXApplication.class);
-            FXMLLoader loader = new FXMLLoader(location);
+            FXMLLoader loader = getLoader("WelcomeScreen.fxml");
             //loader.setLocation();
             rootLayout = loader.load();
             // Give the controller access to the main app.
@@ -60,8 +67,7 @@ public class MainFXApplication extends Application{
 
     public void showLoginScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/LoginScreen.fxml"));
+            FXMLLoader loader = getLoader("LoginScreen.fxml");
             Pane LoginPane = loader.load();
 
             LoginScreenController controller = loader.getController();
@@ -79,8 +85,7 @@ public class MainFXApplication extends Application{
 
     public void showMainApplicationScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/MainApplicationScreen.fxml"));
+            FXMLLoader loader = getLoader("MainApplicationScreen.fxml");
             Pane MainAppPane = loader.load();
 
             MainApplicationScreenController controller = loader.getController();
@@ -98,8 +103,7 @@ public class MainFXApplication extends Application{
 
     public void showRegistrationScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/RegistrationScreen.fxml"));
+            FXMLLoader loader = getLoader("RegistrationScreen.fxml");
             Pane MainAppPane = loader.load();
 
             RegistrationScreenController controller = loader.getController();
@@ -117,8 +121,7 @@ public class MainFXApplication extends Application{
 
     public void showSubmitWaterReportScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/SubmitWaterReportScreen.fxml"));
+            FXMLLoader loader = getLoader("SubmitWaterReportScreen.fxml");
             Pane MainAppPane = loader.load();
 
             SubmitWaterReportScreenController controller = loader.getController();
@@ -136,8 +139,7 @@ public class MainFXApplication extends Application{
 
     public void showSubmitQualityReportScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/SubmitQualityReportScreen.fxml"));
+            FXMLLoader loader = getLoader("SubmitQualityReportScreen.fxml");
             Pane MainAppPane = loader.load();
 
             SubmitQualityReportScreenController controller = loader.getController();
@@ -155,8 +157,7 @@ public class MainFXApplication extends Application{
 
     public void showEditUserProfileScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/UserProfileScreen.fxml"));
+            FXMLLoader loader = getLoader("UserProfileScreen.fxml");
             Pane MainAppPane = loader.load();
 
             UserProfileScreenController controller = loader.getController();
@@ -173,8 +174,7 @@ public class MainFXApplication extends Application{
 
     public void showViewWaterReportScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/ViewWaterReportScreen.fxml"));
+            FXMLLoader loader = getLoader("ViewWaterReportScreen.fxml");
             Pane MainAppPane = loader.load();
 
             ViewWaterReportScreenController controller = loader.getController();
@@ -193,8 +193,7 @@ public class MainFXApplication extends Application{
 
     public void showViewQualityReportScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/ViewQualityReportScreen.fxml"));
+            FXMLLoader loader = getLoader("ViewQualityReportScreen.fxml");
             Pane MainAppPane = loader.load();
 
             ViewQualityReportScreenController controller = loader.getController();
@@ -213,8 +212,7 @@ public class MainFXApplication extends Application{
 
     public void showViewMapScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/ViewMapScreen.fxml"));
+            FXMLLoader loader = getLoader("ViewMapScreen.fxml");
             AnchorPane MainAppPane = loader.load();
             Stage mapScreen = new Stage();
             ViewMapScreenController controller = loader.getController();
@@ -233,8 +231,7 @@ public class MainFXApplication extends Application{
 
     public void showGraphParameterScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/GraphParameterScreen.fxml"));
+            FXMLLoader loader = getLoader("GraphParameterScreen.fxml");
             Pane MainAppPane = loader.load();
 
             GraphParameterScreenController controller = loader.getController();
@@ -253,8 +250,7 @@ public class MainFXApplication extends Application{
 
     public void showADMINMainApplicationScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/ADMINMainApplicationScreen.fxml"));
+            FXMLLoader loader = getLoader("ADMINMainApplicationScreen.fxml");
             Pane MainAppPane = loader.load();
 
             ADMINMainApplicationScreenController controller = loader.getController();
@@ -272,8 +268,7 @@ public class MainFXApplication extends Application{
 
     public void showBlockUserScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/BlockUserScreen.fxml"));
+            FXMLLoader loader = getLoader("BlockUserScreen.fxml");
             Pane MainAppPane = loader.load();
 
             BlockUserScreenController controller = loader.getController();
@@ -293,8 +288,7 @@ public class MainFXApplication extends Application{
 
     public void showUnblockUserScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/UnblockUserScreen.fxml"));
+            FXMLLoader loader = getLoader("UnblockUserScreen.fxml");
             Pane MainAppPane = loader.load();
 
             UnblockUserScreenController controller = loader.getController();
@@ -314,8 +308,7 @@ public class MainFXApplication extends Application{
 
     public void showBanUserScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/BanUserScreen.fxml"));
+            FXMLLoader loader = getLoader("BanUserScreen.fxml");
             Pane MainAppPane = loader.load();
 
             BanUserScreenController controller = loader.getController();
@@ -335,8 +328,7 @@ public class MainFXApplication extends Application{
 
     public void showUnbanUserScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/UnbanUserScreen.fxml"));
+            FXMLLoader loader = getLoader("UnbanUserScreen.fxml");
             Pane MainAppPane = loader.load();
 
             UnbanUserScreenController controller = loader.getController();
@@ -356,8 +348,7 @@ public class MainFXApplication extends Application{
 
     public void showDeleteAccountScreen() {
         try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainFXApplication.class.getResource("../view/DeleteAccountScreen.fxml"));
+            FXMLLoader loader = getLoader("DeleteAccountScreen.fxml");
             Pane MainAppPane = loader.load();
 
             DeleteAccountScreenController controller = loader.getController();

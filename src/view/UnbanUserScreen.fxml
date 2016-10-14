@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UnblockUserScreenController" stylesheets="@tablealign.css">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="845.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UnbanUserScreenController" stylesheets="tablealign.css">
    <children>
       <Rectangle fill="#3a3e40" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="845.0" />
       <Button cancelButton="true" layoutX="250.0" layoutY="338.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="39.0" prefWidth="74.0" text="Back" />
@@ -24,6 +24,6 @@
           <TableColumn fx:id="address" editable="false" prefWidth="288.0" text="Home Address" />
         </columns>
       </TableView>
-      <Button cancelButton="true" layoutX="484.0" layoutY="338.0" mnemonicParsing="false" onAction="#unblockPressed" prefHeight="39.0" prefWidth="127.0" text="Unblock this User" textFill="RED" underline="true" />
+      <Button cancelButton="true" layoutX="484.0" layoutY="338.0" mnemonicParsing="false" onAction="#unbanPressed" prefHeight="39.0" prefWidth="127.0" text="Unban this User" textFill="RED" underline="true" />
    </children>
 </Pane>

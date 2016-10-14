@@ -13,7 +13,7 @@
       <Rectangle fill="#3a3e40" height="400.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <ImageView fitHeight="142.0" fitWidth="183.0" layoutX="209.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@logo.png" />
+            <Image url="logo.png" />
          </image>
       </ImageView>
       <Button cancelButton="true" layoutX="185.0" layoutY="314.0" mnemonicParsing="false" onAction="#backPressed" prefHeight="27.0" prefWidth="74.0" text="Back" />

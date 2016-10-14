@@ -13,7 +13,7 @@
       <Rectangle fill="#3a3e40" height="400.0" stroke="#c0ebff" strokeType="INSIDE" strokeWidth="0.0" width="600.0" />
       <ImageView fitHeight="201.0" fitWidth="357.0" layoutX="27.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@logo.png" />
+            <Image url="logo.png" />
          </image>
       </ImageView>
       <Text fill="#fffdfd" layoutX="13.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" text="information about clean water at your fingertips" textAlignment="CENTER">
