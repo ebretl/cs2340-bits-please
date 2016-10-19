@@ -67,7 +67,7 @@ public class MainApplicationScreenController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
-            alert.setHeaderText("Only Managers and Wokers can submit a Quality Report!");
+            alert.setHeaderText("Only Managers and Workers can submit a Quality Report!");
             alert.setContentText("Kindly talk to an administrator if you think this has been done in error!");
             alert.showAndWait();
         }
