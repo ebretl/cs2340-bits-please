@@ -7,8 +7,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import model.User;
 
@@ -50,6 +50,13 @@ public class MainFXApplication extends Application{
             // Give the controller access to the main app.
             WelcomeScreenController controller = loader.getController();
             controller.setMainApp(this);
+
+            // find the ImageView object in the layout and set it resizeable
+            GridPane gp = (GridPane) rootLayout.getChildren().get(0);
+            BorderPane bp = (BorderPane) gp.getChildren().get(0);
+            ImageView iv = (ImageView) bp.getCenter();
+            iv.fitHeightProperty().bind(rootLayout.heightProperty().multiply(0.5));
+            iv.fitWidthProperty().bind(rootLayout.widthProperty().multiply(0.5));
 
             // Set the Main App title
             mainScreen.setTitle("Water Purity Application");
