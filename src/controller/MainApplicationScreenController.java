@@ -23,9 +23,6 @@ public class MainApplicationScreenController {
     }
 
     @FXML
-    /**
-     * If logout button is pressed, redirects to the Welcome Screen
-     */
     private void logoutButtonPressed() {
         mainFXApplication.showWelcomeScreen();
     }

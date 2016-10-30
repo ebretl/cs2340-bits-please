@@ -4,8 +4,8 @@ package model;
 public enum WaterConditionEnum {
     WASTE("Waste"), TREATABLEC("Treatable-Clear"),TREATABLEM("Treatable-Muddy"), POTABLE("Potable");
 
-    private String stringRep;
-    private WaterConditionEnum(String stringRep) {
+    private final String stringRep;
+    WaterConditionEnum(String stringRep) {
         this.stringRep = stringRep;
     }
 

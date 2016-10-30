@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -10,21 +9,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import fxapp.MainFXApplication;
 import model.User;
 import model.UserManager;
-import model.UserTypeEnum;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class BanUserScreenController {
 
     private MainFXApplication mainFXApplication;
-
-    private User currentUser;
 
     @FXML
     TableView<User> mainTable;
@@ -51,9 +44,8 @@ public class BanUserScreenController {
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
      */
-    public void setMainApp(MainFXApplication main, User currentUser) {
+    public void setMainApp(MainFXApplication main) {
         mainFXApplication = main;
-        this.currentUser = currentUser;
         initializeTable();
     }
 
@@ -71,14 +63,15 @@ public class BanUserScreenController {
             throw new IllegalArgumentException();
         } else {
             mainTable.setId("mainTable");
-            username.setCellValueFactory(new PropertyValueFactory<User, String>("_username"));
-            fullname.setCellValueFactory(new PropertyValueFactory<User, String>("_fullname"));
-            type.setCellValueFactory(new PropertyValueFactory<User, String>("_type"));
-            email.setCellValueFactory(new PropertyValueFactory<User, String>("_emailaddress"));
-            address.setCellValueFactory(new PropertyValueFactory<User, String>("_homeaddress"));
+            username.setCellValueFactory(new PropertyValueFactory<>("_username"));
+            fullname.setCellValueFactory(new PropertyValueFactory<>("_fullname"));
+            type.setCellValueFactory(new PropertyValueFactory<>("_type"));
+            email.setCellValueFactory(new PropertyValueFactory<>("_emailaddress"));
+            address.setCellValueFactory(new PropertyValueFactory<>("_homeaddress"));
             mainTable.setItems(mainList);
         }
     }
+
 
     @FXML
     private void backPressed() {
@@ -88,15 +81,14 @@ public class BanUserScreenController {
     @FXML
     private void banPressed() {
             ObservableList<User> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
-            Connection conn = null;
-            Statement stmt = null;
+            Connection conn;
+            Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
-                for (int i = 0; i < selectedDelete.size(); i++) {
-                    User current = selectedDelete.get(i);
-                    String sql = "UPDATE USER SET ban = '1' WHERE username = '" + current.get_username() +"';";
+                for (User current : selectedDelete) {
+                    String sql = "UPDATE USER SET ban = '1' WHERE username = '" + current.get_username() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
@@ -104,7 +96,7 @@ public class BanUserScreenController {
                     mainFXApplication.showADMINMainApplicationScreen();
 
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
     }

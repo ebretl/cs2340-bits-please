@@ -1,12 +1,13 @@
 package model;
 
 
+
 public enum OverallConditionEnum {
     SAFE("Safe"), TREATABLE("Treatable"), UNSAFE("Unsafe");
 
-    private String stringRep;
+    private final String stringRep;
 
-    private OverallConditionEnum(String stringRep) {
+    OverallConditionEnum(String stringRep) {
         this.stringRep  = stringRep;
     }
 

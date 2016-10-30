@@ -11,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import model.QualityReport;
 import model.User;
 import model.UserTypeEnum;
-import model.WaterReport;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -74,13 +73,13 @@ public class ViewQualityReportScreenController {
             alert.showAndWait();
             throw new IllegalArgumentException();
         } else {
-            reportnumber.setCellValueFactory(new PropertyValueFactory<QualityReport, Integer>("_reportnumber"));
-            date1.setCellValueFactory(new PropertyValueFactory<QualityReport, String>("_date"));
-            time1.setCellValueFactory(new PropertyValueFactory<QualityReport, String>("_time"));
-            location1.setCellValueFactory(new PropertyValueFactory<QualityReport, String>("_location"));
-            overallcondition.setCellValueFactory(new PropertyValueFactory<QualityReport, String>("_overallcondition"));
-            virusPPM.setCellValueFactory(new PropertyValueFactory<QualityReport, Integer>("_virusPPM"));
-            contaminantPPM.setCellValueFactory(new PropertyValueFactory<QualityReport, Integer>("_contaminantPPM"));
+            reportnumber.setCellValueFactory(new PropertyValueFactory<>("_reportnumber"));
+            date1.setCellValueFactory(new PropertyValueFactory<>("_date"));
+            time1.setCellValueFactory(new PropertyValueFactory<>("_time"));
+            location1.setCellValueFactory(new PropertyValueFactory<>("_location"));
+            overallcondition.setCellValueFactory(new PropertyValueFactory<>("_overallcondition"));
+            virusPPM.setCellValueFactory(new PropertyValueFactory<>("_virusPPM"));
+            contaminantPPM.setCellValueFactory(new PropertyValueFactory<>("_contaminantPPM"));
 
             mainTable.setItems(mainList);
         }
@@ -95,15 +94,14 @@ public class ViewQualityReportScreenController {
     private void deletePressed() {
         if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
             ObservableList<QualityReport> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
-            Connection conn = null;
-            Statement stmt = null;
+            Connection conn;
+            Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
-                for (int i = 0; i < selectedDelete.size(); i++) {
-                    QualityReport current = selectedDelete.get(i);
-                    String sql = "DELETE FROM QUALITYREPORT WHERE reportnumber = '" + current.get_reportnumber() +"';";
+                for (QualityReport current : selectedDelete) {
+                    String sql = "DELETE FROM QUALITYREPORT WHERE reportnumber = '" + current.get_reportnumber() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
@@ -116,7 +114,7 @@ public class ViewQualityReportScreenController {
                     alert.setContentText("You'll be redirected to the Main Application Screen.");
                     alert.showAndWait();
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
 
@@ -132,8 +130,8 @@ public class ViewQualityReportScreenController {
     }
 
     private ObservableList<QualityReport> getAllReports() {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");

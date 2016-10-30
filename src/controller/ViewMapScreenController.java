@@ -8,13 +8,11 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import com.lynden.gmapsfx.service.geocoding.*;
 import model.WaterReport;
-import model.User;
 import netscape.javascript.JSObject;
 
 import java.net.URL;
@@ -26,10 +24,6 @@ import java.util.*;
 
 
 public class ViewMapScreenController implements Initializable, MapComponentInitializedListener {
-
-    private MainFXApplication mainFXApplication;
-
-    private User currentUser;
 
     @FXML
     private AnchorPane AnchorPane;
@@ -55,9 +49,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     */
 
 
-    public void setMainApp(MainFXApplication main, User currentUser) {
-        mainFXApplication = main;
-        this.currentUser = currentUser;
+    public void setMainApp() {
         uniqueLocationTable = new HashMap<>();
 
         mapView.addMapInializedListener(this);
@@ -107,16 +99,16 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
         String[] uniqueLocations = uniqueLocationTable.keySet().toArray(new String[0]);
         List<LatLong> coordinateList = new ArrayList<>();
 
-        for (int i = 0; i < uniqueLocations.length; i++) {
-            String currentAddress = uniqueLocations[i].replace("\n",",");
+        for (String uniqueLocation : uniqueLocations) {
+            String currentAddress = uniqueLocation.replace("\n", ",");
 
             geocodingService.geocode(currentAddress, (GeocodingResult[] results, GeocoderStatus status) -> {
                 LatLong latLong = null;
-                if( status == GeocoderStatus.ZERO_RESULTS) {
+                if (status == GeocoderStatus.ZERO_RESULTS) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "No matching address found");
                     alert.show();
                     latLong = null;
-                } else if( results.length > 1 ) {
+                } else if (results.length > 1) {
                     Alert alert = new Alert(Alert.AlertType.WARNING, "Multiple results found, showing the first one.");
                     alert.show();
                     latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
@@ -140,7 +132,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
             if (latLong != null) {
                 String address = uniqueLocations[i];
                 Pair<String, String> current = uniqueLocationTable.get(address);
-                createMarker(latLong, "Water Type: " + current.getKey().toString() + "<br>" + "Water Condition: " + current.getValue().toString());
+                createMarker(latLong, "Water Type: " + current.getKey() + "<br>" + "Water Condition: " + current.getValue());
             }
         }
     }
@@ -163,8 +155,8 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
     }
     private List<WaterReport> getAllReports() {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
@@ -174,7 +166,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
             List<WaterReport> reportList = new ArrayList<>();
             while (rs.next()) {
                 if (!uniqueLocationTable.containsKey(rs.getString("location").replace("\n",","))) {
-                    uniqueLocationTable.put(rs.getString("location").replace("\n",","), new Pair<String, String>(rs.getString("watertype"), rs.getString("watercondition")));
+                    uniqueLocationTable.put(rs.getString("location").replace("\n",","), new Pair<>(rs.getString("watertype"), rs.getString("watercondition")));
                 }
                 WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
                 reportList.add(temp);

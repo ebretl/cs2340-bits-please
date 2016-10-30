@@ -68,12 +68,12 @@ public class ViewWaterReportScreenController {
             alert.setContentText("Add a report first!");
             alert.showAndWait();
         } else {
-            reportnumber.setCellValueFactory(new PropertyValueFactory<WaterReport, Integer>("_reportnumber"));
-            date1.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_date"));
-            time1.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_time"));
-            location1.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_location"));
-            watertype.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_watertype"));
-            watercondition.setCellValueFactory(new PropertyValueFactory<WaterReport, String>("_watercondition"));
+            reportnumber.setCellValueFactory(new PropertyValueFactory<>("_reportnumber"));
+            date1.setCellValueFactory(new PropertyValueFactory<>("_date"));
+            time1.setCellValueFactory(new PropertyValueFactory<>("_time"));
+            location1.setCellValueFactory(new PropertyValueFactory<>("_location"));
+            watertype.setCellValueFactory(new PropertyValueFactory<>("_watertype"));
+            watercondition.setCellValueFactory(new PropertyValueFactory<>("_watercondition"));
             mainTable.setItems(mainList);
         }
     }
@@ -87,19 +87,18 @@ public class ViewWaterReportScreenController {
     private void deletePressed() {
         if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
             ObservableList<WaterReport> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
-            Connection conn = null;
-            Statement stmt = null;
+            Connection conn;
+            Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
-                for (int i = 0; i < selectedDelete.size(); i++) {
-                    WaterReport current = selectedDelete.get(i);
-                    String sql = "DELETE FROM WATERREPORT WHERE reportnumber = '" + current.get_reportnumber() +"';";
+                for (WaterReport current : selectedDelete) {
+                    String sql = "DELETE FROM WATERREPORT WHERE reportnumber = '" + current.get_reportnumber() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
 
@@ -115,8 +114,8 @@ public class ViewWaterReportScreenController {
     }
 
     private ObservableList<WaterReport> getAllReports() {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");

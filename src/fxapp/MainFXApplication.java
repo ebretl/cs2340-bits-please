@@ -19,7 +19,6 @@ public class MainFXApplication extends Application{
 
 
     private Stage mainScreen;
-    private Pane rootLayout;
     private User currentUser = new User();
     @Override
     public void start(Stage primaryStage) {
@@ -46,17 +45,18 @@ public class MainFXApplication extends Application{
             // Load root layout from fxml file.
             FXMLLoader loader = getLoader("WelcomeScreen.fxml");
             //loader.setLocation();
-            rootLayout = loader.load();
+            Pane rootLayout = loader != null ? loader.load() : null;
             // Give the controller access to the main app.
-            WelcomeScreenController controller = loader.getController();
+            WelcomeScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this);
 
             // find the ImageView object in the layout and set it resizeable
-            GridPane gp = (GridPane) rootLayout.getChildren().get(0);
-            BorderPane bp = (BorderPane) gp.getChildren().get(0);
-            ImageView iv = (ImageView) bp.getCenter();
-            iv.fitHeightProperty().bind(rootLayout.heightProperty().multiply(0.5));
-            iv.fitWidthProperty().bind(rootLayout.widthProperty().multiply(0.5));
+            GridPane gp = (GridPane) (rootLayout != null ? rootLayout.getChildren().get(0) : null);
+            BorderPane bp = (BorderPane) (gp != null ? gp.getChildren().get(0) : null);
+            ImageView iv = (ImageView) (bp != null ? bp.getCenter() : null);
+            iv.fitHeightProperty().bind(rootLayout != null ? rootLayout.heightProperty().multiply(0.5) : null);
+            iv.fitWidthProperty().bind(rootLayout != null ? rootLayout.widthProperty().multiply(0.5) : null);
 
             // Set the Main App title
             mainScreen.setTitle("Water Purity Application");
@@ -75,12 +75,13 @@ public class MainFXApplication extends Application{
     public void showLoginScreen() {
         try {
             FXMLLoader loader = getLoader("LoginScreen.fxml");
-            Pane LoginPane = loader.load();
+            Pane LoginPane = loader != null ? loader.load() : null;
 
-            LoginScreenController controller = loader.getController();
+            LoginScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(LoginPane);
+            Scene scene = new Scene(LoginPane != null ? LoginPane : null);
             mainScreen.setTitle("Login");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -93,12 +94,13 @@ public class MainFXApplication extends Application{
     public void showMainApplicationScreen() {
         try {
             FXMLLoader loader = getLoader("MainApplicationScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            MainApplicationScreenController controller = loader.getController();
+            MainApplicationScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("MainApp");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -111,12 +113,13 @@ public class MainFXApplication extends Application{
     public void showRegistrationScreen() {
         try {
             FXMLLoader loader = getLoader("RegistrationScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            RegistrationScreenController controller = loader.getController();
+            RegistrationScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Registration");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -129,12 +132,13 @@ public class MainFXApplication extends Application{
     public void showSubmitWaterReportScreen() {
         try {
             FXMLLoader loader = getLoader("SubmitWaterReportScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            SubmitWaterReportScreenController controller = loader.getController();
+            SubmitWaterReportScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Submit Water Report!");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -147,12 +151,13 @@ public class MainFXApplication extends Application{
     public void showSubmitQualityReportScreen() {
         try {
             FXMLLoader loader = getLoader("SubmitQualityReportScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            SubmitQualityReportScreenController controller = loader.getController();
+            SubmitQualityReportScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Submit Quality Report!");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -165,12 +170,13 @@ public class MainFXApplication extends Application{
     public void showEditUserProfileScreen() {
         try {
             FXMLLoader loader = getLoader("UserProfileScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            UserProfileScreenController controller = loader.getController();
+            UserProfileScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Edit User Profile");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -182,16 +188,17 @@ public class MainFXApplication extends Application{
     public void showViewWaterReportScreen() {
         try {
             FXMLLoader loader = getLoader("ViewWaterReportScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            ViewWaterReportScreenController controller = loader.getController();
+            ViewWaterReportScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("View Water Reports");
             mainScreen.setScene(scene);
             mainScreen.show();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         } catch (IOException e){
             e.printStackTrace();
@@ -201,16 +208,17 @@ public class MainFXApplication extends Application{
     public void showViewQualityReportScreen() {
         try {
             FXMLLoader loader = getLoader("ViewQualityReportScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            ViewQualityReportScreenController controller = loader.getController();
+            ViewQualityReportScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("View Quality Reports");
             mainScreen.setScene(scene);
             mainScreen.show();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         } catch (IOException e){
             e.printStackTrace();
@@ -220,16 +228,17 @@ public class MainFXApplication extends Application{
     public void showViewMapScreen() {
         try {
             FXMLLoader loader = getLoader("ViewMapScreen.fxml");
-            AnchorPane MainAppPane = loader.load();
+            AnchorPane MainAppPane = loader != null ? loader.load() : null;
             Stage mapScreen = new Stage();
-            ViewMapScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            ViewMapScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp();
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mapScreen.setTitle("View Map");
             mapScreen.setScene(scene);
             mapScreen.show();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         } catch (IOException e){
             e.printStackTrace();
@@ -239,16 +248,17 @@ public class MainFXApplication extends Application{
     public void showGraphParameterScreen() {
         try {
             FXMLLoader loader = getLoader("GraphParameterScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            GraphParameterScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            GraphParameterScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Graph Parameters");
             mainScreen.setScene(scene);
             mainScreen.show();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         } catch (IOException e){
             e.printStackTrace();
@@ -258,12 +268,13 @@ public class MainFXApplication extends Application{
     public void showADMINMainApplicationScreen() {
         try {
             FXMLLoader loader = getLoader("ADMINMainApplicationScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            ADMINMainApplicationScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            ADMINMainApplicationScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("MainApp - ADMIN");
             mainScreen.setScene(scene);
             mainScreen.show();
@@ -276,18 +287,19 @@ public class MainFXApplication extends Application{
     public void showBlockUserScreen() {
         try {
             FXMLLoader loader = getLoader("BlockUserScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            BlockUserScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            BlockUserScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Block User - ADMIN");
             mainScreen.setScene(scene);
             mainScreen.show();
         } catch (IOException e){
             e.printStackTrace();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         }
 
@@ -296,18 +308,19 @@ public class MainFXApplication extends Application{
     public void showUnblockUserScreen() {
         try {
             FXMLLoader loader = getLoader("UnblockUserScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            UnblockUserScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            UnblockUserScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Unblock User - ADMIN");
             mainScreen.setScene(scene);
             mainScreen.show();
         } catch (IOException e){
             e.printStackTrace();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         }
 
@@ -316,18 +329,19 @@ public class MainFXApplication extends Application{
     public void showBanUserScreen() {
         try {
             FXMLLoader loader = getLoader("BanUserScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            BanUserScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            BanUserScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Ban User - ADMIN");
             mainScreen.setScene(scene);
             mainScreen.show();
         } catch (IOException e){
             e.printStackTrace();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         }
 
@@ -336,18 +350,19 @@ public class MainFXApplication extends Application{
     public void showUnbanUserScreen() {
         try {
             FXMLLoader loader = getLoader("UnbanUserScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            UnbanUserScreenController controller = loader.getController();
-            controller.setMainApp(this, currentUser);
+            UnbanUserScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("Unban User - ADMIN");
             mainScreen.setScene(scene);
             mainScreen.show();
         } catch (IOException e){
             e.printStackTrace();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         }
 
@@ -356,18 +371,19 @@ public class MainFXApplication extends Application{
     public void showDeleteAccountScreen() {
         try {
             FXMLLoader loader = getLoader("DeleteAccountScreen.fxml");
-            Pane MainAppPane = loader.load();
+            Pane MainAppPane = loader != null ? loader.load() : null;
 
-            DeleteAccountScreenController controller = loader.getController();
+            DeleteAccountScreenController controller = loader != null ? loader.getController() : null;
+            assert controller != null;
             controller.setMainApp(this, currentUser);
 
-            Scene scene = new Scene(MainAppPane);
+            Scene scene = new Scene(MainAppPane != null ? MainAppPane : null);
             mainScreen.setTitle("DELETE ACCOUNT - ADMIN");
             mainScreen.setScene(scene);
             mainScreen.show();
         } catch (IOException e){
             e.printStackTrace();
-        } catch (IllegalArgumentException A) {
+        } catch (IllegalArgumentException ignored) {
 
         }
 

@@ -6,15 +6,15 @@ import javafx.beans.property.StringProperty;
 
 
 public class User {
-    private StringProperty _username = new SimpleStringProperty();
-    private StringProperty _fullname = new SimpleStringProperty();
-    private SimpleIntegerProperty _ban = new SimpleIntegerProperty();
-    private StringProperty _type = new SimpleStringProperty();
-    private StringProperty _emailaddress = new SimpleStringProperty();
-    private StringProperty _homeaddress = new SimpleStringProperty();
-    private StringProperty _company = new SimpleStringProperty();
-    private StringProperty _jobtitle = new SimpleStringProperty();
-    private StringProperty _department = new SimpleStringProperty();
+    private final StringProperty _username = new SimpleStringProperty();
+    private final StringProperty _fullname = new SimpleStringProperty();
+    private final SimpleIntegerProperty _ban = new SimpleIntegerProperty();
+    private final StringProperty _type = new SimpleStringProperty();
+    private final StringProperty _emailaddress = new SimpleStringProperty();
+    private final StringProperty _homeaddress = new SimpleStringProperty();
+    private final StringProperty _company = new SimpleStringProperty();
+    private final StringProperty _jobtitle = new SimpleStringProperty();
+    private final StringProperty _department = new SimpleStringProperty();
 
     public User() {
 

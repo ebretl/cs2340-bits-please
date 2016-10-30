@@ -3,8 +3,6 @@ package controller;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import model.User;
 import model.UserTypeEnum;
 
@@ -67,9 +65,6 @@ public class LoginScreenController {
 
                 }
             }
-        } catch(SQLException se){
-            mainFXApplication.showDatabaseError();
-            se.printStackTrace();
         } catch(Exception e){
             mainFXApplication.showDatabaseError();
             e.printStackTrace();
@@ -77,12 +72,12 @@ public class LoginScreenController {
             try{
                 if(stmt!=null)
                     stmt.close();
-            } catch(SQLException se2) {
+            } catch(SQLException ignored) {
             }
             try{
                 if(conn!=null)
                     conn.close();
-            } catch(SQLException se){
+            } catch(SQLException ignored){
             }
         }
 
@@ -100,8 +95,8 @@ public class LoginScreenController {
                 return false;
             } else {
                 if ((rs.getString("password").equals(passwordField.getText()))) {
-                    Connection conn = null;
-                    Statement stmt = null;
+                    Connection conn;
+                    Statement stmt;
                     Class.forName("com.mysql.jdbc.Driver");
                     conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                     stmt = conn.createStatement();
@@ -110,8 +105,8 @@ public class LoginScreenController {
                     return true;
                 } else {
                     int newAttempt = rs.getInt("attempt") + 1;
-                    Connection conn = null;
-                    Statement stmt = null;
+                    Connection conn;
+                    Statement stmt;
                     Class.forName("com.mysql.jdbc.Driver");
                     conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                     stmt = conn.createStatement();

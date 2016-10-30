@@ -71,15 +71,12 @@ public class RegistrationScreenController {
                 alert.showAndWait();
             } else {
                 stmt = conn.createStatement();
-                UserTypeEnum usertype = (UserTypeEnum) usertypeField.getSelectionModel().getSelectedItem();
+                UserTypeEnum usertype = usertypeField.getSelectionModel().getSelectedItem();
                 System.out.println(usertype.toString());
                 sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, `attempt`, `type`) VALUES ('" + usernameField.getText().trim() + "', '" + passwordField.getText() + "', '" + fullnameField.getText().trim() + "', '0', '0', '" + usertype.toString() +"')";
                 stmt.executeUpdate(sql);
                 mainFXApplication.showWelcomeScreen();
             }
-        } catch(SQLException se){
-            mainFXApplication.showDatabaseError();
-            se.printStackTrace();
         } catch(Exception e){
             mainFXApplication.showDatabaseError();
             e.printStackTrace();
@@ -87,12 +84,12 @@ public class RegistrationScreenController {
             try{
                 if(stmt!=null)
                     stmt.close();
-            } catch(SQLException se2) {
+            } catch(SQLException ignored) {
             }
             try{
                 if(conn!=null)
                     conn.close();
-            } catch(SQLException se){
+            } catch(SQLException ignored){
             }
         }
     }

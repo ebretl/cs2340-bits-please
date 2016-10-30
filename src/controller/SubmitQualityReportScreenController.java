@@ -3,7 +3,6 @@ package controller;
 import javafx.scene.control.Alert;
 import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -50,7 +49,7 @@ public class SubmitQualityReportScreenController {
     @FXML
     private void initialize() {
         overallConditionField.getItems().clear();
-        overallConditionField.setItems((ObservableList<OverallConditionEnum>) FXCollections.observableArrayList(OverallConditionEnum.values()));
+        overallConditionField.setItems(FXCollections.observableArrayList(OverallConditionEnum.values()));
         overallConditionField.setValue(FXCollections.observableArrayList(OverallConditionEnum.values()).get(0));
 
     }
@@ -73,8 +72,8 @@ public class SubmitQualityReportScreenController {
             alert.showAndWait();
         } else {
             int reportNumber;
-            Connection conn = null;
-            Statement stmt = null;
+            Connection conn;
+            Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");

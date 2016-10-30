@@ -73,8 +73,8 @@ public class UserProfileScreenController {
     @FXML
     private void savePressed() {
         try {
-            Connection conn = null;
-            Statement stmt = null;
+            Connection conn;
+            Statement stmt;
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();

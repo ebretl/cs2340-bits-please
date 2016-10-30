@@ -3,9 +3,9 @@ package model;
 
 public enum WaterTypeEnum {
     BOTTLED("Bottled"), WELL("Well"), STREAM("Stream"), LAKE("Lake"), SPRING("Spring"), OTHER("Other");
-    private String stringRep;
+    private final String stringRep;
 
-    private WaterTypeEnum(String stringRep) {
+    WaterTypeEnum(String stringRep) {
         this.stringRep = stringRep;
     }
 

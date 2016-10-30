@@ -1,8 +1,6 @@
 package controller;
 
 import fxapp.MainFXApplication;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,7 +11,6 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
-import model.User;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,8 +21,6 @@ public class GraphParameterScreenController {
 
     private MainFXApplication mainFXApplication;
 
-    private User currentUser;
-
     @FXML
     private ComboBox<Integer> yearField;
 
@@ -35,16 +30,15 @@ public class GraphParameterScreenController {
     @FXML
     private ComboBox<String> locationField;
 
-    public void setMainApp(MainFXApplication main, User currentUser) {
+    public void setMainApp(MainFXApplication main) {
         mainFXApplication = main;
-        this.currentUser = currentUser;
         initalizeComboBox();
     }
 
     @FXML
     public void showGraphPressed() {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         int[] xval = {1,2,3,4,5,6,7,8,9,10,11,12};
         Integer [] yval = new Integer[12];
         int yearSelected = yearField.getSelectionModel().getSelectedItem();
@@ -71,7 +65,7 @@ public class GraphParameterScreenController {
 
     private void initalizeComboBox() {
         ObservableList<Integer> years = getYears();
-        if (years.size() == 0) {
+        if ((years != null ? years.size() : 0) == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Database Error!");
@@ -85,14 +79,11 @@ public class GraphParameterScreenController {
             yearField.getItems().clear();
 
             yearField.setItems(years);
-            yearField.valueProperty().addListener(new ChangeListener<Integer>() {
-                @Override
-                public void changed(ObservableValue ov, Integer notUsed, Integer yearSelected) {
-                    ObservableList<String> location = getLocations(yearSelected);
-                    locationField.getItems().clear();
-                    locationField.setItems(location);
-                    locationField.setValue(location.get(0));
-                }
+            yearField.valueProperty().addListener((ov, notUsed, yearSelected) -> {
+                ObservableList<String> location = getLocations(yearSelected);
+                locationField.getItems().clear();
+                locationField.setItems(location);
+                locationField.setValue(location != null ? location.get(0) : null);
             });
             yearField.setValue(years.get(0));
         }
@@ -106,8 +97,8 @@ public class GraphParameterScreenController {
     }
 
     private ObservableList<Integer> getYears() {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
@@ -127,8 +118,8 @@ public class GraphParameterScreenController {
 
     private ObservableList<String> getLocations(int yearSelected) {
         ObservableList<String> location = FXCollections.observableArrayList();
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
@@ -154,7 +145,7 @@ public class GraphParameterScreenController {
         xAxis.setLabel("Number of Month");
         yAxis.setLabel(virusField.getSelectionModel().getSelectedItem());
 
-        final LineChart<Number,Number> lineChart = new LineChart<Number,Number>(xAxis,yAxis);
+        final LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
         XYChart.Series series = new XYChart.Series();
         lineChart.setTitle(virusField.getSelectionModel().getSelectedItem() + " PPM for " + locationField.getSelectionModel().getSelectedItem() + " for " + yearField.getSelectionModel().getSelectedItem());
         lineChart.setLegendVisible(false);

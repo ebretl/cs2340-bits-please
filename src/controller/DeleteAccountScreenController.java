@@ -9,7 +9,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import fxapp.MainFXApplication;
 import model.User;
-import model.UserTypeEnum;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -70,11 +69,11 @@ public class DeleteAccountScreenController {
             throw new IllegalArgumentException();
         } else {
             mainTable.setId("mainTable");
-            username.setCellValueFactory(new PropertyValueFactory<User, String>("_username"));
-            fullname.setCellValueFactory(new PropertyValueFactory<User, String>("_fullname"));
-            type.setCellValueFactory(new PropertyValueFactory<User, String>("_type"));
-            email.setCellValueFactory(new PropertyValueFactory<User, String>("_emailaddress"));
-            address.setCellValueFactory(new PropertyValueFactory<User, String>("_homeaddress"));
+            username.setCellValueFactory(new PropertyValueFactory<>("_username"));
+            fullname.setCellValueFactory(new PropertyValueFactory<>("_fullname"));
+            type.setCellValueFactory(new PropertyValueFactory<>("_type"));
+            email.setCellValueFactory(new PropertyValueFactory<>("_emailaddress"));
+            address.setCellValueFactory(new PropertyValueFactory<>("_homeaddress"));
             mainTable.setItems(mainList);
         }
     }
@@ -87,15 +86,14 @@ public class DeleteAccountScreenController {
     @FXML
     private void deletePressed() {
             ObservableList<User> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
-            Connection conn = null;
-            Statement stmt = null;
+            Connection conn;
+            Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
-                for (int i = 0; i < selectedDelete.size(); i++) {
-                    User current = selectedDelete.get(i);
-                    String sql = "DELETE FROM USER WHERE username = '" + current.get_username() +"';";
+                for (User current : selectedDelete) {
+                    String sql = "DELETE FROM USER WHERE username = '" + current.get_username() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
@@ -103,14 +101,14 @@ public class DeleteAccountScreenController {
                     mainFXApplication.showADMINMainApplicationScreen();
 
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
 
             }
     }
 
     private ObservableList<User> getUsers() {
-        Connection conn = null;
-        Statement stmt = null;
+        Connection conn;
+        Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
