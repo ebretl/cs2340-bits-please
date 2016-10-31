@@ -2,7 +2,6 @@ package controller;
 
 import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -35,7 +34,7 @@ public class RegistrationScreenController {
     @FXML
     private void initialize() {
         usertypeField.getItems().clear();
-        usertypeField.setItems((ObservableList<UserTypeEnum>) FXCollections.observableArrayList(UserTypeEnum.values()));
+        usertypeField.setItems(FXCollections.observableArrayList(UserTypeEnum.values()));
         usertypeField.setValue(FXCollections.observableArrayList(UserTypeEnum.values()).get(0));
     }
 

@@ -10,6 +10,7 @@ public enum UserTypeEnum {
         this.databaseRepresentation = databaseRepresentation;
     }
 
+    @Override
     public String toString() {
         return databaseRepresentation;
     }

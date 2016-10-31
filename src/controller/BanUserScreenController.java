@@ -72,8 +72,7 @@ public class BanUserScreenController {
         }
     }
 
-
-    @FXML
+@FXML
     private void backPressed() {
         mainFXApplication.showADMINMainApplicationScreen();
     }

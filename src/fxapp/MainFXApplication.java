@@ -26,6 +26,10 @@ public class MainFXApplication extends Application{
         showWelcomeScreen();
     }
 
+    /**
+     * Set the stage of the app
+     * @return the main stage
+     */
     public Stage getStage() {
         return mainScreen;
     }
@@ -40,6 +44,9 @@ public class MainFXApplication extends Application{
             }
     }
 
+    /**
+     * Show's the welcome screen of the app
+     */
     public void showWelcomeScreen() {
         try {
             // Load root layout from fxml file.
@@ -72,6 +79,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * Show's the login screen of the app
+     */
     public void showLoginScreen() {
         try {
             FXMLLoader loader = getLoader("LoginScreen.fxml");
@@ -91,6 +101,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * Shows the main application screen
+     */
     public void showMainApplicationScreen() {
         try {
             FXMLLoader loader = getLoader("MainApplicationScreen.fxml");
@@ -129,6 +142,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * Shows the submitWaterReportScreen
+     */
     public void showSubmitWaterReportScreen() {
         try {
             FXMLLoader loader = getLoader("SubmitWaterReportScreen.fxml");
@@ -148,6 +164,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * Shows the submitQualityReportScreen
+     */
     public void showSubmitQualityReportScreen() {
         try {
             FXMLLoader loader = getLoader("SubmitQualityReportScreen.fxml");
@@ -167,6 +186,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * Shows the EditUserProfileScreen
+     */
     public void showEditUserProfileScreen() {
         try {
             FXMLLoader loader = getLoader("UserProfileScreen.fxml");
@@ -185,6 +207,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * shows the ViewWaterReportScreen
+     */
     public void showViewWaterReportScreen() {
         try {
             FXMLLoader loader = getLoader("ViewWaterReportScreen.fxml");
@@ -205,6 +230,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * shows the ViewQualityReportScreen
+     */
     public void showViewQualityReportScreen() {
         try {
             FXMLLoader loader = getLoader("ViewQualityReportScreen.fxml");
@@ -225,6 +253,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * Shows the ViewMapScreen
+     */
     public void showViewMapScreen() {
         try {
             FXMLLoader loader = getLoader("ViewMapScreen.fxml");
@@ -245,6 +276,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * shows the GraphParameterScreen
+     */
     public void showGraphParameterScreen() {
         try {
             FXMLLoader loader = getLoader("GraphParameterScreen.fxml");
@@ -265,6 +299,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * shows the ADMINMainApplicationScreen
+     */
     public void showADMINMainApplicationScreen() {
         try {
             FXMLLoader loader = getLoader("ADMINMainApplicationScreen.fxml");
@@ -284,6 +321,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * shows the BlockUserScreen
+     */
     public void showBlockUserScreen() {
         try {
             FXMLLoader loader = getLoader("BlockUserScreen.fxml");
@@ -305,6 +345,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * shows the UnblockUserScreen
+     */
     public void showUnblockUserScreen() {
         try {
             FXMLLoader loader = getLoader("UnblockUserScreen.fxml");
@@ -326,6 +369,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * shows the BanUserScreen
+     */
     public void showBanUserScreen() {
         try {
             FXMLLoader loader = getLoader("BanUserScreen.fxml");
@@ -347,6 +393,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * shows the UnbanUserScreen
+     */
     public void showUnbanUserScreen() {
         try {
             FXMLLoader loader = getLoader("UnbanUserScreen.fxml");
@@ -368,6 +417,9 @@ public class MainFXApplication extends Application{
 
     }
 
+    /**
+     * shows the DeleteAccountScreen
+     */
     public void showDeleteAccountScreen() {
         try {
             FXMLLoader loader = getLoader("DeleteAccountScreen.fxml");
@@ -394,6 +446,9 @@ public class MainFXApplication extends Application{
         launch(args);
     }
 
+    /**
+     * shows an error popup if there is an error with the database
+     */
     public void showDatabaseError() {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(mainScreen);
