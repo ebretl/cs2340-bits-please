@@ -23,6 +23,55 @@ public class WaterReport {
     }
 
     /**
+     * Gets the date of the submitted water report
+     * @return date of report
+     */
+    public String get_date() {
+        return _date.get();
+    }
+
+    /**
+     * Gets the time of the water report
+     * @return the water report time
+     */
+    public String get_time() {
+        return _time.get();
+    }
+
+    /**
+     * Get the name of the person who submitted the water report
+     * @return the person who submitted the water report
+     */
+    public String get_name() {
+        return _name.get();
+    }
+
+    /**
+     * Gets the location of the water in the report
+     * @return location of the water
+     */
+    public String get_location() {
+        return _location.get();
+    }
+
+    /**
+     * Gets the type of water submitted listed in the WaterTypeEnum
+     * @return the water type
+     */
+    public String get_watertype() {
+        return _watertype.get();
+    }
+
+    /**
+     * Gets the condtion of the water in the report
+     * @return condition of the water
+     */
+    public String get_watercondition() {
+        return _watercondition.get();
+    }
+
+
+    /**
      * Sets all the paramters of the water report
      * @param reportnumber The report number of the water report
      * @param date date of the water report
