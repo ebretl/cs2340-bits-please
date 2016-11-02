@@ -10,10 +10,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by francestsenn on 10/26/16.
- */
 public class UserManager {
+    /**
+     * Accesses the database to get all users that have not been banned. This finds only users with the actual "user" distinction.
+     * @return an observable list of all the unbanned users
+     */
     public ObservableList<User> getUnbannedUsers() {
         Connection conn;
         Statement stmt;
@@ -38,6 +39,10 @@ public class UserManager {
         }
     }
 
+    /**
+     * Accesses the database to get all users that have been banned. This finds only users with the actual "user" distinction.
+     * @return an observable list of all the banned users
+     */
     public ObservableList<User> getBannedUsers() {
         Connection conn;
         Statement stmt;
@@ -62,6 +67,10 @@ public class UserManager {
         }
     }
 
+    /**
+     * Accesses the database to get all users that have been blocked. This finds users with the actual "user", "manager", and "worker" distinctions.
+     * @return an observable list of all the blocked users
+     */
     public ObservableList<User> getUnblockedUsers() {
         Connection conn;
         Statement stmt;
@@ -86,6 +95,10 @@ public class UserManager {
         }
     }
 
+    /**
+     * Accesses the database to get all users that have not been blocked. This finds users with the actual "user", "manager", and "worker" distinctions.
+     * @return an observable list of all the unblocked users
+     */
     public ObservableList<User> getBlockedUsers() {
         Connection conn;
         Statement stmt;

@@ -12,11 +12,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by francestsenn on 11/2/16.
- */
-public class ReportManager {
 
+public class ReportManager {
+    /**
+     * Accesses the database to get all currently existing quality reports.
+     * @return an observable list of all quality reports
+     */
     public ObservableList<QualityReport> getAllQualityReports() {
         Connection conn;
         Statement stmt;
@@ -38,6 +39,11 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Deletes the quality report that is currently selected on the ViewQualityReportScreenController from the database and the view.
+     * @param selectedDelete the quality reports that will be deleted
+     * @param mainList the list of all quality reports that is seen on ViewQualityReportScreen
+     */
     public void deleteQualityReport(ObservableList<QualityReport> selectedDelete, ObservableList<QualityReport> mainList) {
         Connection conn;
         Statement stmt;
@@ -55,6 +61,14 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Submits a quality report to be saved in the database.
+     * @param user the current manager or worker that is creating the quality report
+     * @param location the location of the water in the quality report
+     * @param overallCondition the overall condition of the water at this location
+     * @param virusPPM the condition of the water in terms of virus PPM at this location
+     * @param contaminantPPM the condition of the water in terms of contaminant PPM at this location
+     */
     public void submitQualityReport(String user, String location, OverallConditionEnum overallCondition, String virusPPM, String contaminantPPM) {
         int reportNumber;
         Connection conn;
@@ -80,6 +94,10 @@ public class ReportManager {
     }
 
 
+    /**
+     * Accesses the database to get all currently existing water reports.
+     * @return an observable list of all water reports
+     */
     public ObservableList<WaterReport> getAllWaterReports() {
         Connection conn;
         Statement stmt;
@@ -101,6 +119,11 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Deletes the water report that is currently selected on the ViewWaterReportScreenController from the database and from the view.
+     * @param selectedDelete the water reports that will be deleted
+     * @param mainList the list of all water reports that is seen on ViewWaterReportScreen
+     */
     public void deleteWaterReport(ObservableList<WaterReport> selectedDelete, ObservableList<WaterReport> mainList) {
         Connection conn;
         Statement stmt;
@@ -118,6 +141,13 @@ public class ReportManager {
         }
     }
 
+    /**
+     * Submits a water report to be saved in the database.
+     * @param user the current user that is creating the water report
+     * @param location the location of the water in the report
+     * @param waterType the type of water at this location
+     * @param waterCondition the condition of the water at this location
+     */
     public void submitWaterReport(String user, String location, WaterTypeEnum waterType, WaterConditionEnum waterCondition) {
         int reportNumber;
         Connection conn;

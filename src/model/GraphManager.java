@@ -13,11 +13,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-/**
- * Created by francestsenn on 11/2/16.
- */
 public class GraphManager {
-
+    /**
+     * Gets all of the distinct years in the quality report database.
+     * @return an observable list of integers
+     */
     public ObservableList<Integer> getYears() {
         Connection conn;
         Statement stmt;
@@ -38,6 +38,11 @@ public class GraphManager {
         return null;
     }
 
+    /**
+     * Gets all of the distinct locations in the quality report database in the specified year.
+     * @param yearSelected a specific year to look at quality reports
+     * @return an observable list of the locations
+     */
     public ObservableList<String> getLocations(int yearSelected) {
         ObservableList<String> location = FXCollections.observableArrayList();
         Connection conn;
@@ -58,6 +63,14 @@ public class GraphManager {
         return null;
     }
 
+    /**
+     * Creates the historical graph in a new window/stage for the given virus, location, and year.
+     * @param xval the months in the year (1 through 12)
+     * @param yval the value of the virus PPM
+     * @param virus the virus name
+     * @param location the location name
+     * @param year the year that is being evaluated in the quality report
+     */
     public void plotGraph(int[] xval, Integer[] yval, String virus, String location, Integer year) {
         Stage graphStage = new Stage();
         graphStage.setTitle("Historical Graph View!");
