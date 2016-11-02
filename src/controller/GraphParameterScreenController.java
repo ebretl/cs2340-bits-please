@@ -11,6 +11,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
+import model.GraphManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -30,8 +31,11 @@ public class GraphParameterScreenController {
     @FXML
     private ComboBox<String> locationField;
 
+    private GraphManager graphManager;
+
     public void setMainApp(MainFXApplication main) {
         mainFXApplication = main;
+        graphManager = new GraphManager();
         initalizeComboBox();
     }
 
@@ -57,14 +61,14 @@ public class GraphParameterScreenController {
             while (rs.next()) {
                 yval[rs.getInt("MNTH") - 1] = rs.getInt("AVERAGE");
             }
-            plotGraph(xval, yval);
+            graphManager.plotGraph(xval, yval, virusField.getSelectionModel().getSelectedItem(), locationField.getSelectionModel().getSelectedItem(), yearField.getSelectionModel().getSelectedItem());
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void initalizeComboBox() {
-        ObservableList<Integer> years = getYears();
+        ObservableList<Integer> years = graphManager.getYears();
         if ((years != null ? years.size() : 0) == 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
@@ -80,7 +84,7 @@ public class GraphParameterScreenController {
 
             yearField.setItems(years);
             yearField.valueProperty().addListener((ov, notUsed, yearSelected) -> {
-                ObservableList<String> location = getLocations(yearSelected);
+                ObservableList<String> location = graphManager.getLocations(yearSelected);
                 locationField.getItems().clear();
                 locationField.setItems(location);
                 locationField.setValue(location != null ? location.get(0) : null);
@@ -96,69 +100,4 @@ public class GraphParameterScreenController {
         mainFXApplication.showMainApplicationScreen();
     }
 
-    private ObservableList<Integer> getYears() {
-        Connection conn;
-        Statement stmt;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-            stmt = conn.createStatement();
-            String sql = "SELECT DISTINCT YEAR(date) AS year FROM QUALITYREPORT";
-            ResultSet rs = stmt.executeQuery(sql);
-            ObservableList<Integer> years = FXCollections.observableArrayList();
-            while (rs.next()) {
-                years.add(rs.getInt("year"));
-            }
-            return years;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private ObservableList<String> getLocations(int yearSelected) {
-        ObservableList<String> location = FXCollections.observableArrayList();
-        Connection conn;
-        Statement stmt;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-            stmt = conn.createStatement();
-            String sql = "SELECT DISTINCT location FROM QUALITYREPORT WHERE YEAR(date) = '" + yearSelected + "'";
-            ResultSet rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                location.add(rs.getString("location"));
-            }
-            return location;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private void plotGraph(int[] xval, Integer[] yval) {
-        Stage graphStage = new Stage();
-        graphStage.setTitle("Historical Graph View!");
-
-        final NumberAxis xAxis = new NumberAxis();
-        final NumberAxis yAxis = new NumberAxis();
-        xAxis.setLabel("Number of Month");
-        yAxis.setLabel(virusField.getSelectionModel().getSelectedItem());
-
-        final LineChart<Number,Number> lineChart = new LineChart<>(xAxis, yAxis);
-        XYChart.Series series = new XYChart.Series();
-        lineChart.setTitle(virusField.getSelectionModel().getSelectedItem() + " PPM for " + locationField.getSelectionModel().getSelectedItem() + " for " + yearField.getSelectionModel().getSelectedItem());
-        lineChart.setLegendVisible(false);
-        for (int i = 0; i < xval.length; i++) {
-            if (yval[i] != null) {
-                series.getData().add(new XYChart.Data(xval[i], yval[i]));
-            }
-        }
-
-        Scene scene  = new Scene(lineChart,800,600);
-        lineChart.getData().add(series);
-
-        graphStage.setScene(scene);
-        graphStage.show();
-    }
 }
