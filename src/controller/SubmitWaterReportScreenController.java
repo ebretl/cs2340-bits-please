@@ -6,21 +6,17 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import model.ReportManager;
 import model.User;
 import model.WaterConditionEnum;
 import model.WaterTypeEnum;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-
 
 public class SubmitWaterReportScreenController {
     private MainFXApplication mainFXApplication;
 
     private User currentUser;
+
+    private ReportManager reportManager;
 
     @FXML
     private ComboBox waterConditionField;
@@ -41,6 +37,7 @@ public class SubmitWaterReportScreenController {
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
         this.currentUser = currentUser;
+        reportManager = new ReportManager();
     }
 
     @FXML
@@ -61,7 +58,6 @@ public class SubmitWaterReportScreenController {
 
     @FXML
     private void submitPressed() {
-        int reportNumber;
         if (locationField == null || locationField.getText() == null || locationField.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
@@ -70,27 +66,8 @@ public class SubmitWaterReportScreenController {
             alert.setContentText("You have to provide a location!");
             alert.showAndWait();
         } else {
-            Connection conn;
-            Statement stmt;
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-                stmt = conn.createStatement();
-                String sql = "SELECT MAX(reportnumber) AS MAX FROM WATERREPORT";
-                ResultSet rs = stmt.executeQuery(sql);
-                if (rs.next()) {
-                    reportNumber = rs.getInt("MAX") + 1;
-                } else {
-                    reportNumber = 1;
-                }
-                String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-                String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-                sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText().trim() + "', '" + waterTypeField.getSelectionModel().getSelectedItem() + "', '" + waterConditionField.getSelectionModel().getSelectedItem() + "')";
-                stmt.executeUpdate(sql);
-                mainFXApplication.showMainApplicationScreen();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            reportManager.submitWaterReport(currentUser.get_username(), locationField.getText().trim(), (WaterTypeEnum)waterTypeField.getSelectionModel().getSelectedItem(), (WaterConditionEnum)waterConditionField.getSelectionModel().getSelectedItem());
+            mainFXApplication.showMainApplicationScreen();
         }
     }
 }

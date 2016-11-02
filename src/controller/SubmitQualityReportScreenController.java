@@ -8,13 +8,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import model.OverallConditionEnum;
+import model.ReportManager;
 import model.User;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.time.LocalDateTime;
 
 
 public class SubmitQualityReportScreenController {
@@ -71,29 +66,10 @@ public class SubmitQualityReportScreenController {
             alert.setContentText("You have to provide a location!");
             alert.showAndWait();
         } else {
-            int reportNumber;
-            Connection conn;
-            Statement stmt;
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-                stmt = conn.createStatement();
-                String sql = "SELECT MAX(reportnumber) AS MAX FROM QUALITYREPORT";
-                ResultSet rs = stmt.executeQuery(sql);
-                if (rs.next()) {
-                    reportNumber = rs.getInt("MAX") + 1;
-                } else {
-                    reportNumber = 1;
-                }
-                String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-                String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-                sql = "INSERT INTO `QUALITYREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `overallcondition`, `virusPPM`, `contaminantPPM`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + currentUser.get_username() + "', '" + locationField.getText().trim() + "', '" + overallConditionField.getSelectionModel().getSelectedItem() + "', '" + virusPPM.getText() + "', '" + contaminantPPM.getText() + "')";
-                System.out.println(sql);
-                stmt.executeUpdate(sql);
-                mainFXApplication.showMainApplicationScreen();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            ReportManager reportManager = new ReportManager();
+            reportManager.submitQualityReport(currentUser.get_username(), locationField.getText().trim(), (OverallConditionEnum)overallConditionField.getSelectionModel().getSelectedItem(), virusPPM.getText(), contaminantPPM.getText());
+            mainFXApplication.showMainApplicationScreen();
+
         }
     }
 }

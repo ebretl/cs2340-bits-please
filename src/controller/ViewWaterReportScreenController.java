@@ -1,27 +1,22 @@
 package controller;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.ReportManager;
 import model.UserTypeEnum;
 import model.WaterReport;
 import model.User;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class ViewWaterReportScreenController {
     private MainFXApplication mainFXApplication;
 
     private User currentUser;
+
+    private ReportManager reportManager;
 
     @FXML
     TableView<WaterReport> mainTable;
@@ -53,12 +48,13 @@ public class ViewWaterReportScreenController {
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
         this.currentUser = currentUser;
+        reportManager = new ReportManager();
         initializeTable();
     }
 
     @FXML
     private void initializeTable() {
-        mainList = getAllReports();
+        mainList = reportManager.getAllWaterReports();
         if (mainList == null || mainList.size() == 0) {
             mainFXApplication.showMainApplicationScreen();
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -87,21 +83,7 @@ public class ViewWaterReportScreenController {
     private void deletePressed() {
         if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
             ObservableList<WaterReport> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
-            Connection conn;
-            Statement stmt;
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-                stmt = conn.createStatement();
-                for (WaterReport current : selectedDelete) {
-                    String sql = "DELETE FROM WATERREPORT WHERE reportnumber = '" + current.get_reportnumber() + "';";
-                    stmt.executeUpdate(sql);
-                    mainList.remove(current);
-                }
-            } catch (Exception ignored) {
-
-            }
-
+            reportManager.deleteWaterReport(selectedDelete, mainList);
 
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -113,24 +95,4 @@ public class ViewWaterReportScreenController {
         }
     }
 
-    private ObservableList<WaterReport> getAllReports() {
-        Connection conn;
-        Statement stmt;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-            stmt = conn.createStatement();
-            String sql = "SELECT reportnumber, name, date, time, location, watertype, watercondition FROM WATERREPORT";
-            ResultSet rs = stmt.executeQuery(sql);
-            List<WaterReport> reportList = new ArrayList<>();
-            while (rs.next()) {
-                WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
-                reportList.add(temp);
-            }
-            return FXCollections.observableList(reportList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
 }
