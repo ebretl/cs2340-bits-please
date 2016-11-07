@@ -5,6 +5,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
+/**
+ * Information Holder
+ * This is data for a single Quality Report
+ */
 public class QualityReport {
     private final SimpleIntegerProperty _reportnumber = new SimpleIntegerProperty();
     private final StringProperty _date = new SimpleStringProperty();
@@ -15,6 +19,9 @@ public class QualityReport {
     private final SimpleIntegerProperty _virusPPM = new SimpleIntegerProperty();
     private final SimpleIntegerProperty _contaminantPPM = new SimpleIntegerProperty();
 
+    /**
+     * @return the report nubmer
+     */
     public int get_reportnumber() {
         return _reportnumber.get();
     }
@@ -148,7 +155,8 @@ public class QualityReport {
      * @param virusPPM the virus in parts per million
      * @param contaminantPPM the contaminant in parts per million
      */
-    public QualityReport(int reportnumber, String date, String time, String name, String location, String overallcondition, int virusPPM, int contaminantPPM) {
+    public QualityReport(int reportnumber, String date, String time,
+                         String name, String location, String overallcondition, int virusPPM, int contaminantPPM) {
         _reportnumber.set(reportnumber);
         _date.set(date);
         _time.set(time);

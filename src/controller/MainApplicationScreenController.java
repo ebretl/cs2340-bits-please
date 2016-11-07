@@ -7,6 +7,9 @@ import model.User;
 import model.UserTypeEnum;
 
 
+/**
+ * Controller for the Main App Screen
+ */
 public class MainApplicationScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -16,6 +19,7 @@ public class MainApplicationScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser the current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -58,7 +62,8 @@ public class MainApplicationScreenController {
 
     @FXML
     private void submitQualityReportPressed() {
-        if (currentUser.get_type().equals(UserTypeEnum.WORKER.toString()) ||currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
+        if (currentUser.get_type().equals(UserTypeEnum.WORKER.toString())
+                ||currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
             mainFXApplication.showSubmitQualityReportScreen();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

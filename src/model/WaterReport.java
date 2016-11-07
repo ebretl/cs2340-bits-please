@@ -5,6 +5,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 
+/**
+ * Represents a water report in the system
+ *
+ * Information Holder
+ */
 public class WaterReport {
     private final SimpleIntegerProperty _reportnumber = new SimpleIntegerProperty();
     private final StringProperty _date = new SimpleStringProperty();
@@ -81,7 +86,8 @@ public class WaterReport {
      * @param watertype the type of body of water
      * @param waterconditon the condition of the water
      */
-    public WaterReport(int reportnumber, String date, String time, String name, String location, String watertype, String waterconditon) {
+    public WaterReport(int reportnumber, String date, String time, String name, String location,
+                       String watertype, String waterconditon) {
         _reportnumber.set(reportnumber);
         _date.set(date);
         _time.set(time);

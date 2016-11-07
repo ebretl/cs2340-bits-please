@@ -15,6 +15,9 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 
+/**
+ * controls the unblock user screen
+ */
 public class UnblockUserScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -52,7 +55,7 @@ public class UnblockUserScreenController {
     @FXML
     private void initializeTable() {
         mainList = new UserManager().getBlockedUsers();
-        if (mainList == null || mainList.size() == 0) {
+        if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
@@ -84,14 +87,15 @@ public class UnblockUserScreenController {
             Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease",
+                        "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
                 for (User current : selectedDelete) {
                     String sql = "UPDATE USER SET attempt = '0' WHERE username = '" + current.get_username() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
-                if (mainList.size()== 0) {
+                if (mainList.isEmpty()) {
                     mainFXApplication.showADMINMainApplicationScreen();
                 }
             } catch (Exception ignored) {

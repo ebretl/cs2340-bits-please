@@ -13,6 +13,9 @@ import model.User;
 import model.UserTypeEnum;
 
 
+/**
+ * controls the view quality report screen
+ */
 public class ViewQualityReportScreenController {
     private MainFXApplication mainFXApplication;
 
@@ -49,6 +52,7 @@ public class ViewQualityReportScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser the current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -60,7 +64,7 @@ public class ViewQualityReportScreenController {
     @FXML
     private void initializeTable() {
         mainList = reportManager.getAllQualityReports();
-        if (mainList == null || mainList.size() == 0) {
+        if ((mainList == null) || mainList.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
@@ -89,7 +93,7 @@ public class ViewQualityReportScreenController {
     @FXML
     private void deletePressed() {
         if (currentUser.get_type().equals(UserTypeEnum.MANAGER.toString())) {
-            if (mainList.size() == 0) {
+            if (mainList.isEmpty()) {
                 mainFXApplication.showMainApplicationScreen();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainFXApplication.getStage());

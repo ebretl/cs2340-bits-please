@@ -12,6 +12,9 @@ import model.ReportManager;
 import model.User;
 
 
+/**
+ * Controls the submit quality report screen
+ */
 public class SubmitQualityReportScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -35,6 +38,7 @@ public class SubmitQualityReportScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser The current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -42,6 +46,7 @@ public class SubmitQualityReportScreenController {
     }
 
     @FXML
+    @SuppressWarnings("unchecked")
     private void initialize() {
         overallConditionField.getItems().clear();
         overallConditionField.setItems(FXCollections.observableArrayList(OverallConditionEnum.values()));
@@ -56,9 +61,10 @@ public class SubmitQualityReportScreenController {
 
     @FXML
     private void submitPressed() {
-        if (locationField == null || locationField.getText() == null || locationField.getText().trim().isEmpty()
-                || virusPPM == null || virusPPM.getText() == null || virusPPM.getText().trim().isEmpty()
-                || contaminantPPM == null || contaminantPPM.getText() == null || contaminantPPM.getText().trim().isEmpty()) {
+        if ((locationField == null) || (locationField.getText() == null) || locationField.getText().trim().isEmpty()
+                || (virusPPM == null) || (virusPPM.getText() == null) || virusPPM.getText().trim().isEmpty()
+                || (contaminantPPM == null) || (contaminantPPM.getText() == null) ||
+                contaminantPPM.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
@@ -67,7 +73,9 @@ public class SubmitQualityReportScreenController {
             alert.showAndWait();
         } else {
             ReportManager reportManager = new ReportManager();
-            reportManager.submitQualityReport(currentUser.get_username(), locationField.getText().trim(), (OverallConditionEnum)overallConditionField.getSelectionModel().getSelectedItem(), virusPPM.getText(), contaminantPPM.getText());
+            reportManager.submitQualityReport(currentUser.get_username(), locationField.getText().trim(),
+                    (OverallConditionEnum)overallConditionField.getSelectionModel().getSelectedItem(),
+                    virusPPM.getText(), contaminantPPM.getText());
             mainFXApplication.showMainApplicationScreen();
 
         }

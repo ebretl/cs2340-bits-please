@@ -3,7 +3,9 @@ package controller;
 import javafx.collections.ObservableList;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.Alert;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.ReportManager;
 import model.UserTypeEnum;
@@ -11,6 +13,9 @@ import model.WaterReport;
 import model.User;
 
 
+/**
+ * controls the view water report screen
+ */
 public class ViewWaterReportScreenController {
     private MainFXApplication mainFXApplication;
 
@@ -44,6 +49,7 @@ public class ViewWaterReportScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser the current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -55,7 +61,7 @@ public class ViewWaterReportScreenController {
     @FXML
     private void initializeTable() {
         mainList = reportManager.getAllWaterReports();
-        if (mainList == null || mainList.size() == 0) {
+        if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showMainApplicationScreen();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());

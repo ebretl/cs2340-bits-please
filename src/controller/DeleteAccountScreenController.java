@@ -17,7 +17,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * controls the delete account screen
+ */
 public class DeleteAccountScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -48,6 +50,7 @@ public class DeleteAccountScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser the current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -58,7 +61,7 @@ public class DeleteAccountScreenController {
     @FXML
     private void initializeTable() {
         mainList = getUsers();
-        if (mainList == null || mainList.size() == 0) {
+        if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -90,14 +93,15 @@ public class DeleteAccountScreenController {
             Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                conn = DriverManager.getConnection("jdbc:mysql://d" +
+                        "b4free.net:3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
                 for (User current : selectedDelete) {
                     String sql = "DELETE FROM USER WHERE username = '" + current.get_username() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
-                if (mainList.size() == 0) {
+                if (mainList.isEmpty()) {
                     mainFXApplication.showADMINMainApplicationScreen();
 
                 }
@@ -113,12 +117,19 @@ public class DeleteAccountScreenController {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT username, password, fullname, ban, attempt, type, emailaddress, homeaddress, company, jobtitle, department FROM USER";
+            String sql = "SELECT username, password, " +
+                    "fullname, ban, attempt, type, emailad" +
+                    "dress, homeaddress, company, jobtitle, department FROM USER";
             ResultSet rs = stmt.executeQuery(sql);
             List<User> reportList = new ArrayList<>();
             while (rs.next()) {
-                if (!rs.getString("username").equals(currentUser.get_username())) {
-                    User temp = new User(rs.getString("username"), rs.getString("fullname"), rs.getInt("ban"), rs.getString("type"), rs.getString("emailaddress"), rs.getString("homeaddress"), rs.getString("company"), rs.getString("jobtitle"), rs.getString("department"));
+                String username = rs.getString("username");
+                String curUser = currentUser.get_username();
+                if (!username.equals(curUser)) {
+                    User temp = new User(rs.getString("username"),
+                            rs.getString("fullname"), rs.getInt("ban"), rs.getString("type"),
+                            rs.getString("emailaddress"), rs.getString("homeaddress"),
+                            rs.getString("company"), rs.getString("jobtitle"), rs.getString("department"));
                     reportList.add(temp);
                 }
 

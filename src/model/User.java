@@ -3,12 +3,18 @@ package model;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.WritableIntegerValue;
 
 
+/**
+ * Represents a single user in the system
+ *
+ * Information Holder
+ */
 public class User {
     private final StringProperty _username = new SimpleStringProperty();
     private final StringProperty _fullname = new SimpleStringProperty();
-    private final SimpleIntegerProperty _ban = new SimpleIntegerProperty();
+    private final WritableIntegerValue _ban = new SimpleIntegerProperty();
     private final StringProperty _type = new SimpleStringProperty();
     private final StringProperty _emailaddress = new SimpleStringProperty();
     private final StringProperty _homeaddress = new SimpleStringProperty();
@@ -35,7 +41,8 @@ public class User {
      * @param jobtitle The job title of the user
      * @param department What department the user works for
      */
-    public User(String username, String fullname, int ban, String type, String emailaddress, String homeaddress, String company, String jobtitle, String department) {
+    public User(String username, String fullname, int ban, String type, String emailaddress,
+                String homeaddress, String company, String jobtitle, String department) {
         _username.set(username);
         _fullname.set(fullname);
         _ban.set(ban);

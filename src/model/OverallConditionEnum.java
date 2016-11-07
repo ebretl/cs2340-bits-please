@@ -1,7 +1,9 @@
 package model;
 
 
-
+/**
+ * The different types of water conditions
+ */
 public enum OverallConditionEnum {
     SAFE("Safe"), TREATABLE("Treatable"), UNSAFE("Unsafe");
 

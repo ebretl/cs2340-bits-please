@@ -1,6 +1,9 @@
 package model;
 
 
+/**
+ * The different types of water conditions
+ */
 public enum WaterConditionEnum {
     WASTE("Waste"), TREATABLEC("Treatable-Clear"),TREATABLEM("Treatable-Muddy"), POTABLE("Potable");
 

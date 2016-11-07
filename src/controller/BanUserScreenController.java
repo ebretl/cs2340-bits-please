@@ -14,7 +14,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
-
+/**
+ *
+ */
 public class BanUserScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -51,8 +53,9 @@ public class BanUserScreenController {
 
     @FXML
     private void initializeTable() {
-        mainList = new UserManager().getUnbannedUsers();
-        if (mainList == null || mainList.size() == 0) {
+        UserManager userMan = new UserManager();
+        mainList = userMan.getUnbannedUsers();
+        if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -79,19 +82,20 @@ public class BanUserScreenController {
 
     @FXML
     private void banPressed() {
-            ObservableList<User> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
+            ObservableList<User> selectedDelete = mainTable.getSelectionModel().getSelectedItems();
             Connection conn;
             Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:" +
+                        "3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
                 for (User current : selectedDelete) {
                     String sql = "UPDATE USER SET ban = '1' WHERE username = '" + current.get_username() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
-                if (mainList.size() == 0) {
+                if (mainList.isEmpty()) {
                     mainFXApplication.showADMINMainApplicationScreen();
 
                 }

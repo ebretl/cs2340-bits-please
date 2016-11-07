@@ -2,7 +2,6 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,9 +9,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
+/**
+ * Manages the Reports. This is service provider.
+ */
 public class ReportManager {
     /**
      * Accesses the database to get all currently existing quality reports.
@@ -25,11 +28,14 @@ public class ReportManager {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT reportnumber, name, date, time, location, overallcondition, virusPPM, contaminantPPM FROM QUALITYREPORT";
+            String sql = "SELECT reportnumber, name, date, time, location, " +
+                    "overallcondition, virusPPM, contaminantPPM FROM QUALITYREPORT";
             ResultSet rs = stmt.executeQuery(sql);
             List<QualityReport> reportList = new ArrayList<>();
             while (rs.next()) {
-                QualityReport temp = new QualityReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("overallcondition"), rs.getInt("virusPPM"), rs.getInt("contaminantPPM"));
+                QualityReport temp = new QualityReport(rs.getInt("reportnumber"), rs.getString("date"),
+                        rs.getString("time"), rs.getString("name"), rs.getString("location"),
+                        rs.getString("overallcondition"), rs.getInt("virusPPM"), rs.getInt("contaminantPPM"));
                 reportList.add(temp);
             }
             return FXCollections.observableList(reportList);
@@ -40,11 +46,12 @@ public class ReportManager {
     }
 
     /**
-     * Deletes the quality report that is currently selected on the ViewQualityReportScreenController from the database and the view.
+     * Deletes the quality report that is currently selected on the
+     * ViewQualityReportScreenController from the database and the view.
      * @param selectedDelete the quality reports that will be deleted
      * @param mainList the list of all quality reports that is seen on ViewQualityReportScreen
      */
-    public void deleteQualityReport(ObservableList<QualityReport> selectedDelete, ObservableList<QualityReport> mainList) {
+    public void deleteQualityReport(Iterable<QualityReport> selectedDelete, Collection<QualityReport> mainList) {
         Connection conn;
         Statement stmt;
         try {
@@ -69,7 +76,8 @@ public class ReportManager {
      * @param virusPPM the condition of the water in terms of virus PPM at this location
      * @param contaminantPPM the condition of the water in terms of contaminant PPM at this location
      */
-    public void submitQualityReport(String user, String location, OverallConditionEnum overallCondition, String virusPPM, String contaminantPPM) {
+    public void submitQualityReport(String user, String location, OverallConditionEnum overallCondition,
+                                    String virusPPM, String contaminantPPM) {
         int reportNumber;
         Connection conn;
         Statement stmt;
@@ -84,9 +92,14 @@ public class ReportManager {
             } else {
                 reportNumber = 1;
             }
-            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-            sql = "INSERT INTO `QUALITYREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `overallcondition`, `virusPPM`, `contaminantPPM`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + user + "', '" + location + "', '" + overallCondition + "', '" + virusPPM + "', '" + contaminantPPM + "')";
+            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" +
+                    LocalDateTime.now().getDayOfMonth();
+            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" +
+                    LocalDateTime.now().getSecond();
+            sql = "INSERT INTO `QUALITYREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, " +
+                    "`overallcondition`, `virusPPM`, `contaminantPPM`) VALUES ('" + reportNumber + "', '"
+                    + date + "', '" + time + "', '" + user + "', '" + location + "', '" + overallCondition
+                    + "', '" + virusPPM + "', '" + contaminantPPM + "')";
             stmt.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,7 +122,9 @@ public class ReportManager {
             ResultSet rs = stmt.executeQuery(sql);
             List<WaterReport> reportList = new ArrayList<>();
             while (rs.next()) {
-                WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
+                WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"),
+                        rs.getString("time"), rs.getString("name"), rs.getString("location"),
+                        rs.getString("watertype"), rs.getString("watercondition"));
                 reportList.add(temp);
             }
             return FXCollections.observableList(reportList);
@@ -120,11 +135,12 @@ public class ReportManager {
     }
 
     /**
-     * Deletes the water report that is currently selected on the ViewWaterReportScreenController from the database and from the view.
+     * Deletes the water report that is currently selected on the ViewWaterReportScreenController
+     * from the database and from the view.
      * @param selectedDelete the water reports that will be deleted
      * @param mainList the list of all water reports that is seen on ViewWaterReportScreen
      */
-    public void deleteWaterReport(ObservableList<WaterReport> selectedDelete, ObservableList<WaterReport> mainList) {
+    public void deleteWaterReport(Iterable<WaterReport> selectedDelete, Collection<WaterReport> mainList) {
         Connection conn;
         Statement stmt;
         try {
@@ -148,7 +164,8 @@ public class ReportManager {
      * @param waterType the type of water at this location
      * @param waterCondition the condition of the water at this location
      */
-    public void submitWaterReport(String user, String location, WaterTypeEnum waterType, WaterConditionEnum waterCondition) {
+    public void submitWaterReport(String user, String location, WaterTypeEnum waterType,
+                                  WaterConditionEnum waterCondition) {
         int reportNumber;
         Connection conn;
         Statement stmt;
@@ -163,9 +180,13 @@ public class ReportManager {
             } else {
                 reportNumber = 1;
             }
-            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" + LocalDateTime.now().getDayOfMonth();
-            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" + LocalDateTime.now().getSecond();
-            sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, `watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '" + time + "', '" + user + "', '" + location + "', '" + waterType + "', '" + waterCondition + "')";
+            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" +
+                    LocalDateTime.now().getDayOfMonth();
+            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" +
+                    LocalDateTime.now().getSecond();
+            sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, " +
+                    "`watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '"
+                    + time + "', '" + user + "', '" + location + "', '" + waterType + "', '" + waterCondition + "')";
             stmt.executeUpdate(sql);
         } catch (Exception e) {
             e.printStackTrace();

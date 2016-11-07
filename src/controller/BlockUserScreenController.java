@@ -15,6 +15,9 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 
+/**
+ * Controls the block user screen
+ */
 public class BlockUserScreenController {
 
     private MainFXApplication mainFXApplication;
@@ -51,8 +54,9 @@ public class BlockUserScreenController {
 
     @FXML
     private void initializeTable() {
-        mainList = new UserManager().getUnblockedUsers();
-        if (mainList == null || mainList.size() == 0) {
+        UserManager userMan = new UserManager();
+        mainList = userMan.getUnblockedUsers();
+        if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
 
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -79,19 +83,20 @@ public class BlockUserScreenController {
 
     @FXML
     private void blockPressed() {
-            ObservableList<User> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
+            ObservableList<User> selectedDelete = mainTable.getSelectionModel().getSelectedItems();
             Connection conn;
             Statement stmt;
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                conn = DriverManager.getConnection("jdbc:mysql://db4fre" +
+                        "e.net:3306/bitsplease", "bitsplease", "bitsplease");
                 stmt = conn.createStatement();
                 for (User current : selectedDelete) {
                     String sql = "UPDATE USER SET attempt = '99' WHERE username = '" + current.get_username() + "';";
                     stmt.executeUpdate(sql);
                     mainList.remove(current);
                 }
-                if (mainList.size() == 0) {
+                if (mainList.isEmpty()) {
                     mainFXApplication.showADMINMainApplicationScreen();
 
                 }

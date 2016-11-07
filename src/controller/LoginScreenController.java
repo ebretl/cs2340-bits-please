@@ -2,12 +2,22 @@ package controller;
 
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.Alert;
 import model.User;
 import model.UserTypeEnum;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
+
+/**
+ * Controls the Login Screen
+ */
 public class LoginScreenController {
     private MainFXApplication mainFXApplication;
 
@@ -18,6 +28,11 @@ public class LoginScreenController {
     private PasswordField passwordField;
 
     private User currentUser;
+
+    /**
+     * @param main a reference (link) to our main class
+     * @param currentUser the current user using the app
+     */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
         this.currentUser = currentUser;
@@ -37,7 +52,9 @@ public class LoginScreenController {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT username, password, fullname, ban, attempt, type, emailaddress, homeaddress, company, jobtitle, department FROM USER WHERE username = '" + usernameField.getText().trim() + "'";
+            String sql = "SELECT username, password, fullname, " +
+                    "ban, attempt, type, emailaddress, homeaddress, company," +
+                    " jobtitle, department FROM USER WHERE username = '" + usernameField.getText().trim() + "'";
             ResultSet rs = stmt.executeQuery(sql);
             if (!rs.next()) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -70,13 +87,15 @@ public class LoginScreenController {
             e.printStackTrace();
         } finally {
             try{
-                if(stmt!=null)
+                if(stmt!=null) {
                     stmt.close();
+                }
             } catch(SQLException ignored) {
             }
             try{
-                if(conn!=null)
+                if(conn!=null) {
                     conn.close();
+                }
             } catch(SQLException ignored){
             }
         }
@@ -85,7 +104,7 @@ public class LoginScreenController {
 
     private boolean checkUserCredentials(ResultSet rs) {
         try {
-            if (rs.getInt("attempt") > 2 && !rs.getString("type").equals(UserTypeEnum.ADMIN.toString())) {
+            if ((rs.getInt("attempt") > 2) && !rs.getString("type").equals(UserTypeEnum.ADMIN.toString())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.initOwner(mainFXApplication.getStage());
                 alert.setTitle("Account Locked!");
@@ -98,7 +117,8 @@ public class LoginScreenController {
                     Connection conn;
                     Statement stmt;
                     Class.forName("com.mysql.jdbc.Driver");
-                    conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                    conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease",
+                            "bitsplease", "bitsplease");
                     stmt = conn.createStatement();
                     String sql = "UPDATE USER SET attempt = '0' WHERE username = '" + usernameField.getText() + "'";
                     stmt.executeUpdate(sql);
@@ -108,9 +128,11 @@ public class LoginScreenController {
                     Connection conn;
                     Statement stmt;
                     Class.forName("com.mysql.jdbc.Driver");
-                    conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+                    conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease",
+                            "bitsplease", "bitsplease");
                     stmt = conn.createStatement();
-                    String sql = "UPDATE USER SET attempt = '" + newAttempt + "' WHERE username = '" + usernameField.getText() + "'";
+                    String sql = "UPDATE USER SET attempt = '" + newAttempt +
+                            "' WHERE username = '" + usernameField.getText() + "'";
                     stmt.executeUpdate(sql);
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);

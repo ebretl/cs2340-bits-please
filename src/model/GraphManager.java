@@ -13,7 +13,14 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+/**
+ * Manages the historical graph information. This is service provi
+ */
 public class GraphManager {
+
+    private static final int width = 800;
+    private static final int length = 600;
+
     /**
      * Gets all of the distinct years in the quality report database.
      * @return an observable list of integers
@@ -71,6 +78,7 @@ public class GraphManager {
      * @param location the location name
      * @param year the year that is being evaluated in the quality report
      */
+    @SuppressWarnings("unchecked")
     public void plotGraph(int[] xval, Integer[] yval, String virus, String location, Integer year) {
         Stage graphStage = new Stage();
         graphStage.setTitle("Historical Graph View!");
@@ -86,12 +94,16 @@ public class GraphManager {
         lineChart.setLegendVisible(false);
         for (int i = 0; i < xval.length; i++) {
             if (yval[i] != null) {
-                series.getData().add(new XYChart.Data(xval[i], yval[i]));
+                //series.getData().add(new XYChart.Data(xval[i], yval[i]));
+                ObservableList data = series.getData();
+                data.add(new XYChart.Data(xval[i], yval[i]));
             }
         }
 
-        Scene scene  = new Scene(lineChart,800,600);
-        lineChart.getData().add(series);
+        Scene scene  = new Scene(lineChart, width, length);
+        //lineChart.getData().add(series);
+        ObservableList data = lineChart.getData();
+        data.add(series);
 
         graphStage.setScene(scene);
         graphStage.show();

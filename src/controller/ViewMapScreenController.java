@@ -7,12 +7,18 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 
 
 import com.lynden.gmapsfx.javascript.event.UIEventType;
-import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.javascript.object.GoogleMap;
+import com.lynden.gmapsfx.javascript.object.MapOptions;
+import com.lynden.gmapsfx.javascript.object.LatLong;
+import com.lynden.gmapsfx.javascript.object.MapTypeIdEnum;
+import com.lynden.gmapsfx.javascript.object.MarkerOptions;
+import com.lynden.gmapsfx.javascript.object.Marker;
+import com.lynden.gmapsfx.javascript.object.InfoWindow;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.AnchorPane;
-import com.lynden.gmapsfx.service.geocoding.*;
-import model.WaterReport;
+import com.lynden.gmapsfx.service.geocoding.GeocodingService;
+import com.lynden.gmapsfx.service.geocoding.GeocodingResult;
+import com.lynden.gmapsfx.service.geocoding.GeocoderStatus;
 import netscape.javascript.JSObject;
 
 import java.net.URL;
@@ -20,20 +26,33 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.ResourceBundle;
+import java.util.List;
+import java.util.ArrayList;
 
 
+/**
+ * controls the view map screen
+ */
 public class ViewMapScreenController implements Initializable, MapComponentInitializedListener {
 
-    @FXML
-    private AnchorPane AnchorPane;
+    // --Commented out by Inspection START (11/7/16, 1:26 PM):
+//    @FXML
+//    private AnchorPane AnchorPane;
+// --Commented out by Inspection STOP (11/7/16, 1:26 PM)
+
+    private static final double atlLat = 33.780064;
+    private static final int zoomLevel = 12;
+    private static final double atlLong = -84.389363;
 
     @FXML
     private GoogleMapView mapView;
 
     private GoogleMap map;
 
-    private HashMap<String, Pair<String, String>> uniqueLocationTable;
+    private Map<String, Pair<String, String>> uniqueLocationTable;
 
     private GeocodingService geocodingService;
     /*
@@ -49,6 +68,9 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     */
 
 
+    /**
+     * Initializes the map
+     */
     public void setMainApp() {
         uniqueLocationTable = new HashMap<>();
 
@@ -71,7 +93,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
         MapOptions mapOptions = new MapOptions();
 
-        mapOptions.center(new LatLong(33.780064,-84.389363))
+        mapOptions.center(new LatLong(atlLat, atlLong))
                 .mapType(MapTypeIdEnum.ROADMAP)
                 .mapMarker(true)
                 .overviewMapControl(false)
@@ -80,7 +102,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
                 .scaleControl(false)
                 .streetViewControl(false)
                 .zoomControl(false)
-                .zoom(12);
+                .zoom(zoomLevel);
 
         map = mapView.createMap(mapOptions);
 
@@ -95,7 +117,7 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
     }
 
     private void markerInitialize() {
-        List<WaterReport> allReports = getAllReports();
+        getAllReports();
         String[] uniqueLocations = uniqueLocationTable.keySet().toArray(new String[0]);
         List<LatLong> coordinateList = new ArrayList<>();
 
@@ -107,13 +129,14 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
                 if (status == GeocoderStatus.ZERO_RESULTS) {
                     Alert alert = new Alert(Alert.AlertType.ERROR, "No matching address found");
                     alert.show();
-                    latLong = null;
                 } else if (results.length > 1) {
                     Alert alert = new Alert(Alert.AlertType.WARNING, "Multiple results found, showing the first one.");
                     alert.show();
-                    latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
+                    latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(),
+                            results[0].getGeometry().getLocation().getLongitude());
                 } else {
-                    latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(), results[0].getGeometry().getLocation().getLongitude());
+                    latLong = new LatLong(results[0].getGeometry().getLocation().getLatitude(),
+                            results[0].getGeometry().getLocation().getLongitude());
                 }
 
                 coordinateList.add(latLong);
@@ -132,7 +155,8 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
             if (latLong != null) {
                 String address = uniqueLocations[i];
                 Pair<String, String> current = uniqueLocationTable.get(address);
-                createMarker(latLong, "Water Type: " + current.getKey() + "<br>" + "Water Condition: " + current.getValue());
+                createMarker(latLong, "Water Type: " + current.getKey() + "<br>" +
+                        "Water Condition: " + current.getValue());
             }
         }
     }
@@ -154,27 +178,24 @@ public class ViewMapScreenController implements Initializable, MapComponentIniti
 
 
     }
-    private List<WaterReport> getAllReports() {
+    private void getAllReports() {
         Connection conn;
         Statement stmt;
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "SELECT reportnumber, name, date, time, location, watertype, watercondition FROM WATERREPORT ORDER BY date DESC, time DESC";
+            String sql = "SELECT reportnumber, name, date, time, location, watertype, " +
+                    "watercondition FROM WATERREPORT ORDER BY date DESC, time DESC";
             ResultSet rs = stmt.executeQuery(sql);
-            List<WaterReport> reportList = new ArrayList<>();
             while (rs.next()) {
                 if (!uniqueLocationTable.containsKey(rs.getString("location").replace("\n",","))) {
-                    uniqueLocationTable.put(rs.getString("location").replace("\n",","), new Pair<>(rs.getString("watertype"), rs.getString("watercondition")));
+                    uniqueLocationTable.put(rs.getString("location").replace("\n",","),
+                            new Pair<>(rs.getString("watertype"), rs.getString("watercondition")));
                 }
-                WaterReport temp = new WaterReport(rs.getInt("reportnumber"), rs.getString("date"), rs.getString("time"), rs.getString("name"), rs.getString("location"), rs.getString("watertype"), rs.getString("watercondition"));
-                reportList.add(temp);
             }
-            return reportList;
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
         }
     }
 }

@@ -4,6 +4,9 @@ import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 
 
+/**
+ * Control the admin application view
+ */
 public class ADMINMainApplicationScreenController {
 
     private MainFXApplication mainFXApplication;

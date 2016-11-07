@@ -1,6 +1,9 @@
 package model;
 
 
+/**
+ * The different types of users that can use the app
+ */
 public enum UserTypeEnum {
     USER("user"), WORKER("worker"), MANAGER("manager"), ADMIN("admin");
 

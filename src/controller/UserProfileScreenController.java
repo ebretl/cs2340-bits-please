@@ -13,6 +13,9 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 
+/**
+ * controls the user profile screen
+ */
 public class UserProfileScreenController {
 
     @FXML
@@ -43,6 +46,7 @@ public class UserProfileScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser the current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -78,7 +82,11 @@ public class UserProfileScreenController {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
-            String sql = "UPDATE USER SET fullname = '" + fullnameField.getText() + "', emailaddress = '" + emailaddressField.getText() + "', homeaddress = '" + homeaddressField.getText() + "', company = '" + companyField.getText() + "', jobtitle = '" + jobtitleField.getText() + "', department = '" + departmentField.getText() + "' WHERE username = '" + currentUser.get_username() + "'";
+            String sql = "UPDATE USER SET fullname = '" + fullnameField.getText() + "', emailaddress = '" +
+                    emailaddressField.getText() + "', homeaddress = '" + homeaddressField.getText() +
+                    "', company = '" + companyField.getText() + "', jobtitle = '" + jobtitleField.getText() +
+                    "', department = '" + departmentField.getText() + "' WHERE username = '" +
+                    currentUser.get_username() + "'";
             stmt.executeUpdate(sql);
             updateUser();
             mainFXApplication.showMainApplicationScreen();

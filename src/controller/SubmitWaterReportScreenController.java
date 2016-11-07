@@ -11,6 +11,9 @@ import model.User;
 import model.WaterConditionEnum;
 import model.WaterTypeEnum;
 
+/**
+ * The conroller for the submit water report screen
+ */
 public class SubmitWaterReportScreenController {
     private MainFXApplication mainFXApplication;
 
@@ -33,6 +36,7 @@ public class SubmitWaterReportScreenController {
      * Gets an instance of the current main application running
      * @param main the instance of the current application running
      *             A reference of this is stored in a local variable
+     * @param currentUser the current user using the app
      */
     public void setMainApp(MainFXApplication main, User currentUser) {
         mainFXApplication = main;
@@ -41,6 +45,7 @@ public class SubmitWaterReportScreenController {
     }
 
     @FXML
+    @SuppressWarnings("unchecked")
     private void initialize() {
         waterConditionField.getItems().clear();
         waterConditionField.setItems(FXCollections.observableArrayList(WaterConditionEnum.values()));
@@ -58,7 +63,7 @@ public class SubmitWaterReportScreenController {
 
     @FXML
     private void submitPressed() {
-        if (locationField == null || locationField.getText() == null || locationField.getText().trim().isEmpty()) {
+        if ((locationField == null) || (locationField.getText() == null) || locationField.getText().trim().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(mainFXApplication.getStage());
             alert.setTitle("Error!");
@@ -66,7 +71,9 @@ public class SubmitWaterReportScreenController {
             alert.setContentText("You have to provide a location!");
             alert.showAndWait();
         } else {
-            reportManager.submitWaterReport(currentUser.get_username(), locationField.getText().trim(), (WaterTypeEnum)waterTypeField.getSelectionModel().getSelectedItem(), (WaterConditionEnum)waterConditionField.getSelectionModel().getSelectedItem());
+            reportManager.submitWaterReport(currentUser.get_username(), locationField.getText().trim(),
+                    (WaterTypeEnum)waterTypeField.getSelectionModel().getSelectedItem(),
+                    (WaterConditionEnum)waterConditionField.getSelectionModel().getSelectedItem());
             mainFXApplication.showMainApplicationScreen();
         }
     }
