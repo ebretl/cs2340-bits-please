@@ -31,7 +31,9 @@ public class UserManager {
             ResultSet rs = stmt.executeQuery(sql);
             List<User> reportList = new ArrayList<>();
             while (rs.next()) {
-                if (rs.getString("type").equals(UserTypeEnum.USER.toString()) && (rs.getInt("ban") == 0)) {
+                String userType = UserTypeEnum.USER.toString();
+                String responseType = rs.getString("type");
+                if (userType.equals(responseType) && (rs.getInt("ban") == 0)) {
                     User temp = new User(rs.getString("username"), rs.getString("fullname"),
                             rs.getInt("ban"), rs.getString("type"), rs.getString("emailaddress"),
                             rs.getString("homeaddress"), rs.getString("company"), rs.getString("jobtitle"),
@@ -65,7 +67,9 @@ public class UserManager {
             ResultSet rs = stmt.executeQuery(sql);
             List<User> reportList = new ArrayList<>();
             while (rs.next()) {
-                if (rs.getString("type").equals(UserTypeEnum.USER.toString()) && (rs.getInt("ban") == 1)) {
+                String responseType = rs.getString("type");
+                String userType = UserTypeEnum.USER.toString();
+                if (userType.equals(responseType) && (rs.getInt("ban") == 1)) {
                     User temp = new User(rs.getString("username"), rs.getString("fullname"), rs.getInt("ban"),
                             rs.getString("type"), rs.getString("emailaddress"), rs.getString("homeaddress"),
                             rs.getString("company"), rs.getString("jobtitle"), rs.getString("department"));
@@ -98,7 +102,9 @@ public class UserManager {
             ResultSet rs = stmt.executeQuery(sql);
             List<User> reportList = new ArrayList<>();
             while (rs.next()) {
-                if (!rs.getString("type").equals(UserTypeEnum.ADMIN.toString()) && (rs.getInt("attempt") < 3)) {
+                String responseType = rs.getString("type");
+                String adminType = UserTypeEnum.ADMIN.toString();
+                if (!adminType.equals(responseType) && (rs.getInt("attempt") < 3)) {
                     User temp = new User(rs.getString("username"),
                             rs.getString("fullname"), rs.getInt("ban"), rs.getString("type"),
                             rs.getString("emailaddress"), rs.getString("homeaddress"), rs.getString("company"),
@@ -131,7 +137,9 @@ public class UserManager {
             ResultSet rs = stmt.executeQuery(sql);
             List<User> reportList = new ArrayList<>();
             while (rs.next()) {
-                if (!rs.getString("type").equals(UserTypeEnum.ADMIN.toString()) && (rs.getInt("attempt") > 2)) {
+                String responseType = rs.getString("type");
+                String adminType = UserTypeEnum.ADMIN.toString();
+                if (!adminType.equals(responseType) && (rs.getInt("attempt") > 2)) {
                     User temp = new User(rs.getString("username"), rs.getString("fullname"), rs.getInt("ban"),
                             rs.getString("type"), rs.getString("emailaddress"), rs.getString("homeaddress"),
                             rs.getString("company"), rs.getString("jobtitle"), rs.getString("department"));

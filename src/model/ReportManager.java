@@ -92,10 +92,9 @@ public class ReportManager {
             } else {
                 reportNumber = 1;
             }
-            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" +
-                    LocalDateTime.now().getDayOfMonth();
-            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" +
-                    LocalDateTime.now().getSecond();
+            LocalDateTime now = LocalDateTime.now();
+            String date = now.getYear() + "-" + now.getMonthValue() + "-" + now.getDayOfMonth();
+            String time = now.getHour() + ":" + now.getMinute() + ":" + now.getSecond();
             sql = "INSERT INTO `QUALITYREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, " +
                     "`overallcondition`, `virusPPM`, `contaminantPPM`) VALUES ('" + reportNumber + "', '"
                     + date + "', '" + time + "', '" + user + "', '" + location + "', '" + overallCondition
@@ -180,10 +179,9 @@ public class ReportManager {
             } else {
                 reportNumber = 1;
             }
-            String date = LocalDateTime.now().getYear() + "-" + LocalDateTime.now().getMonthValue() + "-" +
-                    LocalDateTime.now().getDayOfMonth();
-            String time = LocalDateTime.now().getHour() + ":" + LocalDateTime.now().getMinute() + ":" +
-                    LocalDateTime.now().getSecond();
+            LocalDateTime now = LocalDateTime.now();
+            String date = now.getYear() + "-" + now.getMonthValue() + "-" + now.getDayOfMonth();
+            String time = now.getHour() + ":" + now.getMinute() + ":" + now.getSecond();
             sql = "INSERT INTO `WATERREPORT` (`reportnumber`, `date`, `time`, `name`, `location`, " +
                     "`watertype`, `watercondition`) VALUES ('" + reportNumber + "', '" + date + "', '"
                     + time + "', '" + user + "', '" + location + "', '" + waterType + "', '" + waterCondition + "')";

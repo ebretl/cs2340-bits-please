@@ -65,13 +65,12 @@ public class MainFXApplication extends Application{
     }
 
     /**
-     * Show's the welcome screen of the app
+     * Shows the welcome screen of the app
      */
     public void showWelcomeScreen() {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = getLoader("WelcomeScreen.fxml");
-            //loader.setLocation();
             Pane rootLayout = (loader != null) ? loader.load() : null;
             // Give the controller access to the main app.
             WelcomeScreenController controller = (loader != null) ? loader.getController() : null;
@@ -104,7 +103,7 @@ public class MainFXApplication extends Application{
     }
 
     /**
-     * Show's the login screen of the app
+     * Shows the login screen of the app
      */
     public void showLoginScreen() {
         try {
@@ -150,7 +149,7 @@ public class MainFXApplication extends Application{
     }
 
     /**
-     * Shows the Registarion Screen
+     * Shows the Registration Screen
      */
     public void showRegistrationScreen() {
         try {
