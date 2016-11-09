@@ -190,4 +190,118 @@ public class UserManager {
             return null;
         }
     }
+
+    /**
+     * Bans the selected users from submitting water reports and removes them from the list shown in the view.
+     * @param selectedDelete a list of users to ban
+     * @param mainList a list of all users that could be banned
+     */
+    public void banUsers(ObservableList<User> selectedDelete, ObservableList<User> mainList) {
+        Connection conn;
+        Statement stmt;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:" +
+                    "3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            for (User current : selectedDelete) {
+                String sql = "UPDATE USER SET ban = '1' WHERE username = '" + current.get_username() + "';";
+                stmt.executeUpdate(sql);
+                mainList.remove(current);
+            }
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    /**
+     * Blocks user from logging in and using the application. Removes them from the list of users shown in the view.
+     * @param selectedDelete a list of users to block
+     * @param mainList a list of all users that could be blocked
+     */
+    public void blockUsers(ObservableList<User> selectedDelete, ObservableList<User> mainList) {
+        Connection conn;
+        Statement stmt;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://db4fre" +
+                    "e.net:3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            for (User current : selectedDelete) {
+                String sql = "UPDATE USER SET attempt = '99' WHERE username = '" + current.get_username() + "';";
+                stmt.executeUpdate(sql);
+                mainList.remove(current);
+            }
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    /**
+     * Deletes user from the application database. Removes them from the list of users shown in the view.
+     * @param selectedDelete a list of users to delete
+     * @param mainList a list of all users that could be detleted
+     */
+    public void deleteUsers(ObservableList<User> selectedDelete, ObservableList<User> mainList) {
+        Connection conn;
+        Statement stmt;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://d" +
+                    "b4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            for (User current : selectedDelete) {
+                String sql = "DELETE FROM USER WHERE username = '" + current.get_username() + "';";
+                stmt.executeUpdate(sql);
+                mainList.remove(current);
+            }
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    /**
+     * Creates the specified user in the database.
+     *
+     * @param username the user's desired username
+     * @param password the user's desired password
+     * @param fullName the user's full name
+     * @param userType the user's user type
+     */
+    public void createUser(String username, String password, String fullName, UserTypeEnum userType) {
+        Connection conn;
+        Statement stmt;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            String sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, " +
+                    "`attempt`, `type`) VALUES ('" + username + "', '" + password + "', '" + fullName + "', '0', '0', '"
+                    + userType.toString() +"')";
+            stmt.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Accesses the database to get any users with the inputted username.
+     * @param username a string of a username that a user wants to have
+     * @return the users with the specified username
+     */
+    public ResultSet getUsersWithUsername(String username) {
+        Connection conn;
+        Statement stmt;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            String sql = "SELECT username FROM USER WHERE username = '" + username + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            return rs;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

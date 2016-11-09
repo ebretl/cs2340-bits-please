@@ -21,6 +21,8 @@ public class BanUserScreenController {
 
     private MainFXApplication mainFXApplication;
 
+    private UserManager userMan = new UserManager();
+
     @FXML
     TableView<User> mainTable;
 
@@ -53,7 +55,6 @@ public class BanUserScreenController {
 
     @FXML
     private void initializeTable() {
-        UserManager userMan = new UserManager();
         mainList = userMan.getUnbannedUsers();
         if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
@@ -75,32 +76,17 @@ public class BanUserScreenController {
         }
     }
 
-@FXML
+    @FXML
     private void backPressed() {
         mainFXApplication.showADMINMainApplicationScreen();
     }
 
     @FXML
     private void banPressed() {
-            ObservableList<User> selectedDelete = mainTable.getSelectionModel().getSelectedItems();
-            Connection conn;
-            Statement stmt;
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4free.net:" +
-                        "3306/bitsplease", "bitsplease", "bitsplease");
-                stmt = conn.createStatement();
-                for (User current : selectedDelete) {
-                    String sql = "UPDATE USER SET ban = '1' WHERE username = '" + current.get_username() + "';";
-                    stmt.executeUpdate(sql);
-                    mainList.remove(current);
-                }
-                if (mainList.isEmpty()) {
-                    mainFXApplication.showADMINMainApplicationScreen();
-
-                }
-            } catch (Exception ignored) {
-
-            }
+        ObservableList<User> selectedDelete = mainTable.getSelectionModel().getSelectedItems();
+        userMan.banUsers(selectedDelete, mainList);
+        if (mainList.isEmpty()) {
+            mainFXApplication.showADMINMainApplicationScreen();
+        }
     }
 }

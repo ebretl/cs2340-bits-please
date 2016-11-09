@@ -22,6 +22,8 @@ public class BlockUserScreenController {
 
     private MainFXApplication mainFXApplication;
 
+    private UserManager userMan = new UserManager();
+
     @FXML
     TableView<User> mainTable;
 
@@ -54,7 +56,6 @@ public class BlockUserScreenController {
 
     @FXML
     private void initializeTable() {
-        UserManager userMan = new UserManager();
         mainList = userMan.getUnblockedUsers();
         if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
@@ -83,25 +84,10 @@ public class BlockUserScreenController {
 
     @FXML
     private void blockPressed() {
-            ObservableList<User> selectedDelete = mainTable.getSelectionModel().getSelectedItems();
-            Connection conn;
-            Statement stmt;
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://db4fre" +
-                        "e.net:3306/bitsplease", "bitsplease", "bitsplease");
-                stmt = conn.createStatement();
-                for (User current : selectedDelete) {
-                    String sql = "UPDATE USER SET attempt = '99' WHERE username = '" + current.get_username() + "';";
-                    stmt.executeUpdate(sql);
-                    mainList.remove(current);
-                }
-                if (mainList.isEmpty()) {
-                    mainFXApplication.showADMINMainApplicationScreen();
-
-                }
-            } catch (Exception ignored) {
-
-            }
+        ObservableList<User> selectedDelete = mainTable.getSelectionModel().getSelectedItems();
+        userMan.blockUsers(selectedDelete, mainList);
+        if (mainList.isEmpty()) {
+            mainFXApplication.showADMINMainApplicationScreen();
+        }
     }
 }

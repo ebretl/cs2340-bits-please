@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import model.UserManager;
 import model.UserTypeEnum;
 
 import java.sql.Connection;
@@ -21,6 +22,8 @@ import java.sql.SQLException;
 public class RegistrationScreenController {
 
     private MainFXApplication mainFXApplication;
+
+    private UserManager userManager = new UserManager();
 
     /**
      * Gets an instance of the current main application running
@@ -57,15 +60,9 @@ public class RegistrationScreenController {
 
     @FXML
     private void registerPressed() {
-        Connection conn = null;
-        Statement stmt = null;
         try{
             javafx.stage.Stage m1 = mainFXApplication.getStage();
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-            stmt = conn.createStatement();
-            String sql = "SELECT username FROM USER WHERE username = '" + usernameField.getText().trim() + "'";
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = userManager.getUsersWithUsername(usernameField.getText().trim());
 
             if (rs.next()) {
                 alertDuplicate(m1);
@@ -75,34 +72,17 @@ public class RegistrationScreenController {
                     passwordField.getText().trim().isEmpty() || fullnameField.getText().trim().isEmpty()) {
                 alertBlank(m1);
             } else {
-                stmt = conn.createStatement();
                 UserTypeEnum usertype = usertypeField.getSelectionModel().getSelectedItem();
-                //System.out.println(usertype.toString());
-                sql = "INSERT INTO `USER` (`username`, `password`, `fullname`, `ban`, " +
-                        "`attempt`, `type`) VALUES ('" + usernameField.getText().trim() + "', '" +
-                        passwordField.getText() + "', '" + fullnameField.getText().trim() + "', '0', '0', '" +
-                        usertype.toString() +"')";
-                stmt.executeUpdate(sql);
+                userManager.createUser(usernameField.getText().trim(), passwordField.getText(),
+                        fullnameField.getText().trim(), usertype);
                 mainFXApplication.showWelcomeScreen();
             }
         } catch(Exception e){
             mainFXApplication.showDatabaseError();
             e.printStackTrace();
-        } finally {
-            try{
-                if(stmt!=null) {
-                    stmt.close();
-                }
-            } catch(SQLException ignored) {
-            }
-            try{
-                if(conn!=null) {
-                    conn.close();
-                }
-            } catch(SQLException ignored){
-            }
         }
     }
+
     private void alertDuplicate(javafx.stage.Stage m1) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.initOwner(m1);

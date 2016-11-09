@@ -23,6 +23,8 @@ public class DeleteAccountScreenController {
 
     private User currentUser;
 
+    private UserManager userMan = new UserManager();
+
     @FXML
     TableView<User> mainTable;
 
@@ -57,7 +59,7 @@ public class DeleteAccountScreenController {
 
     @FXML
     private void initializeTable() {
-        mainList = getUsers();
+        mainList = userMan.getUsers(currentUser);
         if ((mainList == null) || mainList.isEmpty()) {
             mainFXApplication.showADMINMainApplicationScreen();
 
@@ -85,30 +87,10 @@ public class DeleteAccountScreenController {
 
     @FXML
     private void deletePressed() {
-            ObservableList<User> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
-            Connection conn;
-            Statement stmt;
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                conn = DriverManager.getConnection("jdbc:mysql://d" +
-                        "b4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-                stmt = conn.createStatement();
-                for (User current : selectedDelete) {
-                    String sql = "DELETE FROM USER WHERE username = '" + current.get_username() + "';";
-                    stmt.executeUpdate(sql);
-                    mainList.remove(current);
-                }
-                if (mainList.isEmpty()) {
-                    mainFXApplication.showADMINMainApplicationScreen();
-
-                }
-            } catch (Exception ignored) {
-
-            }
-    }
-
-    private ObservableList<User> getUsers() {
-        UserManager uman = new UserManager();
-        return uman.getUsers(currentUser);
+        ObservableList<User> selectedDelete =  mainTable.getSelectionModel().getSelectedItems();
+        userMan.deleteUsers(selectedDelete, mainList);
+        if (mainList.isEmpty()) {
+            mainFXApplication.showADMINMainApplicationScreen();
+        }
     }
 }
