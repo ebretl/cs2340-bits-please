@@ -66,24 +66,14 @@ public class RegistrationScreenController {
             stmt = conn.createStatement();
             String sql = "SELECT username FROM USER WHERE username = '" + usernameField.getText().trim() + "'";
             ResultSet rs = stmt.executeQuery(sql);
+
             if (rs.next()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(m1);
-                alert.setTitle("Invalid Fields");
-                alert.setHeaderText("There is already a registered user with this username");
-                alert.setContentText("Kindly use something else!");
-                alert.showAndWait();
+                alertDuplicate(m1);
             } else if ((usernameField.getText() == null) || (passwordField.getText() == null)
                     || (fullnameField.getText() == null)
                     || usernameField.getText().trim().isEmpty() ||
                     passwordField.getText().trim().isEmpty() || fullnameField.getText().trim().isEmpty()) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.initOwner(m1);
-                alert.setTitle("Invalid Fields");
-                alert.setHeaderText("You left one or more fields blank!");
-                alert.setContentText("You must provide your name, a un" +
-                        "ique username and password for access to your account!");
-                alert.showAndWait();
+                alertBlank(m1);
             } else {
                 stmt = conn.createStatement();
                 UserTypeEnum usertype = usertypeField.getSelectionModel().getSelectedItem();
@@ -113,5 +103,21 @@ public class RegistrationScreenController {
             }
         }
     }
-
+    private void alertDuplicate(javafx.stage.Stage m1) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(m1);
+        alert.setTitle("Invalid Fields");
+        alert.setHeaderText("There is already a registered user with this username");
+        alert.setContentText("Kindly use something else!");
+        alert.showAndWait();
+    }
+    private void alertBlank(javafx.stage.Stage m1) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(m1);
+        alert.setTitle("Invalid Fields");
+        alert.setHeaderText("You left one or more fields blank!");
+        alert.setContentText("You must provide your name, a un" +
+                "ique username and password for access to your account!");
+        alert.showAndWait();
+    }
 }

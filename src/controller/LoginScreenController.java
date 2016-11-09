@@ -48,7 +48,7 @@ public class LoginScreenController {
 
         Connection conn = null;
         Statement stmt = null;
-        try{
+        try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
@@ -64,43 +64,50 @@ public class LoginScreenController {
                 alert.setContentText("Incorrect username!");
                 alert.showAndWait();
             } else {
-                if (checkUserCredentials(rs)) {
-                    currentUser.set_username(rs.getString("username"));
-                    currentUser.set_fullname(rs.getString("fullname"));
-                    currentUser.set_ban(rs.getInt("ban"));
-                    currentUser.set_type(rs.getString("type"));
-                    currentUser.set_emailaddress(rs.getString("emailaddress"));
-                    currentUser.set_homeaddress(rs.getString("homeaddress"));
-                    currentUser.set_company(rs.getString("company"));
-                    currentUser.set_jobtitle(rs.getString("jobtitle"));
-                    currentUser.set_department(rs.getString("department"));
-                    if (currentUser.get_type().equals(UserTypeEnum.ADMIN.toString())) {
-                        mainFXApplication.showADMINMainApplicationScreen();
-                    } else {
-                        mainFXApplication.showMainApplicationScreen();
-                    }
-
-                }
+                addUser(rs);
             }
-        } catch(Exception e){
+        } catch (Exception e) {
             mainFXApplication.showDatabaseError();
             e.printStackTrace();
         } finally {
-            try{
-                if(stmt!=null) {
-                    stmt.close();
-                }
-            } catch(SQLException ignored) {
-            }
-            try{
-                if(conn!=null) {
-                    conn.close();
-                }
-            } catch(SQLException ignored){
-            }
-        }
+            close (stmt, conn);
 
+        }
     }
+    private void addUser(ResultSet rs) throws Exception {
+        if (checkUserCredentials(rs)) {
+            currentUser.set_username(rs.getString("username"));
+            currentUser.set_fullname(rs.getString("fullname"));
+            currentUser.set_ban(rs.getInt("ban"));
+            currentUser.set_type(rs.getString("type"));
+            currentUser.set_emailaddress(rs.getString("emailaddress"));
+            currentUser.set_homeaddress(rs.getString("homeaddress"));
+            currentUser.set_company(rs.getString("company"));
+            currentUser.set_jobtitle(rs.getString("jobtitle"));
+            currentUser.set_department(rs.getString("department"));
+            if (currentUser.get_type().equals(UserTypeEnum.ADMIN.toString())) {
+                mainFXApplication.showADMINMainApplicationScreen();
+            } else {
+                mainFXApplication.showMainApplicationScreen();
+            }
+
+        }
+    }
+    private void close(Statement stmt, Connection conn) {
+        try{
+            if(stmt!=null) {
+                stmt.close();
+            }
+        } catch(SQLException ignored) {
+        }
+        try{
+            if(conn!=null) {
+                conn.close();
+            }
+        } catch(SQLException ignored){
+        }
+    }
+
 
     private boolean checkUserCredentials(ResultSet rs) {
         try {
@@ -135,12 +142,7 @@ public class LoginScreenController {
                             "' WHERE username = '" + usernameField.getText() + "'";
                     stmt.executeUpdate(sql);
 
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.initOwner(mainFXApplication.getStage());
-                    alert.setTitle("Invalid Fields");
-                    alert.setHeaderText("Please correct invalid fields");
-                    alert.setContentText("Incorrect password!");
-                    alert.showAndWait();
+                    badFields();
                     return false;
 
 
@@ -151,5 +153,13 @@ public class LoginScreenController {
             return false;
         }
 
+    }
+    private void badFields() {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.initOwner(mainFXApplication.getStage());
+        alert.setTitle("Invalid Fields");
+        alert.setHeaderText("Please correct invalid fields");
+        alert.setContentText("Incorrect password!");
+        alert.showAndWait();
     }
 }
