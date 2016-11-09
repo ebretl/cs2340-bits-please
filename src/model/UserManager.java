@@ -153,4 +153,41 @@ public class UserManager {
             return null;
         }
     }
+
+    /**
+     * Gets an observable list of all the users in the database to be used by the controller of the app.
+     * @param currentUser A reference to the current user so that the current user is the only user not
+     *                    included in the observable list
+     * @return ObservableList of all users in database. (Used by Admin to delete users).
+     */
+    public ObservableList<User> getUsers(User currentUser) {
+        Connection conn;
+        Statement stmt;
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
+            stmt = conn.createStatement();
+            String sql = "SELECT username, password, " +
+                    "fullname, ban, attempt, type, emailad" +
+                    "dress, homeaddress, company, jobtitle, department FROM USER";
+            ResultSet rs = stmt.executeQuery(sql);
+            List<User> reportList = new ArrayList<>();
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String curUser = currentUser.get_username();
+                if (!username.equals(curUser)) {
+                    User temp = new User(rs.getString("username"),
+                            rs.getString("fullname"), rs.getInt("ban"), rs.getString("type"),
+                            rs.getString("emailaddress"), rs.getString("homeaddress"),
+                            rs.getString("company"), rs.getString("jobtitle"), rs.getString("department"));
+                    reportList.add(temp);
+                }
+
+            }
+            return FXCollections.observableList(reportList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

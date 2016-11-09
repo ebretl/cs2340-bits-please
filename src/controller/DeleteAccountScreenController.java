@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,13 +8,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import fxapp.MainFXApplication;
 import model.User;
+import model.UserManager;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * controls the delete account screen
@@ -111,33 +108,7 @@ public class DeleteAccountScreenController {
     }
 
     private ObservableList<User> getUsers() {
-        Connection conn;
-        Statement stmt;
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
-            stmt = conn.createStatement();
-            String sql = "SELECT username, password, " +
-                    "fullname, ban, attempt, type, emailad" +
-                    "dress, homeaddress, company, jobtitle, department FROM USER";
-            ResultSet rs = stmt.executeQuery(sql);
-            List<User> reportList = new ArrayList<>();
-            while (rs.next()) {
-                String username = rs.getString("username");
-                String curUser = currentUser.get_username();
-                if (!username.equals(curUser)) {
-                    User temp = new User(rs.getString("username"),
-                            rs.getString("fullname"), rs.getInt("ban"), rs.getString("type"),
-                            rs.getString("emailaddress"), rs.getString("homeaddress"),
-                            rs.getString("company"), rs.getString("jobtitle"), rs.getString("department"));
-                    reportList.add(temp);
-                }
-
-            }
-            return FXCollections.observableList(reportList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+        UserManager uman = new UserManager();
+        return uman.getUsers(currentUser);
     }
 }
