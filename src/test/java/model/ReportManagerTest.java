@@ -22,6 +22,7 @@ public class ReportManagerTest {
         //check with empty Iterable
 
         //check with empty list
+        System.out.println("tested deleting water report");
     }
 
 }
