@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Observable;
 
 
 /**
@@ -139,7 +140,7 @@ public class ReportManager {
      * @param selectedDelete the water reports that will be deleted
      * @param mainList the list of all water reports that is seen on ViewWaterReportScreen
      */
-    public void deleteWaterReport(Iterable<WaterReport> selectedDelete, Collection<WaterReport> mainList) {
+    public void deleteWaterReport(List<WaterReport> selectedDelete, Collection<WaterReport> mainList) {
         Connection conn;
         Statement stmt;
         try {
