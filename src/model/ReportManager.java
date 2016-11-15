@@ -139,7 +139,7 @@ public class ReportManager {
      * @param selectedDelete the water reports that will be deleted
      * @param mainList the list of all water reports that is seen on ViewWaterReportScreen
      */
-    public void deleteWaterReport(List<WaterReport> selectedDelete, Collection<WaterReport> mainList) {
+    public void deleteWaterReport(Iterable<WaterReport> selectedDelete, Collection<WaterReport> mainList) {
         Connection conn;
         Statement stmt;
         try {
