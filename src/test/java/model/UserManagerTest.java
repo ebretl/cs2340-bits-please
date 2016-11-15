@@ -117,7 +117,40 @@ public class UserManagerTest {
 
     @Test
     public void deleteUsersTest() {
-        // test 1
+        UserManager manager = new UserManager();
+        User delUser = new User("foo_delete", "Foo Bar", 0, UserTypeEnum.USER.toString(), "foo@bar.io", "", "", "", "");
+        User testUser = new User("local", "Local User", 0, UserTypeEnum.ADMIN.toString(), "","","","","");
+
+        // test 1: delete a known existent user
+        manager.createUser(delUser.get_username(), "password", delUser.get_fullname(), UserTypeEnum.USER);
+
+        List<User> mainList = manager.getUsers(testUser);
+
+        ArrayList<User> removeList = new ArrayList<>();
+        for(User u : mainList) {
+            if(delUser.get_username().equals(u.get_username())) {
+                removeList.add(u);
+            }
+        }
+        assertTrue("deletion user not found in database", removeList.size() > 0);
+
+        manager.deleteUsers(removeList, mainList);
+        assertFalse("deletion user was not removed from the main list", mainList.contains(removeList.get(0)));
+
+        List<User> listWithoutTestUser = manager.getUsers(delUser);
+        assertFalse("deletion user was not removed from the database", listWithoutTestUser.contains(removeList.get(0)));
+
+        // test 2: attempt to delete a user that does not exist in the database
+        mainList = manager.getUsers(testUser);
+        int beforeSize = mainList.size();
+        removeList = new ArrayList<>();
+        removeList.add(testUser); //testUser is local only
+        manager.deleteUsers(removeList, mainList);
+
+        assertEquals("something was changed in the view list", mainList.size(), beforeSize);
+
+        mainList = manager.getUsers(testUser);
+        assertEquals("something was changed in the database", mainList.size(), beforeSize);
     }
 
 }
