@@ -10,10 +10,6 @@ import fxapp.MainFXApplication;
 import model.User;
 import model.UserManager;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
-
 
 /**
  * Controls the block user screen
@@ -22,7 +18,7 @@ public class BlockUserScreenController {
 
     private MainFXApplication mainFXApplication;
 
-    private UserManager userMan = new UserManager();
+    private final UserManager userMan = new UserManager();
 
     @FXML
     TableView<User> mainTable;

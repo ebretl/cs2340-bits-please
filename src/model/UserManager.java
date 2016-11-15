@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -196,7 +197,7 @@ public class UserManager {
      * @param selectedDelete a list of users to ban
      * @param mainList a list of all users that could be banned
      */
-    public void banUsers(ObservableList<User> selectedDelete, ObservableList<User> mainList) {
+    public void banUsers(Iterable<User> selectedDelete, Collection<User> mainList) {
         Connection conn;
         Statement stmt;
         try {
@@ -219,7 +220,7 @@ public class UserManager {
      * @param selectedDelete a list of users to block
      * @param mainList a list of all users that could be blocked
      */
-    public void blockUsers(ObservableList<User> selectedDelete, ObservableList<User> mainList) {
+    public void blockUsers(Iterable<User> selectedDelete, Collection<User> mainList) {
         Connection conn;
         Statement stmt;
         try {
@@ -242,7 +243,7 @@ public class UserManager {
      * @param selectedDelete a list of users to delete
      * @param mainList a list of all users that could be detleted
      */
-    public void deleteUsers(ObservableList<User> selectedDelete, ObservableList<User> mainList) {
+    public void deleteUsers(Iterable<User> selectedDelete, Collection<User> mainList) {
         Connection conn;
         Statement stmt;
         try {
@@ -297,8 +298,7 @@ public class UserManager {
             conn = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/bitsplease", "bitsplease", "bitsplease");
             stmt = conn.createStatement();
             String sql = "SELECT username FROM USER WHERE username = '" + username + "'";
-            ResultSet rs = stmt.executeQuery(sql);
-            return rs;
+            return stmt.executeQuery(sql);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

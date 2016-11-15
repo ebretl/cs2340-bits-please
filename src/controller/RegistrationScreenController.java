@@ -9,11 +9,7 @@ import javafx.scene.control.TextField;
 import model.UserManager;
 import model.UserTypeEnum;
 
-import java.sql.Connection;
-import java.sql.Statement;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 
 /**
@@ -23,7 +19,7 @@ public class RegistrationScreenController {
 
     private MainFXApplication mainFXApplication;
 
-    private UserManager userManager = new UserManager();
+    private final UserManager userManager = new UserManager();
 
     /**
      * Gets an instance of the current main application running
