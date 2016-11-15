@@ -115,4 +115,9 @@ public class UserManagerTest {
 
     }
 
+    @Test
+    public void deleteUsersTest() {
+        // test 1
+    }
+
 }
