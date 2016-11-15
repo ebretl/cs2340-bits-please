@@ -241,7 +241,7 @@ public class UserManager {
     /**
      * Deletes user from the application database. Removes them from the list of users shown in the view.
      * @param selectedDelete a list of users to delete
-     * @param mainList a list of all users that could be detleted
+     * @param mainList a list of all users that could be deleted
      */
     public void deleteUsers(Iterable<User> selectedDelete, Collection<User> mainList) {
         Connection conn;
