@@ -88,10 +88,19 @@ public class ReportManagerTest {
         deletedList = new ArrayList<>(reportList);
 
         //check with one item in selectedDelete
-        if (count >= 1) {
+        if (count > 1) {
             List<WaterReport> selectedDelete = new ArrayList<>();
             Random rand = new Random();
             selectedDelete.add(reportList.get(rand.nextInt(count - 1)));
+            reportManager.deleteWaterReport(selectedDelete, modifiedReportList);
+            assertEquals(count - 1, modifiedReportList.size());
+            assertEquals(count - 1, countReportsInDatabase());
+
+            assertFalse(modifiedReportList.contains(selectedDelete.get(0)));
+        } else if (count == 1) {
+            List<WaterReport> selectedDelete = new ArrayList<>();
+            Random rand = new Random();
+            selectedDelete.add(reportList.get(0));
             reportManager.deleteWaterReport(selectedDelete, modifiedReportList);
             assertEquals(count - 1, modifiedReportList.size());
             assertEquals(count - 1, countReportsInDatabase());
