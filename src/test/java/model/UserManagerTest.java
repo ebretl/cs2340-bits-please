@@ -153,4 +153,45 @@ public class UserManagerTest {
         assertEquals("something was changed in the database", mainList.size(), beforeSize);
     }
 
+    /**
+     * Created by Alex McArthur on 11/16/16.
+     */
+    @Test
+    public void banUsersTest() {
+        UserManager manager = new UserManager();
+        User evilUser = new User("hacker", "Evil Hacker", 0, UserTypeEnum.USER.toString(), "evil@hacks.io", "", "", "", "");
+        User testUser = new User("local", "Local User", 0, UserTypeEnum.ADMIN.toString(), "","","","","");
+
+        // test 1: ban a known existent user
+        manager.createUser(evilUser.get_username(), "password", evilUser.get_fullname(), UserTypeEnum.USER);
+
+        List<User> mainList = manager.getUsers(testUser);
+
+        ArrayList<User> banList = new ArrayList<>();
+        for(User u : mainList) {
+            if(evilUser.get_username().equals(u.get_username())) {
+                banList.add(u);
+            }
+        }
+        assertTrue("ban user not found in database", banList.size() > 0);
+
+        manager.banUsers(banList, mainList);
+        assertFalse("banned user was not removed from the main list", mainList.contains(banList.get(0)));
+        assertTrue("ban user was not successfully banned", manager.getUsers(testUser).get(0).get_ban() == 1);
+        List<User> listWithoutTestUser = manager.getUsers(evilUser);
+        assertFalse("banned user was not removed from the database", listWithoutTestUser.contains(banList.get(0)));
+
+        // test 2: attempt to ban a user that does not exist in the database
+        mainList = manager.getUsers(testUser);
+        int beforeSize = mainList.size();
+        banList = new ArrayList<>();
+        banList.add(testUser); //testUser is local only
+        manager.banUsers(banList, mainList);
+
+        assertEquals("something was changed in the view list", mainList.size(), beforeSize);
+
+        mainList = manager.getUsers(testUser);
+        assertEquals("something was changed in the database", mainList.size(), beforeSize);
+    }
+
 }
