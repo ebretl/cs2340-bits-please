@@ -173,13 +173,12 @@ public class UserManagerTest {
                 banList.add(u);
             }
         }
-        assertTrue("ban user not found in database", banList.size() > 0);
-
+        assertTrue("evil user not found in database", banList.size() > 0);
         manager.banUsers(banList, mainList);
-        assertFalse("banned user was not removed from the main list", mainList.contains(banList.get(0)));
-        assertTrue("ban user was not successfully banned", manager.getUsers(testUser).get(0).get_ban() == 1);
+        assertFalse("evil user was not removed from the main list", mainList.contains(banList.get(0)));
+        assertTrue("evil user was not successfully banned", manager.getUsers(testUser).get(0).get_ban() == 1);
         List<User> listWithoutTestUser = manager.getUsers(evilUser);
-        assertFalse("banned user was not removed from the database", listWithoutTestUser.contains(banList.get(0)));
+        assertFalse("evil user was not removed from the database", listWithoutTestUser.contains(banList.get(0)));
 
         // test 2: attempt to ban a user that does not exist in the database
         mainList = manager.getUsers(testUser);
