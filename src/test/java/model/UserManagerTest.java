@@ -176,7 +176,11 @@ public class UserManagerTest {
         assertTrue("evil user not found in database", banList.size() > 0);
         manager.banUsers(banList, mainList);
         assertFalse("evil user was not removed from the main list", mainList.contains(banList.get(0)));
-        assertTrue("evil user was not successfully banned", manager.getUsers(testUser).get(0).get_ban() == 1);
+        try {
+            assertTrue("evil user was not successfully banned", manager.getUsersWithUsername(evilUser.get_username()).getInt(3) == 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         List<User> listWithoutTestUser = manager.getUsers(evilUser);
         assertFalse("evil user was not removed from the database", listWithoutTestUser.contains(banList.get(0)));
 
