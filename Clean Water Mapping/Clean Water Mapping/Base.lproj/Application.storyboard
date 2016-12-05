@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="15G1108" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="lz2-vI-Szl">
+            <objects>
+                <navigationController storyboardIdentifier="UserNC" id="hS7-nC-9s1" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NuF-pd-jGQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="6GS-i5-qXs" kind="relationship" relationship="rootViewController" id="SVd-jg-DSd"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZDS-Y7-5iG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-625" y="-57"/>
+        </scene>
+        <!--Main AppVC-->
+        <scene sceneID="1XI-YX-2OM">
+            <objects>
+                <viewController storyboardIdentifier="UserVC" id="6GS-i5-qXs" customClass="MainAppVC" customModule="Clean_Water_Mapping" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6RG-gX-9kz"/>
+                        <viewControllerLayoutGuide type="bottom" id="qgr-0t-UUx"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="tfF-ZA-zyN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Wy-WE-nvr">
+                                <rect key="frame" x="36" y="354" width="303" height="75"/>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="xBb-Kd-Vz8"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <state key="normal" title="Water Sources">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="mj1-YL-N1I" kind="show" id="FMl-xS-3WO"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VRN-vp-dAs">
+                                <rect key="frame" x="36" y="94" width="303" height="240"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="R7F-4e-6oO">
+                                        <rect key="frame" x="42" y="10" width="220" height="190"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="190" id="MF6-v9-Om6"/>
+                                            <constraint firstAttribute="width" constant="220" id="tpx-PW-qFW"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hP5-uV-npn">
+                                        <rect key="frame" x="27" y="10" width="250" height="228"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="CcS-LV-wb4"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <state key="normal" title="View Map">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="hP5-uV-npn" secondAttribute="bottom" constant="2" id="0hX-w4-TRO"/>
+                                    <constraint firstItem="R7F-4e-6oO" firstAttribute="top" secondItem="VRN-vp-dAs" secondAttribute="top" constant="10" id="BFV-zo-4EW"/>
+                                    <constraint firstAttribute="height" constant="240" id="PmC-AT-MUi"/>
+                                    <constraint firstItem="hP5-uV-npn" firstAttribute="top" secondItem="VRN-vp-dAs" secondAttribute="top" constant="10" id="Qqb-Ri-I5j"/>
+                                    <constraint firstItem="R7F-4e-6oO" firstAttribute="centerX" secondItem="VRN-vp-dAs" secondAttribute="centerX" id="T24-nb-NQp"/>
+                                    <constraint firstItem="hP5-uV-npn" firstAttribute="centerX" secondItem="VRN-vp-dAs" secondAttribute="centerX" id="pLD-m0-EfJ"/>
+                                    <constraint firstItem="hP5-uV-npn" firstAttribute="centerX" secondItem="VRN-vp-dAs" secondAttribute="centerX" id="sfd-Y5-Z0O"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="VRN-vp-dAs" secondAttribute="trailing" constant="20" id="7O7-s7-72T"/>
+                            <constraint firstItem="VRN-vp-dAs" firstAttribute="leading" secondItem="tfF-ZA-zyN" secondAttribute="leadingMargin" constant="20" id="BpH-PL-e1K"/>
+                            <constraint firstItem="7Wy-WE-nvr" firstAttribute="top" secondItem="VRN-vp-dAs" secondAttribute="bottom" constant="20" id="j74-U1-l5J"/>
+                            <constraint firstItem="7Wy-WE-nvr" firstAttribute="centerX" secondItem="tfF-ZA-zyN" secondAttribute="centerX" id="mOX-Hh-jZQ"/>
+                            <constraint firstItem="VRN-vp-dAs" firstAttribute="top" secondItem="6RG-gX-9kz" secondAttribute="bottom" constant="30" id="qut-zf-Vga"/>
+                            <constraint firstItem="7Wy-WE-nvr" firstAttribute="width" secondItem="VRN-vp-dAs" secondAttribute="width" id="u20-Tp-bWV"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="dFP-Fc-sT8">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="5s0-VM-dpe">
+                            <connections>
+                                <action selector="logoutWithButton:" destination="6GS-i5-qXs" id="PS2-ux-xZo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DrC-s7-3Vu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="100" y="-57.121439280359823"/>
+        </scene>
+        <!--Water Reports-->
+        <scene sceneID="5iR-1G-Mjl">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="N94-DS-9do" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController storyboardIdentifier="WaterReportList" id="mj1-YL-N1I" customClass="WaterReportListVC" customModule="Clean_Water_Mapping" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="153" sectionHeaderHeight="28" sectionFooterHeight="28" id="VaY-sT-RDg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WaterReport" rowHeight="150" id="QLS-gK-V6D" customClass="WaterReportCell" customModule="Clean_Water_Mapping" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QLS-gK-V6D" id="VYM-h9-RhB">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="mj1-YL-N1I" id="CxE-cg-gEY"/>
+                            <outlet property="delegate" destination="mj1-YL-N1I" id="rCi-hP-vbn"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Water Reports" id="wnd-vV-UZe">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="oKd-uC-eNd">
+                            <connections>
+                                <segue destination="nfT-8L-0BK" kind="show" id="13d-vP-Vau"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="957.60000000000002" y="-536.58170914542734"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="fRc-KE-VGG">
+            <objects>
+                <navigationController storyboardIdentifier="WorkerNC" id="fqQ-E8-cFK" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Nd2-XY-0RV">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ejb-oY-HBJ" kind="relationship" relationship="rootViewController" id="MSn-YM-dsr"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7h2-9Q-GMa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-629" y="627"/>
+        </scene>
+        <!--Submit Water Report-->
+        <scene sceneID="dPu-jA-SYV">
+            <objects>
+                <viewController id="nfT-8L-0BK" customClass="SubmitWaterReportVC" customModule="Clean_Water_Mapping" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="0EH-2y-MeG"/>
+                        <viewControllerLayoutGuide type="bottom" id="ppW-GD-0s9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="jZO-zt-KgZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRl-mh-adX">
+                                <rect key="frame" x="149" y="209" width="210" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="140" id="Nxb-JB-oXp"/>
+                                    <constraint firstAttribute="width" constant="210" id="ogX-fb-nYM"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="nfT-8L-0BK" id="2NW-eL-DrJ"/>
+                                    <outlet property="delegate" destination="nfT-8L-0BK" id="Orh-3P-jQq"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T2v-Qm-ULh">
+                                <rect key="frame" x="149" y="354" width="210" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="210" id="jrQ-cP-avC"/>
+                                    <constraint firstAttribute="height" constant="140" id="ys4-SC-uUK"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="nfT-8L-0BK" id="4Ga-Pe-G3u"/>
+                                    <outlet property="delegate" destination="nfT-8L-0BK" id="7Dz-8d-NTL"/>
+                                </connections>
+                            </pickerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8BW-m1-qiX">
+                                <rect key="frame" x="31" y="104" width="89" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Water Type" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbd-oI-iQa">
+                                <rect key="frame" x="31" y="265" width="116" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNp-sJ-qDk">
+                                <rect key="frame" x="56" y="534" width="263" height="60"/>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Zob-Ll-bp7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="submitWithButton:" destination="nfT-8L-0BK" eventType="touchUpInside" id="NC7-sB-x4x"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lgj-X0-cpg">
+                                <rect key="frame" x="145" y="104" width="214" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="YaO-eI-mXS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Water Condition" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bO1-PC-tga">
+                                <rect key="frame" x="31" y="397" width="113" height="55"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="T2v-Qm-ULh" firstAttribute="top" secondItem="CRl-mh-adX" secondAttribute="bottom" constant="5" id="4ch-89-pxM"/>
+                            <constraint firstItem="qbd-oI-iQa" firstAttribute="centerY" secondItem="CRl-mh-adX" secondAttribute="centerY" id="5K5-ja-TN3"/>
+                            <constraint firstItem="bO1-PC-tga" firstAttribute="leading" secondItem="jZO-zt-KgZ" secondAttribute="leadingMargin" constant="15" id="7cf-wn-Eau"/>
+                            <constraint firstItem="T2v-Qm-ULh" firstAttribute="centerY" secondItem="bO1-PC-tga" secondAttribute="centerY" id="BWN-Ng-vHc"/>
+                            <constraint firstItem="wNp-sJ-qDk" firstAttribute="leading" secondItem="jZO-zt-KgZ" secondAttribute="leadingMargin" constant="40" id="HwK-b1-ymT"/>
+                            <constraint firstItem="Lgj-X0-cpg" firstAttribute="trailing" secondItem="jZO-zt-KgZ" secondAttribute="trailingMargin" id="Krf-Z1-I7o"/>
+                            <constraint firstItem="T2v-Qm-ULh" firstAttribute="leading" secondItem="bO1-PC-tga" secondAttribute="trailing" constant="5" id="MLm-8h-bwt"/>
+                            <constraint firstItem="8BW-m1-qiX" firstAttribute="leading" secondItem="jZO-zt-KgZ" secondAttribute="leadingMargin" constant="15" id="NWv-MT-RRd"/>
+                            <constraint firstItem="qbd-oI-iQa" firstAttribute="leading" secondItem="jZO-zt-KgZ" secondAttribute="leadingMargin" constant="15" id="bsd-5I-iJ8"/>
+                            <constraint firstItem="wNp-sJ-qDk" firstAttribute="top" secondItem="T2v-Qm-ULh" secondAttribute="bottom" constant="40" id="cwt-ze-yCE"/>
+                            <constraint firstItem="Lgj-X0-cpg" firstAttribute="leading" secondItem="8BW-m1-qiX" secondAttribute="trailing" constant="25" id="ehj-yq-pFg"/>
+                            <constraint firstItem="8BW-m1-qiX" firstAttribute="top" secondItem="0EH-2y-MeG" secondAttribute="bottom" constant="40" id="gZ5-EA-zAE"/>
+                            <constraint firstItem="CRl-mh-adX" firstAttribute="top" secondItem="Lgj-X0-cpg" secondAttribute="bottom" constant="5" id="hwa-sn-JKg"/>
+                            <constraint firstItem="CRl-mh-adX" firstAttribute="trailing" secondItem="jZO-zt-KgZ" secondAttribute="trailingMargin" id="k06-Mq-bhO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wNp-sJ-qDk" secondAttribute="trailing" constant="40" id="nDv-fy-2P8"/>
+                            <constraint firstItem="Lgj-X0-cpg" firstAttribute="top" secondItem="8BW-m1-qiX" secondAttribute="top" id="uAN-Y0-z7C"/>
+                            <constraint firstItem="T2v-Qm-ULh" firstAttribute="trailing" secondItem="jZO-zt-KgZ" secondAttribute="trailingMargin" id="xwI-5M-9v2"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Submit Water Report" id="BBV-2J-Bsr"/>
+                    <connections>
+                        <outlet property="conditionPicker" destination="T2v-Qm-ULh" id="0rW-ly-i9k"/>
+                        <outlet property="locationField" destination="Lgj-X0-cpg" id="YyN-2I-ZY2"/>
+                        <outlet property="typePicker" destination="CRl-mh-adX" id="SJ0-hZ-GJW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VJd-rC-NNl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958" y="220"/>
+        </scene>
+        <!--Main AppVC-->
+        <scene sceneID="ifV-0h-6kD">
+            <objects>
+                <viewController storyboardIdentifier="WorkerVC" id="ejb-oY-HBJ" customClass="MainAppVC" customModule="Clean_Water_Mapping" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OoE-HL-Fy1"/>
+                        <viewControllerLayoutGuide type="bottom" id="QIH-Y9-i6r"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cDn-Y2-Hlo">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hGa-is-U5Y">
+                                <rect key="frame" x="36" y="354" width="303" height="75"/>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="XQi-Sl-iEI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <state key="normal" title="Water Sources">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="mj1-YL-N1I" kind="show" id="H26-Hu-0nt"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHA-oB-FgQ">
+                                <rect key="frame" x="36" y="94" width="303" height="240"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="Oon-bL-OoA">
+                                        <rect key="frame" x="42" y="10" width="220" height="190"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="220" id="64R-Jl-uEz"/>
+                                            <constraint firstAttribute="height" constant="190" id="wGf-9J-Trk"/>
+                                        </constraints>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XxL-P0-mZC">
+                                        <rect key="frame" x="27" y="10" width="250" height="228"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="gjv-T3-hbT"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                        <state key="normal" title="View Map">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="Oon-bL-OoA" firstAttribute="top" secondItem="dHA-oB-FgQ" secondAttribute="top" constant="10" id="8PM-KM-bpd"/>
+                                    <constraint firstItem="Oon-bL-OoA" firstAttribute="centerX" secondItem="dHA-oB-FgQ" secondAttribute="centerX" id="Djk-gR-sLj"/>
+                                    <constraint firstItem="XxL-P0-mZC" firstAttribute="top" secondItem="dHA-oB-FgQ" secondAttribute="top" constant="10" id="kQK-Xo-VSN"/>
+                                    <constraint firstItem="XxL-P0-mZC" firstAttribute="centerX" secondItem="dHA-oB-FgQ" secondAttribute="centerX" id="khk-eo-cht"/>
+                                    <constraint firstItem="XxL-P0-mZC" firstAttribute="centerX" secondItem="dHA-oB-FgQ" secondAttribute="centerX" id="q1N-uA-90b"/>
+                                    <constraint firstAttribute="bottom" secondItem="XxL-P0-mZC" secondAttribute="bottom" constant="2" id="yIw-SR-9YX"/>
+                                    <constraint firstAttribute="height" constant="240" id="yme-xi-oMC"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3p-04-zQo">
+                                <rect key="frame" x="36" y="452" width="303" height="75"/>
+                                <color key="backgroundColor" red="0.45882352939999999" green="0.74509803919999995" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="TJZ-qc-XdA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                <state key="normal" title="Water Quality">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="KsO-GU-Y24" kind="show" id="Ges-Cv-bEk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="hGa-is-U5Y" firstAttribute="top" secondItem="dHA-oB-FgQ" secondAttribute="bottom" constant="20" id="0Wd-Ge-oAs"/>
+                            <constraint firstItem="x3p-04-zQo" firstAttribute="centerX" secondItem="cDn-Y2-Hlo" secondAttribute="centerX" id="0mV-Is-EMQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="dHA-oB-FgQ" secondAttribute="trailing" constant="20" id="Ko8-a4-rfu"/>
+                            <constraint firstItem="hGa-is-U5Y" firstAttribute="centerX" secondItem="cDn-Y2-Hlo" secondAttribute="centerX" id="NLq-oo-VXP"/>
+                            <constraint firstItem="x3p-04-zQo" firstAttribute="leading" secondItem="hGa-is-U5Y" secondAttribute="leading" id="Zsc-Ar-Ezg"/>
+                            <constraint firstItem="hGa-is-U5Y" firstAttribute="width" secondItem="dHA-oB-FgQ" secondAttribute="width" id="lBu-Qb-OCy"/>
+                            <constraint firstItem="x3p-04-zQo" firstAttribute="top" secondItem="hGa-is-U5Y" secondAttribute="bottom" constant="23" id="nc7-zI-gt0"/>
+                            <constraint firstItem="dHA-oB-FgQ" firstAttribute="top" secondItem="OoE-HL-Fy1" secondAttribute="bottom" constant="30" id="u2a-zj-LWe"/>
+                            <constraint firstItem="dHA-oB-FgQ" firstAttribute="leading" secondItem="cDn-Y2-Hlo" secondAttribute="leadingMargin" constant="20" id="vJQ-OM-qYi"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="2lF-He-ySs">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="3d0-F4-6jX">
+                            <connections>
+                                <action selector="logoutWithButton:" destination="ejb-oY-HBJ" id="17j-gn-san"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jhQ-5C-JTI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="100" y="627"/>
+        </scene>
+        <!--Submit Water Quality Report-->
+        <scene sceneID="smg-Kw-R8A">
+            <objects>
+                <viewController id="jn3-ik-hlg" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cnb-Jk-JVa"/>
+                        <viewControllerLayoutGuide type="bottom" id="eX8-td-OsC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="A88-q7-ouO">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Submit Water Quality Report" id="hzI-bt-k7e"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uoC-6l-iyu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="958" y="1632"/>
+        </scene>
+        <!--Water Quality Reports-->
+        <scene sceneID="AdP-6r-ruE">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="f0p-GD-wT5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tableViewController id="KsO-GU-Y24" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="153" sectionHeaderHeight="28" sectionFooterHeight="28" id="bnd-gx-hMP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WaterReport" rowHeight="150" id="bQA-wa-eVW" customClass="WaterReportCell" customModule="Clean_Water_Mapping" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="150"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bQA-wa-eVW" id="Lgc-oh-nWm">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="149"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" red="0.2274509804" green="0.24313725489999999" blue="0.25098039220000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="KsO-GU-Y24" id="N9m-o5-E6H"/>
+                            <outlet property="delegate" destination="KsO-GU-Y24" id="hFC-po-XbN"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Water Quality Reports" id="huQ-UK-ji9">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aId-Cv-Aui">
+                            <connections>
+                                <segue destination="jn3-ik-hlg" kind="show" id="yZA-eT-fAB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+            </objects>
+            <point key="canvasLocation" x="958" y="920"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Image" width="300" height="273"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="H26-Hu-0nt"/>
+    </inferredMetricsTieBreakers>
+</document>

@@ -16,7 +16,8 @@ class RegistrationVC: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     @IBOutlet weak var userTypePicker : UIPickerView!
     @IBOutlet weak var alertLabel : UILabel!
     
-    var userTypes = ["User", "Manager", "Worker", "Admin"]
+    var userTypes = ["User", "Worker", "Manager", "Admin"]
+    var type = UserTypeEnum.user
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +38,32 @@ class RegistrationVC: UIViewController, UIPickerViewDataSource, UIPickerViewDele
             alertLabel.text = "You need your full name, username, and password to register."
             return
         } else {
-            
+            let user = User(username: username, fullName: fullName, password: password, ban: false, type: type, emailAddr: "")
+            if (Data.sharedInstance.registerUser(user: user)) {
+                alertLabel.text = "You good."
+                
+                //go to main application screen
+                let storyboard = UIStoryboard.init(name: "Application", bundle: nil)
+                
+                switch user.getType() {
+                case .user:
+                    let navController = storyboard.instantiateViewController(withIdentifier: "UserNC")
+                    self.present(navController, animated: false, completion: nil)
+                case .worker:
+                    let navController = storyboard.instantiateViewController(withIdentifier: "WorkerNC")
+                    self.present(navController, animated: false, completion: nil)
+                case .manager:
+                    let navController = storyboard.instantiateViewController(withIdentifier: "ManagerNC")
+                    self.present(navController, animated: false, completion: nil)
+                case .admin:
+                    let navController = storyboard.instantiateViewController(withIdentifier: "AdminNC")
+                    self.present(navController, animated: false, completion: nil)
+                default: ()
+                }
+
+            } else {
+                alertLabel.text = "This user is already in the system."
+            }
         }
     }
     
@@ -57,5 +83,21 @@ class RegistrationVC: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         
         let string = userTypes[row]
         return NSAttributedString(string: string, attributes: [NSForegroundColorAttributeName:UIColor.white])
+    }
+    
+    // Catpure the picker view selection
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // This method is triggered whenever the user makes a change to the picker selection.
+        // The parameter named row and component represents what was selected.
+        switch row {
+        case 1:
+            type = UserTypeEnum.worker
+        case 2:
+            type = UserTypeEnum.manager
+        case 3:
+            type = UserTypeEnum.admin
+        default:
+            type = UserTypeEnum.user
+        }
     }
 }

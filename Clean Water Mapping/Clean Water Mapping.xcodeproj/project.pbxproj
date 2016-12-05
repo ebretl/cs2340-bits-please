@@ -10,8 +10,16 @@
 		B525EAC01DF3317D00EA7F3B /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EABF1DF3317D00EA7F3B /* LoginVC.swift */; };
 		B525EAC31DF3346300EA7F3B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAC21DF3346300EA7F3B /* User.swift */; };
 		B525EAC51DF3354500EA7F3B /* UserTypeEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAC41DF3354500EA7F3B /* UserTypeEnum.swift */; };
-		B525EAC71DF3385E00EA7F3B /* DatabaseAccessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAC61DF3385E00EA7F3B /* DatabaseAccessor.swift */; };
 		B525EAC91DF351EA00EA7F3B /* RegistrationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAC81DF351EA00EA7F3B /* RegistrationVC.swift */; };
+		B525EACD1DF390A400EA7F3B /* Application.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B525EACB1DF390A400EA7F3B /* Application.storyboard */; };
+		B525EAD21DF4896100EA7F3B /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B525EAD11DF4896100EA7F3B /* libsqlite3.tbd */; };
+		B525EAD81DF48C3E00EA7F3B /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAD71DF48C3E00EA7F3B /* Data.swift */; };
+		B525EAE01DF4E81400EA7F3B /* SubmitWaterReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EADF1DF4E81400EA7F3B /* SubmitWaterReportVC.swift */; };
+		B525EAE21DF4E84500EA7F3B /* MainAppVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAE11DF4E84500EA7F3B /* MainAppVC.swift */; };
+		B525EAE41DF4F08100EA7F3B /* WaterReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAE31DF4F08100EA7F3B /* WaterReport.swift */; };
+		B525EAE61DF4FCB600EA7F3B /* WaterReportListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAE51DF4FCB600EA7F3B /* WaterReportListVC.swift */; };
+		B525EAEB1DF504C400EA7F3B /* WaterReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAE91DF504C400EA7F3B /* WaterReportCell.swift */; };
+		B525EAEC1DF504C400EA7F3B /* WaterReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B525EAEA1DF504C400EA7F3B /* WaterReportCell.xib */; };
 		B59E68811DF32C7000DF424F /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59E68801DF32C7000DF424F /* WelcomeVC.swift */; };
 		B5E482741DEE3C200064F373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E482731DEE3C200064F373 /* AppDelegate.swift */; };
 		B5E482761DEE3C200064F373 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E482751DEE3C200064F373 /* ViewController.swift */; };
@@ -43,8 +51,17 @@
 		B525EABF1DF3317D00EA7F3B /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = controller/LoginVC.swift; sourceTree = "<group>"; };
 		B525EAC21DF3346300EA7F3B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = model/User.swift; sourceTree = "<group>"; };
 		B525EAC41DF3354500EA7F3B /* UserTypeEnum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserTypeEnum.swift; path = model/UserTypeEnum.swift; sourceTree = "<group>"; };
-		B525EAC61DF3385E00EA7F3B /* DatabaseAccessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseAccessor.swift; path = model/DatabaseAccessor.swift; sourceTree = "<group>"; };
 		B525EAC81DF351EA00EA7F3B /* RegistrationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RegistrationVC.swift; path = controller/RegistrationVC.swift; sourceTree = "<group>"; };
+		B525EACC1DF390A400EA7F3B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Application.storyboard; sourceTree = "<group>"; };
+		B525EAD11DF4896100EA7F3B /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		B525EAD31DF489B600EA7F3B /* Clean Water Mapping-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Clean Water Mapping-Bridging-Header.h"; sourceTree = "<group>"; };
+		B525EAD71DF48C3E00EA7F3B /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		B525EADF1DF4E81400EA7F3B /* SubmitWaterReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubmitWaterReportVC.swift; path = controller/SubmitWaterReportVC.swift; sourceTree = "<group>"; };
+		B525EAE11DF4E84500EA7F3B /* MainAppVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainAppVC.swift; sourceTree = "<group>"; };
+		B525EAE31DF4F08100EA7F3B /* WaterReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterReport.swift; sourceTree = "<group>"; };
+		B525EAE51DF4FCB600EA7F3B /* WaterReportListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WaterReportListVC.swift; path = controller/WaterReportListVC.swift; sourceTree = "<group>"; };
+		B525EAE91DF504C400EA7F3B /* WaterReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterReportCell.swift; sourceTree = "<group>"; };
+		B525EAEA1DF504C400EA7F3B /* WaterReportCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterReportCell.xib; sourceTree = "<group>"; };
 		B59E68801DF32C7000DF424F /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeVC.swift; path = controller/WelcomeVC.swift; sourceTree = "<group>"; };
 		B5E482701DEE3C200064F373 /* Clean Water Mapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clean Water Mapping.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E482731DEE3C200064F373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B525EAD21DF4896100EA7F3B /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,9 +109,29 @@
 			children = (
 				B525EAC21DF3346300EA7F3B /* User.swift */,
 				B525EAC41DF3354500EA7F3B /* UserTypeEnum.swift */,
-				B525EAC61DF3385E00EA7F3B /* DatabaseAccessor.swift */,
+				B525EAE31DF4F08100EA7F3B /* WaterReport.swift */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		B525EACA1DF3907800EA7F3B /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				B525EAE91DF504C400EA7F3B /* WaterReportCell.swift */,
+				B525EAEA1DF504C400EA7F3B /* WaterReportCell.xib */,
+				B5E482771DEE3C200064F373 /* Main.storyboard */,
+				B5E4827C1DEE3C200064F373 /* LaunchScreen.storyboard */,
+				B525EACB1DF390A400EA7F3B /* Application.storyboard */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		B525EAD01DF4896100EA7F3B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B525EAD11DF4896100EA7F3B /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B59E68821DF32C7600DF424F /* VC */ = {
@@ -103,6 +141,9 @@
 				B5E482751DEE3C200064F373 /* ViewController.swift */,
 				B525EABF1DF3317D00EA7F3B /* LoginVC.swift */,
 				B525EAC81DF351EA00EA7F3B /* RegistrationVC.swift */,
+				B525EADF1DF4E81400EA7F3B /* SubmitWaterReportVC.swift */,
+				B525EAE11DF4E84500EA7F3B /* MainAppVC.swift */,
+				B525EAE51DF4FCB600EA7F3B /* WaterReportListVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -114,6 +155,7 @@
 				B5E482871DEE3C200064F373 /* Clean Water MappingTests */,
 				B5E482921DEE3C200064F373 /* Clean Water MappingUITests */,
 				B5E482711DEE3C200064F373 /* Products */,
+				B525EAD01DF4896100EA7F3B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,13 +172,14 @@
 		B5E482721DEE3C200064F373 /* Clean Water Mapping */ = {
 			isa = PBXGroup;
 			children = (
+				B525EAD71DF48C3E00EA7F3B /* Data.swift */,
 				B525EAC11DF3344800EA7F3B /* Model */,
 				B59E68821DF32C7600DF424F /* VC */,
 				B5E482731DEE3C200064F373 /* AppDelegate.swift */,
-				B5E482771DEE3C200064F373 /* Main.storyboard */,
+				B525EACA1DF3907800EA7F3B /* Storyboards */,
 				B5E4827A1DEE3C200064F373 /* Assets.xcassets */,
-				B5E4827C1DEE3C200064F373 /* LaunchScreen.storyboard */,
 				B5E4827F1DEE3C200064F373 /* Info.plist */,
+				B525EAD31DF489B600EA7F3B /* Clean Water Mapping-Bridging-Header.h */,
 			);
 			path = "Clean Water Mapping";
 			sourceTree = "<group>";
@@ -227,6 +270,7 @@
 				TargetAttributes = {
 					B5E4826F1DEE3C200064F373 = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
 					B5E482831DEE3C200064F373 = {
@@ -267,7 +311,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5E4827E1DEE3C200064F373 /* LaunchScreen.storyboard in Resources */,
+				B525EACD1DF390A400EA7F3B /* Application.storyboard in Resources */,
 				B5E4827B1DEE3C200064F373 /* Assets.xcassets in Resources */,
+				B525EAEC1DF504C400EA7F3B /* WaterReportCell.xib in Resources */,
 				B5E482791DEE3C200064F373 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,14 +339,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B525EAE41DF4F08100EA7F3B /* WaterReport.swift in Sources */,
+				B525EAE21DF4E84500EA7F3B /* MainAppVC.swift in Sources */,
+				B525EAE61DF4FCB600EA7F3B /* WaterReportListVC.swift in Sources */,
 				B59E68811DF32C7000DF424F /* WelcomeVC.swift in Sources */,
 				B525EAC51DF3354500EA7F3B /* UserTypeEnum.swift in Sources */,
-				B525EAC71DF3385E00EA7F3B /* DatabaseAccessor.swift in Sources */,
 				B525EAC91DF351EA00EA7F3B /* RegistrationVC.swift in Sources */,
 				B5E482761DEE3C200064F373 /* ViewController.swift in Sources */,
 				B525EAC01DF3317D00EA7F3B /* LoginVC.swift in Sources */,
 				B525EAC31DF3346300EA7F3B /* User.swift in Sources */,
+				B525EAE01DF4E81400EA7F3B /* SubmitWaterReportVC.swift in Sources */,
 				B5E482741DEE3C200064F373 /* AppDelegate.swift in Sources */,
+				B525EAEB1DF504C400EA7F3B /* WaterReportCell.swift in Sources */,
+				B525EAD81DF48C3E00EA7F3B /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +387,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B525EACB1DF390A400EA7F3B /* Application.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B525EACC1DF390A400EA7F3B /* Base */,
+			);
+			name = Application.storyboard;
+			sourceTree = "<group>";
+		};
 		B5E482771DEE3C200064F373 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -452,10 +511,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Clean Water Mapping/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Bits-Please.Clean-Water-Mapping";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Clean Water Mapping/Clean Water Mapping-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -464,10 +526,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Clean Water Mapping/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Bits-Please.Clean-Water-Mapping";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Clean Water Mapping/Clean Water Mapping-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

@@ -12,13 +12,25 @@ class User {
     //Properties
     let username : String
     var fullName : String
+    var password : String
     var ban : Bool
     let type : UserTypeEnum
     var emailAddr : String
+    var incorrectPasswordCount : Int = 0
     
-    init(username : String, fullName : String, ban : Bool, type : UserTypeEnum, emailAddr : String) {
+    init() {
+        self.username = ""
+        self.fullName = ""
+        self.password = ""
+        self.ban = false
+        self.type = UserTypeEnum.user
+        self.emailAddr = ""
+    }
+    
+    init(username : String, fullName : String, password : String, ban : Bool, type : UserTypeEnum, emailAddr : String) {
         self.username = username
         self.fullName = fullName
+        self.password = password
         self.ban = ban
         self.type = type
         self.emailAddr = emailAddr
@@ -45,6 +57,16 @@ class User {
     public func getEmailAddr() -> String {
         return emailAddr
     }
+
+    
+    //Check
+    public func checkUserBlocked() -> Bool {
+        return incorrectPasswordCount >= 3
+    }
+    
+    public func checkPassword(password : String) -> Bool {
+        return self.password == password
+    }
     
     
     //Setters
@@ -58,5 +80,9 @@ class User {
     
     public func setEmailAddr(emailAddr : String) {
         self.emailAddr = emailAddr
+    }
+    
+    public func increaseIncorrectPasswordCount() {
+        self.incorrectPasswordCount += 1
     }
 }
