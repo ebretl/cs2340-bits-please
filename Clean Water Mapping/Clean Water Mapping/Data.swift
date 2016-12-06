@@ -12,15 +12,18 @@ class Data {
     static let sharedInstance = Data()
     
     var currentUser : User
-    var nextReportNumber = 0
+    var nextWaterReportNumber = 0
+    var nextQualityReportNumber = 0
     
     var userList : [String : User]
     var waterReportList : [WaterReport]
+    var qualityReportList : [QualityReport]
     
     init() {
         currentUser = User()
         userList = [:]
         waterReportList = []
+        qualityReportList = []
     }
     
     func registerUser(user : User) -> Bool {
@@ -56,8 +59,14 @@ class Data {
     }
     
     func submitWaterReport(location : String, waterType : String, waterCondition : String) {
-        let waterReport = WaterReport.init(reportNumber: nextReportNumber, location: location, waterType: waterType, waterCondition: waterCondition)
+        let waterReport = WaterReport.init(reportNumber: nextWaterReportNumber, location: location, waterType: waterType, waterCondition: waterCondition)
         waterReportList.append(waterReport)
-        nextReportNumber += 1
+        nextWaterReportNumber += 1
+    }
+    
+    func submitQualityReport(location : String, overallCondition : String, virusPPM : Float, contaminantPPM : Float) {
+        let qualityReport = QualityReport.init(reportNumber: nextQualityReportNumber, location: location, overallCondition: overallCondition, virusPPM: virusPPM, contaminantPPM: contaminantPPM)
+        qualityReportList.append(qualityReport)
+        nextQualityReportNumber += 1
     }
 }

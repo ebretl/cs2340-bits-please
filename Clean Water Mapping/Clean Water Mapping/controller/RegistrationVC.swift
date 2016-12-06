@@ -58,7 +58,6 @@ class RegistrationVC: UIViewController, UIPickerViewDataSource, UIPickerViewDele
                 case .admin:
                     let navController = storyboard.instantiateViewController(withIdentifier: "AdminNC")
                     self.present(navController, animated: false, completion: nil)
-                default: ()
                 }
 
             } else {

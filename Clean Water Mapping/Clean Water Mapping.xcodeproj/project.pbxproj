@@ -21,6 +21,14 @@
 		B525EAEB1DF504C400EA7F3B /* WaterReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B525EAE91DF504C400EA7F3B /* WaterReportCell.swift */; };
 		B525EAEC1DF504C400EA7F3B /* WaterReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B525EAEA1DF504C400EA7F3B /* WaterReportCell.xib */; };
 		B59E68811DF32C7000DF424F /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59E68801DF32C7000DF424F /* WelcomeVC.swift */; };
+		B5B508B11DF5ECC700FB4111 /* QualityReportCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B508AF1DF5ECC700FB4111 /* QualityReportCell.swift */; };
+		B5B508B21DF5ECC700FB4111 /* QualityReportCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B508B01DF5ECC700FB4111 /* QualityReportCell.xib */; };
+		B5B508B41DF5EF7900FB4111 /* SubmitQualityReportVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B508B31DF5EF7900FB4111 /* SubmitQualityReportVC.swift */; };
+		B5B508B61DF5F01800FB4111 /* QualityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B508B51DF5F01800FB4111 /* QualityReport.swift */; };
+		B5B508B81DF62E7200FB4111 /* QualityReportListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B508B71DF62E7200FB4111 /* QualityReportListVC.swift */; };
+		B5B508BA1DF63F6300FB4111 /* UserListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B508B91DF63F6300FB4111 /* UserListVC.swift */; };
+		B5B508BD1DF6417900FB4111 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B508BB1DF6417900FB4111 /* UserCell.swift */; };
+		B5B508BE1DF6417900FB4111 /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5B508BC1DF6417900FB4111 /* UserCell.xib */; };
 		B5E482741DEE3C200064F373 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E482731DEE3C200064F373 /* AppDelegate.swift */; };
 		B5E482761DEE3C200064F373 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E482751DEE3C200064F373 /* ViewController.swift */; };
 		B5E482791DEE3C200064F373 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5E482771DEE3C200064F373 /* Main.storyboard */; };
@@ -63,6 +71,14 @@
 		B525EAE91DF504C400EA7F3B /* WaterReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaterReportCell.swift; sourceTree = "<group>"; };
 		B525EAEA1DF504C400EA7F3B /* WaterReportCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaterReportCell.xib; sourceTree = "<group>"; };
 		B59E68801DF32C7000DF424F /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeVC.swift; path = controller/WelcomeVC.swift; sourceTree = "<group>"; };
+		B5B508AF1DF5ECC700FB4111 /* QualityReportCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QualityReportCell.swift; sourceTree = "<group>"; };
+		B5B508B01DF5ECC700FB4111 /* QualityReportCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QualityReportCell.xib; sourceTree = "<group>"; };
+		B5B508B31DF5EF7900FB4111 /* SubmitQualityReportVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubmitQualityReportVC.swift; path = controller/SubmitQualityReportVC.swift; sourceTree = "<group>"; };
+		B5B508B51DF5F01800FB4111 /* QualityReport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QualityReport.swift; path = model/QualityReport.swift; sourceTree = "<group>"; };
+		B5B508B71DF62E7200FB4111 /* QualityReportListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = QualityReportListVC.swift; path = controller/QualityReportListVC.swift; sourceTree = "<group>"; };
+		B5B508B91DF63F6300FB4111 /* UserListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserListVC.swift; path = controller/UserListVC.swift; sourceTree = "<group>"; };
+		B5B508BB1DF6417900FB4111 /* UserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		B5B508BC1DF6417900FB4111 /* UserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		B5E482701DEE3C200064F373 /* Clean Water Mapping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Clean Water Mapping.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E482731DEE3C200064F373 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5E482751DEE3C200064F373 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +126,7 @@
 				B525EAC21DF3346300EA7F3B /* User.swift */,
 				B525EAC41DF3354500EA7F3B /* UserTypeEnum.swift */,
 				B525EAE31DF4F08100EA7F3B /* WaterReport.swift */,
+				B5B508B51DF5F01800FB4111 /* QualityReport.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -122,6 +139,10 @@
 				B5E482771DEE3C200064F373 /* Main.storyboard */,
 				B5E4827C1DEE3C200064F373 /* LaunchScreen.storyboard */,
 				B525EACB1DF390A400EA7F3B /* Application.storyboard */,
+				B5B508AF1DF5ECC700FB4111 /* QualityReportCell.swift */,
+				B5B508B01DF5ECC700FB4111 /* QualityReportCell.xib */,
+				B5B508BB1DF6417900FB4111 /* UserCell.swift */,
+				B5B508BC1DF6417900FB4111 /* UserCell.xib */,
 			);
 			name = Storyboards;
 			sourceTree = "<group>";
@@ -144,6 +165,9 @@
 				B525EADF1DF4E81400EA7F3B /* SubmitWaterReportVC.swift */,
 				B525EAE11DF4E84500EA7F3B /* MainAppVC.swift */,
 				B525EAE51DF4FCB600EA7F3B /* WaterReportListVC.swift */,
+				B5B508B31DF5EF7900FB4111 /* SubmitQualityReportVC.swift */,
+				B5B508B71DF62E7200FB4111 /* QualityReportListVC.swift */,
+				B5B508B91DF63F6300FB4111 /* UserListVC.swift */,
 			);
 			name = VC;
 			sourceTree = "<group>";
@@ -311,10 +335,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5E4827E1DEE3C200064F373 /* LaunchScreen.storyboard in Resources */,
+				B5B508B21DF5ECC700FB4111 /* QualityReportCell.xib in Resources */,
 				B525EACD1DF390A400EA7F3B /* Application.storyboard in Resources */,
 				B5E4827B1DEE3C200064F373 /* Assets.xcassets in Resources */,
 				B525EAEC1DF504C400EA7F3B /* WaterReportCell.xib in Resources */,
 				B5E482791DEE3C200064F373 /* Main.storyboard in Resources */,
+				B5B508BE1DF6417900FB4111 /* UserCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,7 +366,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				B525EAE41DF4F08100EA7F3B /* WaterReport.swift in Sources */,
+				B5B508B41DF5EF7900FB4111 /* SubmitQualityReportVC.swift in Sources */,
+				B5B508B11DF5ECC700FB4111 /* QualityReportCell.swift in Sources */,
+				B5B508B61DF5F01800FB4111 /* QualityReport.swift in Sources */,
 				B525EAE21DF4E84500EA7F3B /* MainAppVC.swift in Sources */,
+				B5B508BA1DF63F6300FB4111 /* UserListVC.swift in Sources */,
+				B5B508BD1DF6417900FB4111 /* UserCell.swift in Sources */,
 				B525EAE61DF4FCB600EA7F3B /* WaterReportListVC.swift in Sources */,
 				B59E68811DF32C7000DF424F /* WelcomeVC.swift in Sources */,
 				B525EAC51DF3354500EA7F3B /* UserTypeEnum.swift in Sources */,
@@ -348,6 +379,7 @@
 				B5E482761DEE3C200064F373 /* ViewController.swift in Sources */,
 				B525EAC01DF3317D00EA7F3B /* LoginVC.swift in Sources */,
 				B525EAC31DF3346300EA7F3B /* User.swift in Sources */,
+				B5B508B81DF62E7200FB4111 /* QualityReportListVC.swift in Sources */,
 				B525EAE01DF4E81400EA7F3B /* SubmitWaterReportVC.swift in Sources */,
 				B5E482741DEE3C200064F373 /* AppDelegate.swift in Sources */,
 				B525EAEB1DF504C400EA7F3B /* WaterReportCell.swift in Sources */,
