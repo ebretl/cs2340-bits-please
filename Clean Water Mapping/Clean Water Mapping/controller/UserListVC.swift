@@ -10,7 +10,7 @@ import UIKit
 
 class UserListVC: UITableViewController {
 
-    let userList = Array(Data.sharedInstance.userList.values)
+    var userList = Array(Data.sharedInstance.userList.values)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +78,7 @@ class UserListVC: UITableViewController {
     }
     */
 
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    /*override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         //delete
         
         //ban
@@ -89,19 +89,22 @@ class UserListVC: UITableViewController {
         
         //unblock
         return nil
-    }
+    }*/
     
-    /*
+    
     // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
+            //remove from data
+            let user = userList.remove(at: indexPath.row)
+            Data.sharedInstance.userList.removeValue(forKey: user.getUsername())
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
+        }/* else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+        }*/    
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.
