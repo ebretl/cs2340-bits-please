@@ -1,24 +1,7 @@
 package fxapp;
 
 
-import controller.WelcomeScreenController;
-import controller.LoginScreenController;
-import controller.MainApplicationScreenController;
-import controller.RegistrationScreenController;
-import controller.SubmitWaterReportScreenController;
-import controller.SubmitQualityReportScreenController;
-import controller.UserProfileScreenController;
-import controller.ViewWaterReportScreenController;
-import controller.ViewQualityReportScreenController;
-import controller.ViewMapScreenController;
-import controller.GraphParameterScreenController;
-import controller.ADMINMainApplicationScreenController;
-import controller.BlockUserScreenController;
-import controller.UnblockUserScreenController;
-import controller.BanUserScreenController;
-import controller.UnbanUserScreenController;
-import controller.DeleteAccountScreenController;
-
+import controller.*;
 
 
 import javafx.application.Application;
@@ -100,6 +83,26 @@ public class MainFXApplication extends Application{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void showForgotPassWordScreen() {
+        try {
+            FXMLLoader loader = getLoader("ForgotPassWordScreen.fxml");
+            Pane LoginPane = (loader != null) ? loader.load() : null;
+
+            ForgotPasswordScreenController controller = (loader != null) ? loader.getController() : null;
+            assert controller != null;
+            controller.setMainApp(this, currentUser);
+            if (LoginPane != null) {
+                Scene scene = new Scene(LoginPane);
+                mainScreen.setTitle("Forgot Password");
+                mainScreen.setScene(scene);
+                mainScreen.show();
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -74,6 +74,15 @@ public class LoginScreenController {
 
         }
     }
+
+    @FXML
+    private void forgotPasswordPressed() {
+
+        mainFXApplication.showForgotPassWordScreen();
+
+    }
+
+
     private void addUser(ResultSet rs) throws Exception {
         if (checkUserCredentials(rs)) {
             currentUser.set_username(rs.getString("username"));

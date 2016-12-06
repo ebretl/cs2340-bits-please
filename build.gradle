@@ -24,7 +24,9 @@ dependencies {
             'lib/mysql-connector-java-5.1.18-bin.jar',
             'lib/GMapsFX-2.0.8.jar',
             'lib/junit-4.12.jar',
-            'lib/hamcrest-core-1.3.jar'
+            'lib/hamcrest-core-1.3.jar',
+			'lib/activation.jar',
+			'lib/mail.jar'
     )
 }
 
