@@ -3,10 +3,8 @@ package controller;
 import fxapp.MainFXApplication;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.Alert;
 import model.User;
-import model.UserTypeEnum;
 
 import java.sql.Connection;
 import java.sql.Statement;
@@ -14,14 +12,18 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
+import java.util.Properties;
+import javax.mail.Session;
+import javax.mail.MessagingException;
+import javax.mail.Message;
+import javax.mail.Transport;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.AddressException;
 
 
 /**
- * Controls the Login Screen
+ * Controls the Forgot Password Screen
  */
 public class ForgotPasswordScreenController {
     private MainFXApplication mainFXApplication;
@@ -114,8 +116,8 @@ public class ForgotPasswordScreenController {
                 toAddress[i] = new InternetAddress(to[i]);
             }
 
-            for( int i = 0; i < toAddress.length; i++) {
-                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            for (InternetAddress toAddres : toAddress) {
+                message.addRecipient(Message.RecipientType.TO, toAddres);
             }
 
             message.setSubject(subject);

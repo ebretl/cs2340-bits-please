@@ -85,6 +85,9 @@ public class MainFXApplication extends Application{
         }
     }
 
+    /**
+     * Shows the ForgotPasswordScreen
+     */
     public void showForgotPassWordScreen() {
         try {
             FXMLLoader loader = getLoader("ForgotPassWordScreen.fxml");

@@ -30,7 +30,7 @@
             <Button layoutX="335.0" layoutY="314.0" mnemonicParsing="false" onAction="#loginPressed" prefWidth="74.0" text="Log In">
                <font><Font name="Calibri" size="12" /></font>
             </Button>
-            <Button fx:id="forgotPassword" layoutX="249.0" layoutY="355.0" mnemonicParsing="false" onAction="#forgotPasswordPressed" prefHeight="24.0" prefWidth="104.0" text="Forgot Password" textFill="RED">
+            <Button layoutX="249.0" layoutY="355.0" mnemonicParsing="false" onAction="#forgotPasswordPressed" prefHeight="24.0" prefWidth="104.0" text="Forgot Password" textFill="RED">
                <font>
                   <Font name="Calibri" size="12" />
                </font>
